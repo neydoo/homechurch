@@ -1,0 +1,17 @@
+{
+    "name": "Countries",
+    "alias": "countries",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Countries\\Providers\\CountriesServiceProvider",
+        "Modules\\Countries\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

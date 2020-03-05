@@ -1,0 +1,17 @@
+{
+    "name": "Newsletters",
+    "alias": "newsletters",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Newsletters\\Providers\\NewslettersServiceProvider",
+        "Modules\\Newsletters\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

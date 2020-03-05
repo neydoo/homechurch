@@ -1,0 +1,15 @@
+{
+	"name": "adedotun/dashboard",
+	"description": "",
+	"authors": [
+		{
+			"name": "Bashorun Adedotun",
+			"email": "adedotunolawale@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Modules\\Dashboard\\": ""
+		}
+	}
+}
