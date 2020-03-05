@@ -14,7 +14,7 @@ class AddIconToPagesTable extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table) {
-			$table->string('icon')->nullabe();
+			$table->string('icon')->nullable();
 
         });
     }

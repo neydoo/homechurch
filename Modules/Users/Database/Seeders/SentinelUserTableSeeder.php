@@ -22,8 +22,8 @@ class SentinelUserTableSeeder extends Seeder
                 'email' => 'test@admin.com',
                 'username' => 'admin',
                 'password' => 'admin',
-                'first_name' => 'Digital',
-                'last_name' => 'Edge',
+                'first_name' => 'Adedotun',
+                'last_name' => 'Olawale',
             ]
         );
         // Activate the admin directly
