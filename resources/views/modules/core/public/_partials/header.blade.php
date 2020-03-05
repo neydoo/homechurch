@@ -78,7 +78,7 @@
                                             <i class="fa fa-user"></i> {{$user->present()->fullname}}
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                                            <a class="dropdown-item" href="{{route('orders.index')}}">My Registrations</a>
+                                            {{-- <a class="dropdown-item" href="{{route('orders.index')}}">My Registrations</a> --}}
                                             <a class="dropdown-item" href="{{route('profile.index')}}">Update Profile</a>
                                             <a class="dropdown-item" href="{{route('profile.change-password')}}">Change Password</a>
                                             <a class="dropdown-item" href="{{url('auth/logout')}}">Logout</a>

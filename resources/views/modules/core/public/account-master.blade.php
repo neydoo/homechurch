@@ -31,7 +31,7 @@
                         <div class="single-widget categories account">
                             <h3 class="title">Welcome, {{$user->present()->fullname}} <small>({{$user->email}})</small></h3>
                             <ul>
-                                <li><a href="{{route('orders.index')}}"><i class="fa fa-angle-right"></i>My Registrations</a></li>
+                                {{-- <li><a href="{{route('orders.index')}}"><i class="fa fa-angle-right"></i>My Registrations</a></li> --}}
                                 <li><a href="{{route('profile.index')}}"><i class="fa fa-angle-right"></i>Update Profile</a></li>
                                 <li><a href="{{route('profile.change-password')}}"><i class="fa fa-angle-right"></i>Change Password</a></li>
                                 <li><a href="{{route('logout')}}"><i class="fa fa-angle-right"></i>Logout</a></li>

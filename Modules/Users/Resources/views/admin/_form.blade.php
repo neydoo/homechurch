@@ -42,8 +42,11 @@
                 <div class="col-md-6">
                     {!! form_row($form->last_name) !!}
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     {!! form_row($form->email) !!}
+                </div>
+                <div class="col-md-6">
+                    {!! form_row($form->username) !!}
                 </div>
             </div>
             @if(isset($id))

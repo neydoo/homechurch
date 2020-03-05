@@ -19,6 +19,12 @@ class UsersForm extends Form
                     'class'=>'form-control','required'
                 ]
             ])
+            ->add('username', 'text',[
+                'label'=>'Username',
+                'attr'=>[
+                    'class'=>'form-control','required'
+                ]
+            ])
             ->add('phone', 'text',[
                 'label'=>'Phone Number',
                 'attr'=>[
