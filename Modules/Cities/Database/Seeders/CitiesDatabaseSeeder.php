@@ -16,6 +16,6 @@ class CitiesDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call("CitiesTableSeeder");
+        $this->call(CitiesTableSeeder::class);
     }
 }
