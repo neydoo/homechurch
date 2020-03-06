@@ -86,7 +86,7 @@ class MenuLinksController extends Controller {
         $data['page_id'] = $data['page_id'] ?: null;
 
         $data['id'] = $model;
-        $data['slug'] = $data['slug'] ?: '/';
+        $data['slug'] = !empty($data['slug']) ? $data['slug'] : '/';
         $model = $this->repository->update($data);
 
         flash()->success(trans('core::global.update_record'));
