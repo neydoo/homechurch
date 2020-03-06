@@ -38,8 +38,8 @@ class AnnouncementsServiceProvider extends ServiceProvider
             'Modules\Announcements\Facades\Facade'
         );
 
-        /*Announcement::observe(new SlugObserver());
-        Announcement::observe(new FileObserver());*/
+        Announcement::observe(new SlugObserver());
+        Announcement::observe(new FileObserver());
 
     }
 
@@ -57,9 +57,9 @@ class AnnouncementsServiceProvider extends ServiceProvider
             return $repository;
         });
 
-        /*$app->view->composer('announcements::public.*', function ($view) {
+        $app->view->composer('announcements::public.*', function ($view) {
             $view->page = \MyApp::getPageLinkedToModule('announcements');
-        });*/
+        });
     }
 
     /**

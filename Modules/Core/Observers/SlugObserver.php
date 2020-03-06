@@ -6,7 +6,7 @@ class SlugObserver
 {
     public function saving($model)
     {
-        $slug = $model->slug ?: str_slug($model->title);
+        $slug = $model->slug ? str_slug($model->slug) : ($model->title ? str_slug($model->title) :  str_slug($model->name));
         // slug = null if empty string
         $model->slug = $slug ?: null;
 

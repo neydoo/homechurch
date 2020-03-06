@@ -38,8 +38,8 @@ class ManualsServiceProvider extends ServiceProvider
             'Modules\Manuals\Facades\Facade'
         );
 
-        /*Manual::observe(new SlugObserver());
-        Manual::observe(new FileObserver());*/
+        Manual::observe(new SlugObserver());
+        Manual::observe(new FileObserver());
 
     }
 

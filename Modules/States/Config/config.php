@@ -7,7 +7,7 @@ return [
 	],
 	'sidebar' => [
 		'weight' => 2,
-		'icon' => 'fa fa-file',
+		'icon' => 'fa fa-map',
 	],
 	'th' => ['name'],
 	'columns'=>[

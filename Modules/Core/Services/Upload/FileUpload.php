@@ -42,7 +42,7 @@ class FileUpload
         } catch (Exception $e) {
             $input['type'] = 'd';
         }
-
+ 
         $filecounter = 1;
         while (file_exists($input['path'] . '/' . $input['filename'])) {
             $input['filename'] = $fileName . '_' . $filecounter ++ . $input['extension'];
@@ -55,7 +55,6 @@ class FileUpload
             return $input;
         } catch (FileException $e) {
            session('error',$e->getmessage());
-
             return false;
         }
 

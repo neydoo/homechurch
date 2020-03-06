@@ -24,12 +24,16 @@ return [
         'per_page' => 20,
     ],
 
+    'announcements' => [
+        'per_page' => 20,
+    ],
+
     'sermons' => [
         'per_page' => 20,
     ],
 
 
-    'linkable_to_page' => ['testimonials','partners','courses','faqs'],
+    'linkable_to_page' => ['testimonials','announcements','manuals','faqs'],
 
     'middleware' => [
         'backend' => [
