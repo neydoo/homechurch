@@ -1,0 +1,25 @@
+{
+    "name": "adedotun/district",
+    "description": "",
+    "authors": [
+        {
+            "name": "Adedotun Bashorun",
+            "email": "adedotunolawale@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\District\\Providers\\DistrictServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\District\\": ""
+        }
+    }
+}

@@ -44,7 +44,7 @@ class MenuLinksAjaxController extends Controller {
         $deleted = $this->repository->delete($model);
 
         flash()->success(trans('core::global.delete_success'));
-
+        return redirect()->back();
     }
 
 }

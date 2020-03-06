@@ -54,7 +54,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::get('ajax/menus/{menu}/menu-links', ['as' => 'ajax.menus.menu_links.index', 'uses' => 'MenuLinksAjaxController@index']);
             Route::post('ajax/menus/{menu}/menu-links', ['as' => 'ajax.menus.menu_links.sort', 'uses' => 'MenuLinksAjaxController@sort']);
-            Route::delete('ajax/menu-links/{menu_link}', ['as' => 'ajax.menu_links.destroy', 'uses' => 'MenuLinksAjaxController@destroy']);
+            Route::get('ajax/menu-links/{menu_link}', ['as' => 'ajax.menu_links.destroy', 'uses' => 'MenuLinksAjaxController@destroy']);
         });
     }
 }

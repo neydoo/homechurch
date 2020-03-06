@@ -7,7 +7,8 @@ use Modules\Menus\Entities\Menu;
 use Modules\Menus\Entities\MenuLink;
 use Modules\Menus\Repositories\EloquentMenu;
 use Modules\Menus\Repositories\EloquentMenuLink;
-
+use Modules\Core\Observers\FileObserver;
+use Modules\Core\Observers\SlugObserver;
 class MenusServiceProvider extends ServiceProvider {
 
 	/**
@@ -32,6 +33,10 @@ class MenusServiceProvider extends ServiceProvider {
 			'Menus',
 			'Modules\Menus\Facades\Facade'
 		);
+		Menu::observe(new SlugObserver());
+		// Manual::observe(new FileObserver());
+		MenuLink::observe(new SlugObserver());
+        // Manual::observe(new FileObserver());
 	}
 
 	/**

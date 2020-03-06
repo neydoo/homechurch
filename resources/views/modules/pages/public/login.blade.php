@@ -9,7 +9,7 @@
                     <div class="auth-form">
                         {!! form_start($login_form,[
                             'class'=>'ajax-form',
-                            'data-redirect'=> session('url.intended') ? session('url.intended') : route('orders.index')
+                            'data-redirect'=> session('url.intended') ? session('url.intended') : url('/')
                             ])
                         !!}
                         {!! form_row($login_form->email) !!}

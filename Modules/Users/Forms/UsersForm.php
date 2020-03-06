@@ -43,6 +43,16 @@ class UsersForm extends Form
                     'class'=>'form-control','required'
                 ]
             ])
+            ->add('gender', 'select', [
+                'label'=>'Gender',
+                'choices' => [
+                    'Male' => 'Male',
+                    'Female' => 'Female'
+                ],
+                'selected'=>0,
+                'expanded' => true,
+                'multiple' => false
+            ])
             ->add('password', 'password',[
                 'attr'=>[
                     'class'=>'form-control required',
@@ -75,9 +85,6 @@ class UsersForm extends Form
             ->add('avatar', 'file', [
                 'label' => 'Avatar'
             ]);
-
-
-
 
     }
 }

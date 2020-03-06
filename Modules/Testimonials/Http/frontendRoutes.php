@@ -9,3 +9,8 @@ if ($page = \MyApp::getPageLinkedToModule('testimonials')) {
         Route::get($uri.'/{slug}', $options +  ['as' => 'testimonials.slug', 'uses' => 'TestimonialsPublicController@show']);
     }
 }
+
+Route::group(['prefix' => 'testimonials'], function()
+{
+    Route::get('/', 'TestimonialsApiController@index');
+});

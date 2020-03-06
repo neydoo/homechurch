@@ -1,0 +1,25 @@
+{
+    "name": "adedotun/announcements",
+    "description": "",
+    "authors": [
+        {
+            "name": "Adedotun Bashorun",
+            "email": "adedotunolawale@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Announcements\\Providers\\AnnouncementsServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Announcements\\": ""
+        }
+    }
+}

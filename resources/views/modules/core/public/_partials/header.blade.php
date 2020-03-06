@@ -78,15 +78,14 @@
                                             <i class="fa fa-user"></i> {{$user->present()->fullname}}
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                                            {{-- <a class="dropdown-item" href="{{route('orders.index')}}">My Registrations</a> --}}
                                             <a class="dropdown-item" href="{{route('profile.index')}}">Update Profile</a>
                                             <a class="dropdown-item" href="{{route('profile.change-password')}}">Change Password</a>
                                             <a class="dropdown-item" href="{{url('auth/logout')}}">Logout</a>
                                         </div>
                                     </div>
                                 @else
-                                    <a href="{{url('auth/login')}}" class="btn btn-login">login</a>
-                                    <a href="{{url('auth/register')}}" class="btn">Register</a>
+                                    <a href="{{url('/login')}}" class="btn btn-login">login</a>
+                                    <a href="{{url('/register')}}" class="btn">Register</a>
                                 @endif
                             </div>
                             <!--/ End Button -->

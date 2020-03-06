@@ -1,0 +1,17 @@
+{
+    "name": "Homechurch",
+    "alias": "homechurch",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Homechurch\\Providers\\HomechurchServiceProvider",
+        "Modules\\Homechurch\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

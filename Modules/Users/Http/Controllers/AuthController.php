@@ -84,14 +84,15 @@ class AuthController extends Controller {
             if($request->ajax()){
                 return response()->json("Thank you, Your registration was successful!", 200);
             }
-            return redirect()->back()->withSuccess('');
+            return redirect()->back()->withSuccess('user registration successful!');
         } catch (\Exception $e) {
             DB::rollback();
+            dd($e->getMessage());
             if($request->ajax()){
                 $message = trans('core::global.error_exception_msg'); //$message = $e->getMessage();
                 return response()->json($message, 400);
             }     
-            return redirect()->back();
+            return redirect()->back()->withErrors($e->getMessage());
         }
     }
 

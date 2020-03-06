@@ -1,0 +1,25 @@
+{
+    "name": "adedotun/manuals",
+    "description": "",
+    "authors": [
+        {
+            "name": "Adedotun Bashorun",
+            "email": "adedotunolawale@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Manuals\\Providers\\ManualsServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Manuals\\": ""
+        }
+    }
+}

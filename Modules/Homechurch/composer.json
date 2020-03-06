@@ -1,0 +1,25 @@
+{
+    "name": "adedotun/homechurch",
+    "description": "",
+    "authors": [
+        {
+            "name": "Adedotun Bashorun",
+            "email": "adedotunolawale@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Homechurch\\Providers\\HomechurchServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Homechurch\\": ""
+        }
+    }
+}

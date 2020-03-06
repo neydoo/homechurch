@@ -14,8 +14,12 @@
                                 <div class="col">{!! form_row($register_form->last_name) !!}</div>
                             </div>
                             <div class="form-row">
-                                <div class="col">{!! form_row($register_form->phone) !!}</div>
+                                <div class="col">{!! form_row($register_form->username) !!}</div>
                                 <div class="col"> {!! form_row($register_form->email) !!}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">{!! form_row($register_form->phone) !!}</div>
+                                <div class="col"> {!! form_row($register_form->gender) !!}</div>
                             </div>
                             <div class="form-row">
                                 <div class="col">{!! form_row($register_form->password) !!}</div>
@@ -36,7 +40,7 @@
                                     <button type="submit" class="btn btn-primary border-radius">Register</button>
                                 </div>
                             </div>
-                            <p>Already registered? click <a href="{{url('login')}}">here </a> to login</p>
+                            <p>Already registered? click <a href="{{url('auth/login')}}">here </a> to login</p>
                             {!! form_end($register_form,false) !!}
                         </div>
                 </div>

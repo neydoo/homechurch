@@ -17,17 +17,16 @@ class AddFieldsToUsersTable extends Migration {
 			$table->string('phone')->nullable();
 			$table->text('address')->nullable();
             $table->string('avatar')->nullable();
-            $table->integer('timeline_id')->unsigned();
-            $table->string('qualification',100);
-            $table->string('specialty', 250);
-            $table->string('prof_title', 250);
+            $table->string('qualification',100)->nullable();
+            $table->string('specialty', 250)->nullable();
+            $table->string('prof_title', 250)->nullable();
             $table->float('balance')->default(0);
-            $table->date('birthday');
+            $table->string('birthday')->nullable();
             $table->integer('state_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('country_id')->nullable();
-            $table->string('gender');
-            $table->string('timezone');
+            $table->string('gender')->nullable();
+            $table->string('timezone')->nullable();
             $table->string('language', 15)->nullable();
         });
     }
@@ -41,11 +40,20 @@ class AddFieldsToUsersTable extends Migration {
     {
         Schema::table('users', function(Blueprint $table)
         {
-			$table->dropColumn('phone');
-			$table->dropColumn('address');
-			$table->dropColumn('avatar');
-			$table->dropColumn('state_id');
-			$table->dropColumn('city_id');
+			$table->dropColumn('phone')->nullable();
+			$table->dropColumn('address')->nullable();
+            $table->dropColumn('avatar')->nullable();
+            $table->dropColumn('qualification',100);
+            $table->dropColumn('specialty', 250);
+            $table->dropColumn('prof_title', 250);
+            $table->dropColumn('balance')->default(0);
+            $table->dropColumn('birthday');
+            $table->dropColumn('state_id')->nullable();
+            $table->dropColumn('city_id')->nullable();
+            $table->dropColumn('country_id')->nullable();
+            $table->dropColumn('gender');
+            $table->dropColumn('timezone');
+            $table->dropColumn('language', 15)->nullable();
 
         });
     }

@@ -36,9 +36,9 @@ class UserRegistration
         $user = $this->createUser();
         $group = isset($this->input['group']) ? $this->input['group'] : 'User';
 
-        if ($group == 'Artisan') {
-            $this->createArtisanForUser($user);
-        }
+        // if ($group == 'Artisan') {
+        //     $this->createArtisanForUser($user);
+        // }
 
         $this->assignUserToGroup($user, $group);
 

@@ -22,7 +22,7 @@
                     <div class="col-lg-6 col-md-6 col-12">
                         <div class="form-head">
                             <!-- Form -->
-                            <form class="form" action="http://themelamp.com/html/learnedu/mail/mail.php">
+                            <form class="form" action="#" method="POST">
                                 <div class="form-group">
                                     <input name="name" type="text" placeholder="Enter Name">
                                 </div>
@@ -30,7 +30,10 @@
                                     <input name="email" type="email" placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
-                                    <input name="subject" type="text" placeholder="Website">
+                                    <input name="subject" type="text" placeholder="Subject">
+                                </div>
+                                <div class="form-group">
+                                    <input name="phone" type="text" placeholder="{!! config('myapp.phone')!!}">
                                 </div>
                                 <div class="form-group">
                                     <textarea name="message" placeholder="Comment"></textarea>

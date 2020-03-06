@@ -1,0 +1,17 @@
+{
+    "name": "Manuals",
+    "alias": "manuals",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Manuals\\Providers\\ManualsServiceProvider",
+        "Modules\\Manuals\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
