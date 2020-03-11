@@ -20,32 +20,65 @@ class AreasController extends BaseAdminController {
             ->with(compact('title', 'module'));
     }
 
+    public function getZoneArea($id)
+    {
+        return response()->json([
+            'areas' => $this->repository->allBy('zone_id',$id),
+            'success' => true
+        ], 200);
+    }
+
     public function create()
     {
         $module = $this->repository->getTable();
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
-            'url' => route('admin.'.$module.'.store')
+            'url' => route('admin.'.$module.'.store'),
+            'data' => [
+                'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
+                'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                'states' => \States::getAll()->pluck('name', 'id')->all(),
+                'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
+                'zones' => \Zones::getAll()->pluck('name', 'id')->all()
+            ]
         ]);
         return view('core::admin.create')
             ->with(compact('module','form'));
     }
 
     public function edit(Area $model)
-        {
-            $module = $model->getTable();
-            $form = $this->form(config($module.'.form'), [
-                'method' => 'PUT',
-                'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model
-            ]);
-            return view('core::admin.edit')
-                ->with(compact('model','module','form'));
-        }
+    {
+        $module = $model->getTable();
+        $form = $this->form(config($module.'.form'), [
+            'method' => 'PUT',
+            'url' => route('admin.'.$module.'.update',$model),
+            'model'=>$model,
+            'data' => [
+                'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
+                'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                'states' => \States::getAll()->pluck('name', 'id')->all(),
+                'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
+                'zones' => \Zones::getAll()->pluck('name', 'id')->all()
+            ]
+        ])->modify('country_id', 'select', [
+            'selected' => $model->country_id
+        ])->modify('region_id', 'select', [
+            'selected' => $model->region_id
+        ])->modify('state_id', 'select', [
+            'selected' => $model->state_id
+        ])->modify('district_id', 'select', [
+            'selected' => $model->district_id
+        ])->modify('zone_id', 'select', [
+            'selected' => $model->zone_id
+        ]);
+        return view('core::admin.edit')
+            ->with(compact('model','module','form'));
+    }
 
     public function store(FormRequest $request)
     {
         $data = $request->all();
+        $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'];
 
         $model = $this->repository->create($data);
 
@@ -57,6 +90,7 @@ class AreasController extends BaseAdminController {
         $data = $request->all();
 
         $data['id'] = $model->id;
+        $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'];
 
         $model = $this->repository->update($data);
 

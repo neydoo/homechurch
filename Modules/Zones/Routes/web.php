@@ -10,6 +10,10 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.zones.index',
             'uses' => 'ZonesController@index'
         ]);
+        Route::get('/district/zone/{id}', [
+            'as' => 'admin.districts.state',
+            'uses' => 'ZonesController@getDistrictZone'
+        ]);
         Route::get('create', [
             'as' => 'admin.zones.create',
             'uses' => 'ZonesController@create'

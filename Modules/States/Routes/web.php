@@ -12,7 +12,7 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.states.index',
             'uses' => 'statesController@index'
         ]);
-        Route::get('/region/states/{id}', [
+        Route::get('/region/state/{id}', [
             'as' => 'admin.states.region',
             'uses' => 'statesController@getRegionState'
         ]);

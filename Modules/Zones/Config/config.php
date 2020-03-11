@@ -9,10 +9,14 @@ return [
 		'weight' => 2,
 		'icon' => 'fa fa-file',
 	],
-	'th' => ['title','status'],
+	'th' => ['name','code','country','region','state','district'],
 	'columns'=>[
-            ['data'=>'title','name'=>'title'],
-            ['data'=>'status','name'=>'status'],
+            ['data'=>'name','name'=>'name'],
+			['data'=>'code','name'=>'code'],
+			['data'=>'country_id','name'=>'country_id'],
+			['data'=>'region_id','name'=>'region_id'],
+			['data'=>'state_id','name'=>'state_id'],
+			['data'=>'district_id','name'=>'district_id'],
             ['data'=>'action','name'=>'action'],
      ],
 	'form'=>'Zones\Forms\ZonesForm',
@@ -24,6 +28,7 @@ return [
 			'edit',
 			'update',
 			'destroy',
+			'getDistrictZone',
 		],
 	]
 ];

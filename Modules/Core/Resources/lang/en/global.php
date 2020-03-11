@@ -13,9 +13,9 @@ return array(
         'main'=>'Main',
         'content'=>'Content',
         'hierarchy' => 'Church hierarchy',
+        'manage' => 'Manage',
         'user'=>'Users & Roles',
         'promotions'=>'Promotions',
-        'courses' => 'Courses',
         'config'=>'Configuration'
     ],
     'error_exception_msg'=>'An error occurred, please check back later'

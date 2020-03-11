@@ -27,6 +27,7 @@ class EloquentDistrict extends RepositoriesAbstract implements DistrictInterface
             ->select([
                 'districts.id as id',
                 'districts.name as name',
+                'districts.code as code',
                 'states.name as state_id',
                 'countries.name as country_id',
                 'regions.name as region_id',

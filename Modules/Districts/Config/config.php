@@ -9,9 +9,10 @@ return [
 		'weight' => 2,
 		'icon' => 'fa fa-file',
 	],
-	'th' => ['name','country','region','state'],
+	'th' => ['name','code','country','region','state'],
 	'columns'=>[
-            ['data'=>'name','name'=>'name'],
+			['data'=>'name','name'=>'name'],
+			['data'=>'code','name'=>'code'],
 			['data'=>'country_id','name'=>'country_id'],
 			['data'=>'region_id','name'=>'region_id'],
 			['data'=>'state_id','name'=>'state_id'],

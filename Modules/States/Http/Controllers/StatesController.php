@@ -23,7 +23,7 @@ class StatesController extends BaseAdminController {
     public function getRegionState($id)
     {
         return response()->json([
-            'states' => $this->repository->allBy('region_id',$id)->pluck('name', 'id')->all(),
+            'states' => $this->repository->allBy('region_id',$id),
             'success' => true
         ], 200);
     }

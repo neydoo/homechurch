@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChurchesLeadersTable extends Migration
+class AddFieldsToAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateChurchesLeadersTable extends Migration
      */
     public function up()
     {
-        Schema::create('churches_leaders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('church_id');
-            $table->timestamps();
+        Schema::table('areas', function (Blueprint $table) {
+            $table->string('name');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateChurchesLeadersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('churches_leaders');
+        Schema::table('areas', function (Blueprint $table) {
+
+        });
     }
 }

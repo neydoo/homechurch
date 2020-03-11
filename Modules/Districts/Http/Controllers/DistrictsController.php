@@ -20,6 +20,14 @@ class DistrictsController extends BaseAdminController {
             ->with(compact('title', 'module'));
     }
 
+    public function getStateDistrict($id)
+    {
+        return response()->json([
+            'districts' => $this->repository->allBy('state_id',$id),
+            'success' => true
+        ], 200);
+    }
+
     public function create()
     {
         $module = $this->repository->getTable();
@@ -62,7 +70,7 @@ class DistrictsController extends BaseAdminController {
     public function store(FormRequest $request)
     {
         $data = $request->all();
-
+        $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'];
         $model = $this->repository->create($data);
 
         return $this->redirect($request, $model, trans('core::global.new_record'));
@@ -73,7 +81,7 @@ class DistrictsController extends BaseAdminController {
         $data = $request->all();
 
         $data['id'] = $model->id;
-
+        $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'];
         $model = $this->repository->update($data);
 
         return $this->redirect($request, $model, trans('core::global.update_record'));
