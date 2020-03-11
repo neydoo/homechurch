@@ -11,6 +11,13 @@ class EloquentDistrict extends RepositoriesAbstract implements DistrictInterface
         $this->model = $model;
     }
 
+    public function getAll()
+    {
+        return $this->model
+            ->where('id','!=', '')->get();
+
+    }
+
     public function getForDataTable()
     {
         $query = $this->model

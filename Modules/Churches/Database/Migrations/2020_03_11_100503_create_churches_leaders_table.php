@@ -13,7 +13,7 @@ class CreateChurchesLeadersTable extends Migration
      */
     public function up()
     {
-        Schema::create('churches_leaders', function (Blueprint $table) {
+        SSchema::create('churches_leaders', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('user_id');
             $table->bigInteger('church_id');
