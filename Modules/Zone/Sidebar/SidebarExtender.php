@@ -13,7 +13,7 @@ class SidebarExtender extends BaseSidebarExtender implements PackageSideBarExten
 {
     public function extendWith(Menu $menu)
     {
-        $menu->group(trans('core::global.menus.content'), function (Group $group)
+        $menu->group(trans('core::global.menus.hierarchy'), function (Group $group)
         {
             $group->item(trans('zone::global.name'),function(Item $item){
                 $item->weight(config('zone.sidebar.weight'));

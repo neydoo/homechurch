@@ -1,0 +1,17 @@
+{
+    "name": "Zones",
+    "alias": "zones",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Zones\\Providers\\ZonesServiceProvider",
+        "Modules\\Zones\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

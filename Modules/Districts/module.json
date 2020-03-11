@@ -1,0 +1,17 @@
+{
+    "name": "Districts",
+    "alias": "districts",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Districts\\Providers\\DistrictsServiceProvider",
+        "Modules\\Districts\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

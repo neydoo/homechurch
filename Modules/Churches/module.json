@@ -1,0 +1,17 @@
+{
+    "name": "Churches",
+    "alias": "churches",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Churches\\Providers\\ChurchesServiceProvider",
+        "Modules\\Churches\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
