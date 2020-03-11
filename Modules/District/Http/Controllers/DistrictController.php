@@ -25,7 +25,12 @@ class DistrictController extends BaseAdminController {
         $module = $this->repository->getTable();
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
-            'url' => route('admin.'.$module.'.store')
+            'url' => route('admin.'.$module.'.store'),
+            'data' => [
+                'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
+                'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                'states' => \States::getAll()->pluck('name', 'id')->all()
+            ]
         ]);
         return view('core::admin.create')
             ->with(compact('module','form'));
@@ -37,7 +42,18 @@ class DistrictController extends BaseAdminController {
             $form = $this->form(config($module.'.form'), [
                 'method' => 'PUT',
                 'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model
+                'model'=>$model,
+                'data' => [
+                    'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
+                    'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                    'states' => \States::getAll()->pluck('name', 'id')->all()
+                ]
+            ])->modify('country_id', 'select', [
+                'selected' => $model->country_id
+            ])->modify('region_id', 'select', [
+                'selected' => $model->region_id
+            ])->modify('state_id', 'select', [
+                'selected' => $model->state_id
             ]);
             return view('core::admin.edit')
                 ->with(compact('model','module','form'));

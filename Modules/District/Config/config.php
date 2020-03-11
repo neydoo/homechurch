@@ -9,12 +9,14 @@ return [
 		'weight' => 2,
 		'icon' => 'fa fa-file',
 	],
-	'th' => ['title','status'],
+	'th' => ['name','country','region','state'],
 	'columns'=>[
-            ['data'=>'title','name'=>'title'],
-            ['data'=>'status','name'=>'status'],
+            ['data'=>'name','name'=>'name'],
+			['data'=>'country_id','name'=>'country_id'],
+			['data'=>'region_id','name'=>'region_id'],
+			['data'=>'state_id','name'=>'state_id'],
             ['data'=>'action','name'=>'action'],
-     ],
+    ],
 	'form'=>'District\Forms\DistrictForm',
 	'permissions'=>[
 		'district' => [

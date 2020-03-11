@@ -1,0 +1,25 @@
+{
+    "name": "adedotun/hierarchy",
+    "description": "",
+    "authors": [
+        {
+            "name": "Adedotun Bashorun",
+            "email": "adedotunolawale@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Hierarchy\\Providers\\HierarchyServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Hierarchy\\": ""
+        }
+    }
+}

@@ -20,6 +20,24 @@ class SidebarExtender extends BaseSidebarExtender implements PackageSideBarExten
                 $item->icon(config('testimonials.sidebar.icon'));
                 $item->route('admin.testimonials.index');
                 $item->authorize($this->auth->hasAccess('testimonials.index'));
+                
+                // $item->item(trans('core::global.menus.user'), function (Item $item) {
+                //     $item->weight(0);
+                //     $item->icon('fa fa-users');
+                //     $item->route('admin.users.index');
+                //     $item->authorize(
+                //         $this->auth->hasAccess('users.index')
+                //     );
+                // });
+
+                // $item->item(trans('core::global.menus.roles'), function (Item $item) {
+                //     $item->weight(1);
+                //     $item->icon('fa fa-flag-o');
+                //     $item->route('admin.users.roles.index');
+                //     $item->authorize(
+                //         $this->auth->hasAccess('users.roles.index')
+                //     );
+                // });
             });
         });
 

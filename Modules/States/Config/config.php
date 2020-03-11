@@ -9,10 +9,11 @@ return [
 		'weight' => 2,
 		'icon' => 'fa fa-map',
 	],
-	'th' => ['name'],
+	'th' => ['name','country','region'],
 	'columns'=>[
             ['data'=>'name','name'=>'name'],
-            // ['data'=>'status','name'=>'status'],
+			['data'=>'country_id','name'=>'country_id'],
+			['data'=>'region_id','name'=>'region_id'],
             ['data'=>'action','name'=>'action'],
      ],
 	'form'=>'States\Forms\StatesForm',

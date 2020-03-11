@@ -20,12 +20,24 @@ class StatesController extends BaseAdminController {
             ->with(compact('title', 'module'));
     }
 
+    public function getRegionState($id)
+    {
+        return response()->json([
+            'states' => $this->repository->allBy('region_id',$id)->pluck('name', 'id')->all(),
+            'success' => true
+        ], 200);
+    }
+
     public function create()
     {
         $module = $this->repository->getTable();
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
-            'url' => route('admin.'.$module.'.store')
+            'url' => route('admin.'.$module.'.store'),
+            'data' => [
+                'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
+                'regions' => \Regions::getAll()->pluck('name', 'id')->all()
+            ]
         ]);
         return view('core::admin.create')
             ->with(compact('module','form'));
@@ -37,7 +49,15 @@ class StatesController extends BaseAdminController {
             $form = $this->form(config($module.'.form'), [
                 'method' => 'PUT',
                 'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model
+                'model'=>$model,
+                'data' => [
+                    'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
+                    'regions' => \Regions::getAll()->pluck('name', 'id')->all()
+                ]
+            ])->modify('country_id', 'select', [
+                'selected' => $model->country_id
+            ])->modify('region_id', 'select', [
+                'selected' => $model->region_id
             ]);
             return view('core::admin.edit')
                 ->with(compact('model','module','form'));

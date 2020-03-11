@@ -11,4 +11,26 @@ class EloquentState extends RepositoriesAbstract implements StateInterface
         $this->model = $model;
     }
 
+    public function getAll()
+    {
+        return $this->model
+            ->where('id','!=', '')->get();
+
+    }
+
+    public function getForDataTable()
+    {
+        $query = $this->model
+            ->join('countries', 'countries.id', '=', 'states.country_id')
+            ->join('regions', 'regions.id', '=', 'states.region_id')
+            ->select([
+                'states.id as id',
+                'states.name as name',
+                'countries.name as country_id',
+                'regions.name as region_id',
+            ]);
+
+        return $query;
+    }
+
 }

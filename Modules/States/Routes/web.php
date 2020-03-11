@@ -12,6 +12,10 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.states.index',
             'uses' => 'statesController@index'
         ]);
+        Route::get('/region/states/{id}', [
+            'as' => 'admin.states.region',
+            'uses' => 'statesController@getRegionState'
+        ]);
         Route::get('create', [
             'as' => 'admin.states.create',
             'uses' => 'statesController@create'

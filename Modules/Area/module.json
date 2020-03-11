@@ -1,0 +1,17 @@
+{
+    "name": "Area",
+    "alias": "area",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Area\\Providers\\AreaServiceProvider",
+        "Modules\\Area\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
