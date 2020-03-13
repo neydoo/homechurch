@@ -16,5 +16,5 @@
     </section>
 @stop
 @section('js')
-{{--  <script src="{{asset('js/app.js')}}" type="text/javascript"></script>  --}}
+<script src="{{asset('js/app.js')}}" type="text/javascript"></script>
 @endsection

@@ -1,76 +1,46 @@
 <template>
     <div>
-        <div class="kt-grid__item kt-grid__item--fluid kt-app__content" id="kt_chat_content">
-            <div class="kt-chat">
-                <div class="kt-portlet kt-portlet--head-lg- kt-portlet--last">
-                    <div class="kt-portlet__head">
-                        <div class="kt-chat__head ">
-                            <div class="kt-chat__left">
-                                <!--begin:: Aside Mobile Toggle -->
-                                <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md kt-hidden-desktop" id="kt_chat_aside_mobile_toggle">
-                                    <i class="flaticon2-open-text-book"></i>
-                                </button>
-                                {{ group.name }}
-                            </div>
-                        </div>
+        <ul class="chat" v-chat-scroll>
+            <li class="left clearfix" v-for="conversation in conversations" :key="conversation.id">
+                <div class="chat-body clearfix pad" v-if="conversation.user.id === user.id">
+                    <div class="header message-data-name pull-right col-12">
+                        <span class="pull-right text-uppercase bold">
+                            {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
+                        </span>
                     </div>
-
-                    <div class="kt-portlet__body">
-                        <div class="kt-scroll kt-scroll--pull" data-mobile-height="300">
-                            <div class="kt-chat__messages">
-                                <div v-for="conversation in conversations" :key="conversation.id">
-                                    <div class="kt-chat__message kt-chat__message--right" v-if="conversation.user.id === user.id">
-                                        <div class="kt-chat__user">                                
-                                            <span class="kt-chat__datetime"><Adedotun :value="conversation.created_at" fn="humandate"/></span>
-                                            <a href="#" class="kt-chat__username"><span>{{ conversation.user.username }}</span></a>                                
-                                            <span class="kt-media kt-media--circle kt-media--sm"> 
-                                                <img src="/metronic/themes/metronic/theme/default/demo1/dist/assets/media/users/300_21.jpg" alt="image">
-                                            </span>
-                                        </div>
-                                        <div class="kt-chat__text kt-bg-light-brand">
-                                            {{ conversation.message }}
-                                        </div>
-                                    </div>
-                                    <div class="kt-chat__message" v-else>
-                                        <div class="kt-chat__user">
-                                            <span class="kt-media kt-media--circle kt-media--sm"> 
-                                                <img src="/metronic/themes/metronic/theme/default/demo1/dist/assets/media/users/100_12.jpg" alt="image">
-                                            </span>
-                                            <a href="#" class="kt-chat__username"><span>{{ conversation.user.username }}</span></a>
-                                            <span class="kt-chat__datetime"><Adedotun :value="conversation.created_at" fn="humandate"/></span>
-                                        </div>
-                                        <div class="kt-chat__text kt-bg-light-success">
-                                        {{ conversation.message }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="kt-portlet__foot">
-                        <div class="kt-chat__input">
-                            <div class="kt-chat__editor">
-                                <textarea style="height: 50px" placeholder="Type here..." v-model="message" @keyup.enter="store()" autofocus></textarea>
-                            </div>
-                            <span v-show="typing" class="help-block" style="font-style: italic;display:block;">
-                                @{{ username }} is typing...
+                    <div class="message other-message  pull-right">
+                        <span class="pull-right ">
+                            {{ conversation.message }}
                             </span>
-                            <div class="kt-chat__toolbar">
-                                <!-- <div class="kt_chat__tools">
-                                    <a href="#"><i class="flaticon2-link"></i></a>
-                                    <a href="#"><i class="flaticon2-photograph"></i></a>
-                                    <a href="#"><i class="flaticon2-photo-camera"></i></a>
-                                </div>                            -->
-                                <div class="kt_chat__actions">
-                                    <button type="button" class="btn btn-brand btn-md btn-upper btn-bold kt-chat__reply" id="btn-chat" @click.prevent="store()">reply</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="chat-body clearfix pad" v-else>
+                    <div class="header message-data-name pull-left col-12">
+                            <span class="text-uppercase bold">
+                                {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
+                            </span>
+                    </div>
+                    <div class="message my-message pull-left">
+                    <span class="pull-left">{{ conversation.message }}</span>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+
+        <div class="input-group">
+            <input id="btn-input" type="text" name="message" class="form-control form-control-lg" placeholder="Type your message here..." v-model="message" @keydown="isTyping" @keyup.enter="store()"  autofocus>
+
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" id="btn-chat" @click.prevent="store()">
+                    <i class="fa fa-send-o"></i>
+                </button>
+            </span>
         </div>
+        <hr/>
+        <span v-show="typing" class="help-block" style="font-style: italic;display:block;">
+            @{{ username }} is typing...
+        </span>
 
          <!-- <div class="panel panel-primary">
             <div class="panel-heading" id="accordion">
@@ -128,27 +98,13 @@
             }
         },
 
-        mounted() {
-            this.getMessage();
-        },
-
         components: {
             Adedotun
         },
 
         created() {
             this.listenForNewMessage();
-            let _this = this;
-            Echo.private('groups.' + this.group.id)
-                .listenForWhisper('typing', (e) => {
-                _this.username = this.user.username;
-                _this.typing = e.typing;
-
-                // remove is typing indicator after 0.9s
-                setTimeout(function() {
-                    _this.typing = false
-                }, 900);
-            });
+            this.getMessage();
         },
 
         methods: {
@@ -168,12 +124,11 @@
 
             listenForNewMessage() {
                 Echo.private('groups.' + this.group.id).listen('NewMessage', (e) => {
-                        // console.log(e);
+                    console.log(e);
                     if (!("Notification" in window)) {
                         alert("Web Notification is not supported");
                         return;
                     }
-                    alert();
                     Notification.requestPermission(permission => {
                         let notification = new Notification(
                             e.user.username ,
@@ -190,6 +145,179 @@
                     this.conversations.push(e);
                 });
             },
+            isTyping() {
+                let channel = Echo.private('groups.' + this.group.id);
+                setTimeout(function() {
+                    channel.whisper('typing', {
+                        username: Laravel.user.username,
+                        typing: true
+                    });
+                }, 900);
+            },
+
         }
     }
 </script>
+<style>
+      .chat {
+        list-style: none;
+        height: 500px;
+        border: 1px solid lightgray;
+        padding: 10px 20px 5px 10px;
+        overflow-y: auto;
+      }
+
+      .chat li {
+          margin-right:1px;
+          padding: 10px;
+          background-color: #f1f2f3;
+          margin-bottom: 0px;
+              }
+
+        .chat li .chat-body p {
+          margin: 0;
+          color: green;
+        }
+        .pad{
+            margin-right:20px;
+            padding: 5px;
+            background-color: rgb(241, 242, 243);
+        }
+        .header {
+            margin-bottom: 10px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+
+        .panel-body {
+              height: 350px;
+              background: lightgray;
+              padding: 20px;
+              margin-bottom: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+          background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar {
+          width: 12px;
+          background-color: #F5F5F5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+          background-color: #555;
+        }
+
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+    }
+    .chat-history {
+        padding: 30px 30px 20px;
+        border-bottom: 2px solid white;
+        overflow-y: scroll;
+        height: 575px;
+    }
+    .message-data {
+    margin-bottom: 10px;
+    }
+    .message-data-time {
+        color: lighten(gray, 8%);
+        padding-left: 6px;
+    }
+    .message {
+        color: white;
+        padding: 10px 10px;
+        line-height: 26px;
+        font-size: 16px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        width: 85%;
+        position: relative;
+    }
+    .my-message:after {
+        bottom: 100%;
+        left: 6%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: rgb(212, 100, 100);
+        border-width: 10px;
+        margin-left: -10px;
+        margin-top: 10px;
+    }
+    .other-message:after {
+        bottom: 100%;
+        right: 6%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: rgb(35, 221, 18);
+        border-width: 10px;
+        margin-left: -10px;
+        margin-top: 10px;
+    }
+    .my-message {
+      background: rgba(206, 119, 140, 0.664);
+      color:white;
+      font-size: 20px;
+    }
+    .other-message {
+      background: rgba(7, 151, 19, 0.664);
+      color:white;
+      font-size: 20px;
+    }
+    .online, .offline, .me {
+        margin-right: 3px;
+        font-size: 10px;
+    }
+    .online {
+    color: green;
+    }
+    .offline {
+    color: orange;
+    }
+
+    .me {
+    color: rgb(14, 129, 85);
+    }
+
+    .align-left {
+    text-align: left;
+    }
+
+    .align-right {
+    text-align: right;
+    }
+    .float-right {
+    float: right;
+    }
+    .clearfix:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+</style>

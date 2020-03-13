@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 187);
+/******/ 	return __webpack_require__(__webpack_require__.s = 188);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -31078,8 +31078,12 @@ module.exports = function(module) {
 
 /***/ }),
 /* 141 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_chat_scroll__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_chat_scroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_chat_scroll__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -31089,8 +31093,11 @@ module.exports = function(module) {
 
 __webpack_require__(165);
 
-window.Vue = __webpack_require__(186);
+window.Vue = __webpack_require__(187);
 window.Bus = new Vue();
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_chat_scroll___default.a);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31099,9 +31106,9 @@ window.Bus = new Vue();
  */
 
 // Vue.component('example', require('./components/Example.vue'));
-Vue.component('groups', __webpack_require__(179));
-Vue.component('create-group', __webpack_require__(177));
-Vue.component('group-chat', __webpack_require__(178));
+Vue.component('groups', __webpack_require__(180));
+Vue.component('create-group', __webpack_require__(178));
+Vue.component('group-chat', __webpack_require__(179));
 
 var app = new Vue({
   el: '#app'
@@ -32054,38 +32061,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adedotun__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adedotun__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__adedotun___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__adedotun__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -32185,9 +32162,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             username: ''
         };
     },
-    mounted: function mounted() {
-        this.getMessage();
-    },
 
 
     components: {
@@ -32195,48 +32169,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
-        var _this2 = this;
-
         this.listenForNewMessage();
-        var _this = this;
-        Echo.private('groups.' + this.group.id).listenForWhisper('typing', function (e) {
-            _this.username = _this2.user.username;
-            _this.typing = e.typing;
-
-            // remove is typing indicator after 0.9s
-            setTimeout(function () {
-                _this.typing = false;
-            }, 900);
-        });
+        this.getMessage();
     },
 
 
     methods: {
         store: function store() {
-            var _this3 = this;
+            var _this = this;
 
             axios.post('/conversations/store', { message: this.message, group_id: this.group.id }).then(function (response) {
-                _this3.message = '';
-                _this3.conversations.push(response.data);
+                _this.message = '';
+                _this.conversations.push(response.data);
             });
         },
         getMessage: function getMessage() {
-            var _this4 = this;
+            var _this2 = this;
 
             axios.get('/conversations/' + this.group.id).then(function (response) {
-                _this4.conversations = response.data;
+                _this2.conversations = response.data;
             });
         },
         listenForNewMessage: function listenForNewMessage() {
-            var _this5 = this;
+            var _this3 = this;
 
             Echo.private('groups.' + this.group.id).listen('NewMessage', function (e) {
-                // console.log(e);
+                console.log(e);
                 if (!("Notification" in window)) {
                     alert("Web Notification is not supported");
                     return;
                 }
-                alert();
                 Notification.requestPermission(function (permission) {
                     var notification = new Notification(e.user.username, {
                         body: e.message // content for the alert
@@ -32247,8 +32209,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         window.open(window.location.href);
                     };
                 });
-                _this5.conversations.push(e);
+                _this3.conversations.push(e);
             });
+        },
+        isTyping: function isTyping() {
+            var channel = Echo.private('groups.' + this.group.id);
+            setTimeout(function () {
+                channel.whisper('typing', {
+                    username: Laravel.user.username,
+                    typing: true
+                });
+            }, 900);
         }
     }
 });
@@ -66813,11 +66784,95 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
+(function (global, factory) {
+	 true ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global['vue-chat-scroll'] = factory());
+}(this, (function () { 'use strict';
+
+/**
+* @name VueJS vChatScroll (vue-chat-scroll)
+* @description Monitors an element and scrolls to the bottom if a new child is added
+* @author Theodore Messinezis <theo@theomessin.com>
+* @file v-chat-scroll  directive definition
+*/
+
+var scrollToBottom = function scrollToBottom(el, smooth) {
+  if (typeof el.scroll === "function") {
+    el.scroll({
+      top: el.scrollHeight,
+      behavior: smooth ? 'smooth' : 'instant'
+    });
+  } else {
+    el.scrollTop = el.scrollHeight;
+  }
+};
+
+var vChatScroll = {
+  bind: function bind(el, binding) {
+    var scrolled = false;
+
+    el.addEventListener('scroll', function (e) {
+      scrolled = el.scrollTop + el.clientHeight + 1 < el.scrollHeight;
+    });
+
+    new MutationObserver(function (e) {
+      var config = binding.value || {};
+      var pause = config.always === false && scrolled;
+      var addedNodes = e[e.length - 1].addedNodes.length;
+      var removedNodes = e[e.length - 1].removedNodes.length;
+
+      if (config.scrollonremoved) {
+        if (pause || addedNodes != 1 && removedNodes != 1) return;
+      } else {
+        if (pause || addedNodes != 1) return;
+      }
+
+      var smooth = config.smooth;
+      var loadingRemoved = !addedNodes && removedNodes === 1;
+      if (loadingRemoved && config.scrollonremoved && 'smoothonremoved' in config) {
+        smooth = config.smoothonremoved;
+      }
+      scrollToBottom(el, smooth);
+    }).observe(el, { childList: true, subtree: true });
+  },
+  inserted: function inserted(el, binding) {
+    var config = binding.value || {};
+    scrollToBottom(el, config.smooth);
+  }
+};
+
+/**
+* @name VueJS vChatScroll (vue-chat-scroll)
+* @description Monitors an element and scrolls to the bottom if a new child is added
+* @author Theodore Messinezis <theo@theomessin.com>
+* @file vue-chat-scroll plugin definition
+*/
+
+var VueChatScroll = {
+  install: function install(Vue, options) {
+    Vue.directive('chat-scroll', vChatScroll);
+  }
+};
+
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(VueChatScroll);
+}
+
+return VueChatScroll;
+
+})));
+
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(161),
   /* template */
-  __webpack_require__(182),
+  __webpack_require__(183),
   /* scopeId */
   null,
   /* cssModules */
@@ -66844,14 +66899,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(198)
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(162),
   /* template */
-  __webpack_require__(181),
+  __webpack_require__(182),
   /* scopeId */
   null,
   /* cssModules */
@@ -66878,14 +66937,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(163),
   /* template */
-  __webpack_require__(183),
+  __webpack_require__(184),
   /* scopeId */
   null,
   /* cssModules */
@@ -66912,14 +66971,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(3)(
   /* script */
   __webpack_require__(164),
   /* template */
-  __webpack_require__(184),
+  __webpack_require__(185),
   /* scopeId */
   null,
   /* cssModules */
@@ -66946,98 +67005,73 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "kt-grid__item kt-grid__item--fluid kt-app__content",
-    attrs: {
-      "id": "kt_chat_content"
-    }
-  }, [_c('div', {
-    staticClass: "kt-chat"
-  }, [_c('div', {
-    staticClass: "kt-portlet kt-portlet--head-lg- kt-portlet--last"
-  }, [_c('div', {
-    staticClass: "kt-portlet__head"
-  }, [_c('div', {
-    staticClass: "kt-chat__head "
-  }, [_c('div', {
-    staticClass: "kt-chat__left"
-  }, [_vm._m(0), _vm._v("\n                            " + _vm._s(_vm.group.name) + "\n                        ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "kt-portlet__body"
-  }, [_c('div', {
-    staticClass: "kt-scroll kt-scroll--pull",
-    attrs: {
-      "data-mobile-height": "300"
-    }
-  }, [_c('div', {
-    staticClass: "kt-chat__messages"
+  return _c('div', [_c('ul', {
+    directives: [{
+      name: "chat-scroll",
+      rawName: "v-chat-scroll"
+    }],
+    staticClass: "chat"
   }, _vm._l((_vm.conversations), function(conversation) {
-    return _c('div', {
-      key: conversation.id
+    return _c('li', {
+      key: conversation.id,
+      staticClass: "left clearfix"
     }, [(conversation.user.id === _vm.user.id) ? _c('div', {
-      staticClass: "kt-chat__message kt-chat__message--right"
+      staticClass: "chat-body clearfix pad"
     }, [_c('div', {
-      staticClass: "kt-chat__user"
+      staticClass: "header message-data-name pull-right col-12"
     }, [_c('span', {
-      staticClass: "kt-chat__datetime"
-    }, [_c('Adedotun', {
-      attrs: {
-        "value": conversation.created_at,
-        "fn": "humandate"
-      }
-    })], 1), _vm._v(" "), _c('a', {
-      staticClass: "kt-chat__username",
-      attrs: {
-        "href": "#"
-      }
-    }, [_c('span', [_vm._v(_vm._s(conversation.user.username))])]), _vm._v(" "), _vm._m(1, true)]), _vm._v(" "), _c('div', {
-      staticClass: "kt-chat__text kt-bg-light-brand"
-    }, [_vm._v("\n                                        " + _vm._s(conversation.message) + "\n                                    ")])]) : _c('div', {
-      staticClass: "kt-chat__message"
-    }, [_c('div', {
-      staticClass: "kt-chat__user"
-    }, [_vm._m(2, true), _vm._v(" "), _c('a', {
-      staticClass: "kt-chat__username",
-      attrs: {
-        "href": "#"
-      }
-    }, [_c('span', [_vm._v(_vm._s(conversation.user.username))])]), _vm._v(" "), _c('span', {
-      staticClass: "kt-chat__datetime"
-    }, [_c('Adedotun', {
+      staticClass: "pull-right text-uppercase bold"
+    }, [_vm._v("\n                        " + _vm._s(conversation.user.username) + " "), _c('Adedotun', {
       attrs: {
         "value": conversation.created_at,
         "fn": "humandate"
       }
     })], 1)]), _vm._v(" "), _c('div', {
-      staticClass: "kt-chat__text kt-bg-light-success"
-    }, [_vm._v("\n                                    " + _vm._s(conversation.message) + "\n                                    ")])])])
-  }), 0)])]), _vm._v(" "), _c('div', {
-    staticClass: "kt-portlet__foot"
-  }, [_c('div', {
-    staticClass: "kt-chat__input"
-  }, [_c('div', {
-    staticClass: "kt-chat__editor"
-  }, [_c('textarea', {
+      staticClass: "message other-message  pull-right"
+    }, [_c('span', {
+      staticClass: "pull-right "
+    }, [_vm._v("\n                        " + _vm._s(conversation.message) + "\n                        ")])])]) : _c('div', {
+      staticClass: "chat-body clearfix pad"
+    }, [_c('div', {
+      staticClass: "header message-data-name pull-left col-12"
+    }, [_c('span', {
+      staticClass: "text-uppercase bold"
+    }, [_vm._v("\n                            " + _vm._s(conversation.user.username) + " "), _c('Adedotun', {
+      attrs: {
+        "value": conversation.created_at,
+        "fn": "humandate"
+      }
+    })], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "message my-message pull-left"
+    }, [_c('span', {
+      staticClass: "pull-left"
+    }, [_vm._v(_vm._s(conversation.message))])])])])
+  }), 0), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.message),
       expression: "message"
     }],
-    staticStyle: {
-      "height": "50px"
-    },
+    staticClass: "form-control form-control-lg",
     attrs: {
-      "placeholder": "Type here...",
+      "id": "btn-input",
+      "type": "text",
+      "name": "message",
+      "placeholder": "Type your message here...",
       "autofocus": ""
     },
     domProps: {
       "value": (_vm.message)
     },
     on: {
+      "keydown": _vm.isTyping,
       "keyup": function($event) {
         if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
         return _vm.store()
@@ -67047,7 +67081,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.message = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('span', {
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-lg",
+    attrs: {
+      "id": "btn-chat"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        return _vm.store()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-send-o"
+  })])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -67059,52 +67108,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-style": "italic",
       "display": "block"
     }
-  }, [_vm._v("\n                            @" + _vm._s(_vm.username) + " is typing...\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "kt-chat__toolbar"
-  }, [_c('div', {
-    staticClass: "kt_chat__actions"
-  }, [_c('button', {
-    staticClass: "btn btn-brand btn-md btn-upper btn-bold kt-chat__reply",
-    attrs: {
-      "type": "button",
-      "id": "btn-chat"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        return _vm.store()
-      }
-    }
-  }, [_vm._v("reply")])])])])])])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-clean btn-sm btn-icon btn-icon-md kt-hidden-desktop",
-    attrs: {
-      "type": "button",
-      "id": "kt_chat_aside_mobile_toggle"
-    }
-  }, [_c('i', {
-    staticClass: "flaticon2-open-text-book"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "kt-media kt-media--circle kt-media--sm"
-  }, [_c('img', {
-    attrs: {
-      "src": "/metronic/themes/metronic/theme/default/demo1/dist/assets/media/users/300_21.jpg",
-      "alt": "image"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "kt-media kt-media--circle kt-media--sm"
-  }, [_c('img', {
-    attrs: {
-      "src": "/metronic/themes/metronic/theme/default/demo1/dist/assets/media/users/100_12.jpg",
-      "alt": "image"
-    }
-  })])
-}]}
+  }, [_vm._v("\n        @" + _vm._s(_vm.username) + " is typing...\n    ")])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -67114,7 +67119,7 @@ if (false) {
 }
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -67329,13 +67334,13 @@ if (false) {
 }
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', _vm._l((_vm.groups), function(group) {
     return _c('group-chat', {
-      key: group,
+      key: group.id,
       attrs: {
         "group": group,
         "user": _vm.user
@@ -67352,7 +67357,7 @@ if (false) {
 }
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -67367,7 +67372,7 @@ if (false) {
 }
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79334,22 +79339,372 @@ module.exports = Vue;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(176).setImmediate))
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 if (false) {
   module.exports = require('./vue.common.prod.js')
 } else {
-  module.exports = __webpack_require__(185)
+  module.exports = __webpack_require__(186)
 }
 
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(141);
 module.exports = __webpack_require__(142);
+
+
+/***/ }),
+/* 189 */,
+/* 190 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function() {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		var result = [];
+		for(var i = 0; i < this.length; i++) {
+			var item = this[i];
+			if(item[2]) {
+				result.push("@media " + item[2] + "{" + item[1] + "}");
+			} else {
+				result.push(item[1]);
+			}
+		}
+		return result.join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+
+/***/ }),
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(190)();
+exports.push([module.i, "\n.chat {\n    list-style: none;\n    height: 500px;\n    border: 1px solid lightgray;\n    padding: 10px 20px 5px 10px;\n    overflow-y: auto;\n}\n.chat li {\n      margin-right:1px;\n      padding: 10px;\n      background-color: #f1f2f3;\n      margin-bottom: 0px;\n}\n.chat li .chat-body p {\n      margin: 0;\n      color: green;\n}\n.pad{\n        margin-right:20px;\n        padding: 5px;\n        background-color: rgb(241, 242, 243);\n}\n.header {\n        margin-bottom: 10px;\n}\n.bold {\n        font-weight: bold;\n}\n.panel-body {\n          height: 350px;\n          background: lightgray;\n          padding: 20px;\n          margin-bottom: 10px;\n}\n::-webkit-scrollbar-track {\n      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n      background-color: #F5F5F5;\n}\n::-webkit-scrollbar {\n      width: 12px;\n      background-color: #F5F5F5;\n}\n::-webkit-scrollbar-thumb {\n      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);\n      background-color: #555;\n}\n::-webkit-scrollbar-track {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n    background-color: #F5F5F5;\n}\n::-webkit-scrollbar {\n    width: 12px;\n    background-color: #F5F5F5;\n}\n::-webkit-scrollbar-thumb {\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);\n    background-color: #555;\n}\n.chat-history {\n    padding: 30px 30px 20px;\n    border-bottom: 2px solid white;\n    overflow-y: scroll;\n    height: 575px;\n}\n.message-data {\nmargin-bottom: 10px;\n}\n.message-data-time {\n    color: lighten(gray, 8%);\n    padding-left: 6px;\n}\n.message {\n    color: white;\n    padding: 10px 10px;\n    line-height: 26px;\n    font-size: 16px;\n    border-radius: 10px;\n    margin-bottom: 5px;\n    width: 85%;\n    position: relative;\n}\n.my-message:after {\n    bottom: 100%;\n    left: 6%;\n    border: solid transparent;\n    content: \" \";\n    height: 0;\n    width: 0;\n    position: absolute;\n    pointer-events: none;\n    border-bottom-color: rgb(212, 100, 100);\n    border-width: 10px;\n    margin-left: -10px;\n    margin-top: 10px;\n}\n.other-message:after {\n    bottom: 100%;\n    right: 6%;\n    border: solid transparent;\n    content: \" \";\n    height: 0;\n    width: 0;\n    position: absolute;\n    pointer-events: none;\n    border-bottom-color: rgb(35, 221, 18);\n    border-width: 10px;\n    margin-left: -10px;\n    margin-top: 10px;\n}\n.my-message {\n  background: rgba(206, 119, 140, 0.664);\n  color:white;\n  font-size: 20px;\n}\n.other-message {\n  background: rgba(7, 151, 19, 0.664);\n  color:white;\n  font-size: 20px;\n}\n.online, .offline, .me {\n    margin-right: 3px;\n    font-size: 10px;\n}\n.online {\ncolor: green;\n}\n.offline {\ncolor: orange;\n}\n.me {\ncolor: rgb(14, 129, 85);\n}\n.align-left {\ntext-align: left;\n}\n.align-right {\ntext-align: right;\n}\n.float-right {\nfloat: right;\n}\n.clearfix:after {\n    visibility: hidden;\n    display: block;\n    font-size: 0;\n    content: \" \";\n    clear: both;\n    height: 0;\n}\n", ""]);
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(197);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(199)("8b7c18dc", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-40aef5cc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GroupChat.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-40aef5cc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GroupChat.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(200)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction) {
+  isProduction = _isProduction
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
 
 
 /***/ })

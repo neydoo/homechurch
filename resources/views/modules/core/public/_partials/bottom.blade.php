@@ -1,4 +1,4 @@
-<script src="{{asset('js/app.js')}}" type="text/javascript"></script>
+{{--  <script src="{{asset('js/app.js')}}" type="text/javascript"></script>  --}}
 <script src="{{ asset('assets/public/js/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/jquery/jquery-migrate.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/jquery/popper.min.js') }}"></script>
@@ -24,8 +24,17 @@
 <script src="{{ asset('assets/public/js/main.js') }}"></script>
 <script src="{{ asset('assets/public/js/pages/ajax-form.js') }}"></script>
 {{--<script src="{{ asset('assets/public/js/all.js') }}"></script>--}}
+        <script src="//js.pusher.com/4.1/pusher.min.js"></script>
 <script>
 
+</script>
+<script>
+    window.Laravel = {!! json_encode([
+        'csrfToken'=> csrf_token(),
+        'user' => current_user()
+        ])
+
+    !!};
 </script>
 
 <!--Start of Tawk.to Script-->

@@ -66,9 +66,18 @@
 <script src="{{asset('assets/admin/js/scripts.bundle.js')}}" type="text/javascript"></script>
 <!--end::Global Theme Bundle -->
 <script src="{{asset('assets/admin/js/custom.js')}}" type="text/javascript"></script>
+<script src="//js.pusher.com/4.1/pusher.min.js"></script>
 
 @yield('page-js')
 
+<script>
+    window.Laravel = {!! json_encode([
+        'csrfToken'=> csrf_token(),
+        'user' => current_user()
+        ])
+
+    !!};
+</script>
 <script>
     $(function () {
         $('#form-validate').validate();

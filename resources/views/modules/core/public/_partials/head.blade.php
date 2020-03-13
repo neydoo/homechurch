@@ -5,6 +5,7 @@
 <meta name="description" content="{!! config('myapp.website_description') !!}">
 <meta name="keywords" content="{!! config('myapp.website_keywords') !!}">
 <meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 
