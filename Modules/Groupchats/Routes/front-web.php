@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'groupchats'], function()
 {
-    // Route::get('/', 'GroupchatsPublicController@index');
+    Route::get('/', 'GroupchatsPublicController@index')->name('groupchats');
     Route::post('/store', 'GroupchatsPublicController@store');
     Route::post('/add/user','GroupchatsPublicController@addUser');
 });

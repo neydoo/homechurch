@@ -32186,7 +32186,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        this.listenForNewMessage();
         this.getMessage();
     },
 
@@ -32198,6 +32197,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this2 = this;
 
+        this.listenForNewMessage();
         var _this = this;
         Echo.private('groups.' + this.group.id).listenForWhisper('typing', function (e) {
             _this.username = _this2.user.username;
@@ -32236,6 +32236,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     alert("Web Notification is not supported");
                     return;
                 }
+                alert();
                 Notification.requestPermission(function (permission) {
                     var notification = new Notification(e.user.username, {
                         body: e.message // content for the alert
@@ -66952,7 +66953,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('div', {
     staticClass: "kt-grid__item kt-grid__item--fluid kt-app__content",
     attrs: {
-      "id": 'kt_chat_content' + _vm.group.id
+      "id": "kt_chat_content"
     }
   }, [_c('div', {
     staticClass: "kt-chat"
@@ -66975,7 +66976,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "kt-chat__messages"
   }, _vm._l((_vm.conversations), function(conversation) {
     return _c('div', {
-      key: conversation
+      key: conversation.id
     }, [(conversation.user.id === _vm.user.id) ? _c('div', {
       staticClass: "kt-chat__message kt-chat__message--right"
     }, [_c('div', {
@@ -67334,7 +67335,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', _vm._l((_vm.groups), function(group) {
     return _c('group-chat', {
-      key: group.id,
+      key: group,
       attrs: {
         "group": group,
         "user": _vm.user

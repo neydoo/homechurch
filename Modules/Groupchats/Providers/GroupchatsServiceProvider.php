@@ -57,9 +57,9 @@ class GroupchatsServiceProvider extends ServiceProvider
             return $repository;
         });
 
-        /*$app->view->composer('groupchats::public.*', function ($view) {
+        $app->view->composer('groupchats::public.*', function ($view) {
             $view->page = \MyApp::getPageLinkedToModule('groupchats');
-        });*/
+        });
     }
 
     /**

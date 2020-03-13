@@ -36,13 +36,9 @@ class GroupchatsPublicController extends BasePublicController {
     public function index()
     {
         $groups = current_user()->groupchats;
-        $page = request()->input('page');
-        $perPage = config('myapp.groupchats.per_page');
-        $data = $this->repository->byPage($page, $perPage,[], true);
-        $models = new Paginator($data->items, $data->totalItems, $perPage, null, ['path' => Paginator::resolveCurrentPath()]);
 
-        return view('pages::public.chat')
-            ->with(compact('models','groups'));
+        return view('groupchats::public.index')
+            ->with(compact('groups'));
     }
 
     public function addUser(AddUserRequest $request)

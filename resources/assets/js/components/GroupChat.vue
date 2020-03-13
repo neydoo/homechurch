@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="kt-grid__item kt-grid__item--fluid kt-app__content" :id="'kt_chat_content'+ group.id">
+        <div class="kt-grid__item kt-grid__item--fluid kt-app__content" id="kt_chat_content">
             <div class="kt-chat">
                 <div class="kt-portlet kt-portlet--head-lg- kt-portlet--last">
                     <div class="kt-portlet__head">
@@ -18,7 +18,7 @@
                     <div class="kt-portlet__body">
                         <div class="kt-scroll kt-scroll--pull" data-mobile-height="300">
                             <div class="kt-chat__messages">
-                                <div v-for="conversation in conversations" :key="conversation">
+                                <div v-for="conversation in conversations" :key="conversation.id">
                                     <div class="kt-chat__message kt-chat__message--right" v-if="conversation.user.id === user.id">
                                         <div class="kt-chat__user">                                
                                             <span class="kt-chat__datetime"><Adedotun :value="conversation.created_at" fn="humandate"/></span>
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <!-- <div class="panel panel-primary">
+         <!-- <div class="panel panel-primary">
             <div class="panel-heading" id="accordion">
                 <span class="glyphicon glyphicon-comment"></span> {{ group.name }}
                 <div class="btn-group pull-right">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>  -->
     </div>
 </template>
 
@@ -129,7 +129,6 @@
         },
 
         mounted() {
-            this.listenForNewMessage();
             this.getMessage();
         },
 
@@ -138,6 +137,7 @@
         },
 
         created() {
+            this.listenForNewMessage();
             let _this = this;
             Echo.private('groups.' + this.group.id)
                 .listenForWhisper('typing', (e) => {
@@ -173,6 +173,7 @@
                         alert("Web Notification is not supported");
                         return;
                     }
+                    alert();
                     Notification.requestPermission(permission => {
                         let notification = new Notification(
                             e.user.username ,

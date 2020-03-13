@@ -12,5 +12,5 @@ if ($page = \MyApp::getPageLinkedToModule('testimonials')) {
 
 Route::group(['prefix' => 'testimonials'], function()
 {
-    Route::get('/', 'TestimonialsApiController@index');
+    Route::get('/', 'TestimonialsPublicController@index');
 });

@@ -5,7 +5,7 @@
 <meta content="" name="description"/>
 <meta content="" name="author"/>
 <!--end::Page Vendors Styles -->
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <!--begin:: Global Mandatory Vendors -->
 <link href="{{asset('assets/admin/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
 

@@ -1,3 +1,4 @@
+<script src="{{asset('js/app.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/public/js/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/jquery/jquery-migrate.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/jquery/popper.min.js') }}"></script>
