@@ -57,11 +57,12 @@ mix.styles([
     }
 });*/
 
-mix.copy('resources/assets/fonts', 'public/assets/public/fonts');
-/*mix.copy('resources/assets/js/', 'public/assets/public/js/');*/
+// mix.copy('resources/assets/fonts', 'public/assets/public/fonts');
+mix.js('resources/assets/js/app.js', 'public/js')
+   .sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.browserSync({
-    proxy: 'uotcareers.test',
+    proxy: 'homechurch.test',
     files: [
         'public/assets/public/css/{*,**!/!*}.css',
         'resources/assets/css/{*,**!/!*}.css',

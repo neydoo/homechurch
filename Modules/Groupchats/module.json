@@ -1,0 +1,17 @@
+{
+    "name": "Groupchats",
+    "alias": "groupchats",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Groupchats\\Providers\\GroupchatsServiceProvider",
+        "Modules\\Groupchats\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

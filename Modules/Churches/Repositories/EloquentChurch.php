@@ -28,9 +28,9 @@ class EloquentChurch extends RepositoriesAbstract implements ChurchInterface
             ->join('zones', 'zones.id', '=', 'churches.zone_id')
             ->join('areas', 'areas.id', '=', 'churches.area_id')
             ->select([
-                'areas.id as id',
-                'areas.name as name',
-                'areas.code as code',
+                'churches.id as id',
+                'churches.name as name',
+                'churches.code as code',
                 'states.name as state_id',
                 'countries.name as country_id',
                 'regions.name as region_id',

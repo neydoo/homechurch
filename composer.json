@@ -21,6 +21,7 @@
         "netshell/paypal": "dev-master",
         "nwidart/laravel-modules": "^3.1",
         "paypal/paypal-checkout-sdk": "1.0.0",
+        "pusher/pusher-php-server": "^4.1",
         "stripe/stripe-php": "^7.4",
         "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-oracle": "~8.0"

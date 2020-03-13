@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\Users\Entities\UserInterface;
+use Modules\Groupchats\Entities\Groupchat;
 
 class User extends EloquentUser implements UserInterface {
 
@@ -112,12 +113,6 @@ class User extends EloquentUser implements UserInterface {
         return parent::__call($method, $parameters);
     }
 
-
-    public function artisan()
-    {
-        return $this->hasOne('Modules\Artisans\Entities\Artisan');
-    }
-
     public function state()
     {
         return $this->belongsTo('Modules\States\Entities\State');
@@ -126,5 +121,10 @@ class User extends EloquentUser implements UserInterface {
     public function city()
     {
         return $this->belongsTo('Modules\Cities\Entities\City');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Groupchat::class)->withTimestamps();
     }
 }
