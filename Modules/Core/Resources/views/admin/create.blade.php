@@ -37,7 +37,7 @@
 
         $("#region_id").change(function(){
             var region_id = $(this).val();
-            alert();
+            
             $.ajax({
                 url: "/admin/states/region/state/"+region_id,
                 type: 'get',
@@ -54,7 +54,7 @@
 
         $("#state_id").change(function(){
             var state_id = $(this).val();
-            alert();
+            
             $.ajax({
                 url: "/admin/districts/state/district/"+state_id,
                 type: 'get',
@@ -71,7 +71,7 @@
 
         $("#district_id").change(function(){
             var district_id = $(this).val();
-            alert();
+            
             $.ajax({
                 url: "/admin/zones/district/zone/"+district_id,
                 type: 'get',
@@ -88,7 +88,7 @@
 
         $("#zone_id").change(function(){
             var zone_id = $(this).val();
-            alert();
+            
             $.ajax({
                 url: "/admin/areas/zone/area/"+zone_id,
                 type: 'get',

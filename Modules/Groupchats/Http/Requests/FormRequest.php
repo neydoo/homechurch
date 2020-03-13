@@ -14,7 +14,9 @@ class FormRequest extends AbstractFormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:5',
+            'church_id' => 'required',
+            'users' => 'required',
         ];
     }
 

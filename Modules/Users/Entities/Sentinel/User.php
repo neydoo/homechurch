@@ -123,7 +123,7 @@ class User extends EloquentUser implements UserInterface {
         return $this->belongsTo('Modules\Cities\Entities\City');
     }
 
-    public function groups()
+    public function groupchats()
     {
         return $this->belongsToMany(Groupchat::class)->withTimestamps();
     }

@@ -1,5 +1,5 @@
 <?php
-
+use Modules\Groupchats\Entities\Groupchat;
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -11,12 +11,13 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});
+// Broadcast::channel('App.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
 Broadcast::channel('users.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
-Broadcast::channel('groups.{group}', function ($user, Group $group) {
+
+Broadcast::channel('groups.{group}', function ($user, Groupchat $group) {
     return $group->hasUser($user->id);
 });

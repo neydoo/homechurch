@@ -9,7 +9,7 @@ class Groupchat extends Base {
     use PresentableTrait;
     protected $presenter = 'Modules\Groupchats\Presenters\ModulePresenter';
 
-    protected $guarded = ['_token','exit'];
+    protected $guarded = ['_token','exit','users'];
 
     public $attachments = ['image'];
 

@@ -3,18 +3,17 @@
 use Modules\Core\Http\Controllers\BaseAdminController;
 use Modules\Groupchats\Http\Requests\FormRequest;
 use Modules\Groupchats\Repositories\GroupchatInterface as Repository;
-use Modules\Users\Repositories\UserInterface as User;
+use Modules\Users\Entities\Sentinel\User;
 use Modules\Churches\Repositories\ChurchInterface as Church;
 use Modules\Groupchats\Entities\Groupchat;
 use Modules\Groupchats\Events\GroupCreated;
 
 class GroupchatsController extends BaseAdminController {
 
-    protected $user, $church;
+    protected $church;
 
-    public function __construct(Repository $repository, User $user, Church $church)
+    public function __construct(Repository $repository, Church $church)
     {
-        $this->user = $user;
         $this->church = $church;
         parent::__construct($repository);
     }
@@ -30,15 +29,11 @@ class GroupchatsController extends BaseAdminController {
     public function create()
     {
         $module = $this->repository->getTable();
-        $users = $this->user->all();
-        $groups = $this->repository->all([],true);
+        $groups = current_user()->groupchats;
+        $users = User::where('id', '<>', current_user()->id)->get();
         $churches = $this->church->all([],true);
-        $form = $this->form(config($module.'.form'), [
-            'method' => 'POST',
-            'url' => route('admin.'.$module.'.store')
-        ]);
         return view('core::admin.create')
-            ->with(compact('module','form','users','groups','churches'));
+            ->with(compact('module','users','groups','churches'));
     }
 
     public function edit(Groupchat $model)
@@ -58,17 +53,8 @@ class GroupchatsController extends BaseAdminController {
         $data = $request->all();
 
         $model = $this->repository->create($data);
-
-        $users = collect($request->users);
-        $users->push(auth()->user()->id);
-
-        $model->users()->attach($users);
-
-        broadcast(new GroupCreated($group))->toOthers();
-
-        return $group;
-
-        // return $this->redirect($request, $model, trans('core::global.new_record'));
+        
+        return $this->redirect($request, $model, trans('core::global.new_record'));
     }
 
     public function update(Groupchat $model,FormRequest $request)

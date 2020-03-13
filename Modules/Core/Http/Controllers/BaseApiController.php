@@ -13,7 +13,7 @@ abstract class BaseApiController extends Controller
 
     public function __construct($repository = null)
     {
-        //$this->middleware('api', ['except' => $this->publicEndpoints]);
+        // $this->middleware('auth:account' || 'auth:admin', ['except' => $this->publicEndpoints]);
         $this->repository = $repository;
     }
 

@@ -11,18 +11,16 @@
         @endif
     </a>
 @stop
-<div class="row" id="app">
-    <div class="col-sm-6">
-        <create-group :initial-users="{{ $users }}" :churches="{{ $churches }}"></create-group>
-    </div>
-    <div class="col-sm-6">
-        <groups :initial-groups="{{ $groups }}" :user="{{ auth()->user() }}"></groups>
+<div id="app">
+    <create-group :initial-users="{{ $users }}" :churches="{{ $churches }}" :groups="{{ $groups }}"></create-group>
+    <div class="row">
+        <div class="col-sm-6">
+            <groups :initial-groups="{{ $groups }}" :user="{{ current_user() }}"></groups>
+        </div>
     </div>
 </div>
-{{--  {!! form_start($form,['id'=>'form-validate']) !!}
-@include('core::admin._buttons-form',['top'=>true])
-<div class="form-body">
-    {!! form_rest($form) !!}
-</div>
-@include('core::admin._buttons-form')
-{!! form_end($form,false) !!}  --}}
+@section('page-css')
+@endsection
+@section('page-js')
+<script src="{{asset('js/app.js')}}" type="text/javascript"></script>
+@endsection

@@ -15,7 +15,7 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groupchats', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('homechurch_id');
+            $table->bigInteger('church_id');
             $table->string('name');
             $table->text('description');
             $table->timestamps();

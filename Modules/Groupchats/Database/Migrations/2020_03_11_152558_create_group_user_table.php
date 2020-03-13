@@ -13,7 +13,7 @@ class CreateGroupUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_user', function (Blueprint $table) {
+        Schema::create('groupchat_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('groupchat_id');
             $table->unsignedInteger('user_id');

@@ -22,7 +22,6 @@
 <!-- end::Global Config -->
 
 <!--begin:: Global Mandatory Vendors -->
-<script src="{{asset('js/app.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/vendors/general/jquery/dist/jquery.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/vendors/general/popper.js/dist/umd/popper.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/vendors/general/bootstrap/dist/js/bootstrap.min.js')}}"

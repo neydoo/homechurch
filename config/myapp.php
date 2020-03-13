@@ -28,12 +28,16 @@ return [
         'per_page' => 20,
     ],
 
+    'groupchats' => [
+        'per_page' => 20,
+    ],
+
     'sermons' => [
         'per_page' => 20,
     ],
 
 
-    'linkable_to_page' => ['testimonials','announcements','manuals','faqs'],
+    'linkable_to_page' => ['testimonials','announcements','manuals','faqs','groupchats'],
 
     'middleware' => [
         'backend' => [

@@ -20,7 +20,7 @@ class CreateChurchesTable extends Migration
             $table->bigInteger('state_id');
             $table->bigInteger('district_id');
             $table->bigInteger('zone_id');
-            $table->bigInteger('area_id');
+            $table->bigInteger('area_id'); 
             $table->string('code');
             $table->timestamps();
         });
