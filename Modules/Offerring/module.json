@@ -1,0 +1,17 @@
+{
+    "name": "Offerring",
+    "alias": "offerring",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "Modules\\Offerring\\Providers\\OfferringServiceProvider",
+        "Modules\\Offerring\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

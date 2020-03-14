@@ -127,4 +127,9 @@ class User extends EloquentUser implements UserInterface {
     {
         return $this->belongsToMany(Groupchat::class)->withTimestamps();
     }
+
+    public function homechurch()
+    {
+        return $this->belongsTo('Modules\Homechurches\Entities\Homechurch')->withTimestamps();
+    }
 }

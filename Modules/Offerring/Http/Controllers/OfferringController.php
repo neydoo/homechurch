@@ -1,11 +1,11 @@
-<?php namespace Modules\Homechurches\Http\Controllers;
+<?php namespace Modules\Offerring\Http\Controllers;
 
 use Modules\Core\Http\Controllers\BaseAdminController;
-use Modules\Homechurches\Http\Requests\FormRequest;
-use Modules\Homechurches\Repositories\HomechurchInterface as Repository;
-use Modules\Homechurches\Entities\Homechurch;
+use Modules\Offerring\Http\Requests\FormRequest;
+use Modules\Offerring\Repositories\OfferringInterface as Repository;
+use Modules\Offerring\Entities\Offerring;
 
-class HomechurchesController extends BaseAdminController {
+class OfferringController extends BaseAdminController {
 
     public function __construct(Repository $repository)
     {
@@ -25,27 +25,19 @@ class HomechurchesController extends BaseAdminController {
         $module = $this->repository->getTable();
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
-            'url' => route('admin.'.$module.'.store'),
-            'data' => [
-                'churches' => \Churches::getAll()->pluck('name', 'id')->all()
-            ]
+            'url' => route('admin.'.$module.'.store')
         ]);
         return view('core::admin.create')
             ->with(compact('module','form'));
     }
 
-    public function edit(Homechurch $model)
+    public function edit(Offerring $model)
         {
             $module = $model->getTable();
             $form = $this->form(config($module.'.form'), [
                 'method' => 'PUT',
                 'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model,'model'=>$model,
-                'data' => [
-                    'churches' => \Churches::getAll()->pluck('name', 'id')->all()
-                ]
-            ])->modify('church_id', 'select', [
-                'selected' => $model->church_id
+                'model'=>$model
             ]);
             return view('core::admin.edit')
                 ->with(compact('model','module','form'));
@@ -57,14 +49,10 @@ class HomechurchesController extends BaseAdminController {
 
         $model = $this->repository->create($data);
 
-        // $users = collect($request->users);
-
-        // $model->users()->attach($users);
-
         return $this->redirect($request, $model, trans('core::global.new_record'));
     }
 
-    public function update(Homechurch $model,FormRequest $request)
+    public function update(Offerring $model,FormRequest $request)
     {
         $data = $request->all();
 
