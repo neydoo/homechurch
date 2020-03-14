@@ -2072,22 +2072,28 @@
     ),
     'th' => 
     array (
-      0 => 'title',
-      1 => 'status',
+      0 => 'name',
+      1 => 'description',
+      2 => 'status',
     ),
     'columns' => 
     array (
       0 => 
       array (
-        'data' => 'title',
-        'name' => 'title',
+        'data' => 'name',
+        'name' => 'name',
       ),
       1 => 
+      array (
+        'data' => 'description',
+        'name' => 'description',
+      ),
+      2 => 
       array (
         'data' => 'status',
         'name' => 'status',
       ),
-      2 => 
+      3 => 
       array (
         'data' => 'action',
         'name' => 'action',

@@ -9,9 +9,10 @@ return [
 		'weight' => 2,
 		'icon' => 'fa fa-file',
 	],
-	'th' => ['title','status'],
+	'th' => ['name','description','status'],
 	'columns'=>[
-            ['data'=>'title','name'=>'title'],
+			['data'=>'name','name'=>'name'],
+			['data'=>'description','name'=>'description'],
             ['data'=>'status','name'=>'status'],
             ['data'=>'action','name'=>'action'],
      ],

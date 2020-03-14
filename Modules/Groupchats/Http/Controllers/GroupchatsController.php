@@ -37,16 +37,14 @@ class GroupchatsController extends BaseAdminController {
     }
 
     public function edit(Groupchat $model)
-        {
-            $module = $model->getTable();
-            $form = $this->form(config($module.'.form'), [
-                'method' => 'PUT',
-                'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model
-            ]);
-            return view('core::admin.edit')
-                ->with(compact('model','module','form'));
-        }
+    {
+        $module = $model->getTable();
+        $groups = current_user()->groupchats;
+        $users = User::where('id', '<>', current_user()->id)->get();
+        $churches = $this->church->all([],true);
+        return view('core::admin.edit')
+            ->with(compact('module','users','groups','churches','model'));
+    }
 
     public function store(FormRequest $request)
     {

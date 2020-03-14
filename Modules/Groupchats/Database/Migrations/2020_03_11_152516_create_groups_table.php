@@ -18,6 +18,7 @@ class CreateGroupsTable extends Migration
             $table->bigInteger('church_id');
             $table->string('name');
             $table->text('description');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
