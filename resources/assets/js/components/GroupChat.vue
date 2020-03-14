@@ -1,47 +1,53 @@
 <template>
     <div>
-        <ul class="chat" v-chat-scroll>
-            <li class="left clearfix" v-for="conversation in conversations" :key="conversation.id">
-                <div class="chat-body clearfix pad" v-if="conversation.user.id === user.id">
-                    <div class="header message-data-name pull-right col-12">
-                        <span class="pull-right text-uppercase bold">
-                            {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
-                        </span>
-                    </div>
-                    <div class="message other-message  pull-right">
-                        <span class="pull-right ">
-                            {{ conversation.message }}
-                            </span>
-                    </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading"> 
+                <h4>{{ group.name }}</h4>
+            </div>
+            <div class="panel-body chat-panel">
+                <ul class="chat" v-chat-scroll>
+                    <li class="left" v-for="conversation in conversations" :key="conversation.id">
+                        <div class="chat-body clearfix pad" v-if="conversation.user.id === user.id">
+                            <div class="header pull-right col-12">
+                                <span class="pull-right bold">
+                                    {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
+                                </span>
+                            </div>
+                            <div class="message other-message pull-right">
+                                <span class="pull-right ">
+                                    {{ conversation.message }}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="chat-body clearfix pad" v-else>
+                            <div class="header pull-left col-12">
+                                    <span class="bold">
+                                        {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
+                                    </span>
+                            </div>
+                            <div class="message my-message pull-left">
+                                <span class="pull-left">{{ conversation.message }}</span>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+
+                <div class="input-group">
+                    <input id="btn-input" type="text" name="message" class="form-control form-control-lg" placeholder="Type your message here..." v-model="message" @keydown="isTyping" @keyup.enter="store()"  autofocus>
+
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" id="btn-chat" @click.prevent="store()">
+                            <i class="fa fa-send-o"></i>
+                        </button>
+                    </span>
                 </div>
-                <div class="chat-body clearfix pad" v-else>
-                    <div class="header message-data-name pull-left col-12">
-                            <span class="text-uppercase bold">
-                                {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
-                            </span>
-                    </div>
-                    <div class="message my-message pull-left">
-                    <span class="pull-left">{{ conversation.message }}</span>
-                    </div>
-                </div>
-
-            </li>
-        </ul>
-
-        <div class="input-group">
-            <input id="btn-input" type="text" name="message" class="form-control form-control-lg" placeholder="Type your message here..." v-model="message" @keydown="isTyping" @keyup.enter="store()"  autofocus>
-
-            <span class="input-group-btn">
-                <button class="btn btn-info btn-lg" id="btn-chat" @click.prevent="store()">
-                    <i class="fa fa-send-o"></i>
-                </button>
-            </span>
+                <hr/>
+                <span v-show="typing" class="help-block" style="font-style: italic;display:block;">
+                    @{{ username }} is typing...
+                </span>
+            </div>
         </div>
-        <hr/>
-        <span v-show="typing" class="help-block" style="font-style: italic;display:block;">
-            @{{ username }} is typing...
-        </span>
-
          <!-- <div class="panel panel-primary">
             <div class="panel-heading" id="accordion">
                 <span class="glyphicon glyphicon-comment"></span> {{ group.name }}
@@ -159,58 +165,60 @@
     }
 </script>
 <style>
-      .chat {
+    .chat {
         list-style: none;
         height: 500px;
         border: 1px solid lightgray;
         padding: 10px 20px 5px 10px;
         overflow-y: auto;
-      }
+    }
 
-      .chat li {
-          margin-right:1px;
-          padding: 10px;
-          background-color: #f1f2f3;
-          margin-bottom: 0px;
-              }
+    .chat li {
+        margin-right:1px;
+        /* padding: 10px; */
+        background-color: #f1f2f3;
+        margin-bottom: 0px;
+    }
 
-        .chat li .chat-body p {
-          margin: 0;
-          color: green;
-        }
-        .pad{
-            margin-right:20px;
-            padding: 5px;
-            background-color: rgb(241, 242, 243);
-        }
-        .header {
+    .chat li .chat-body p {
+        margin: 0;
+        color: rgb(219, 241, 219);
+    }
+    .pad{
+        margin-right:20px;
+        padding: 5px;
+        background-color: rgb(241, 242, 243);
+    }
+    .header {
+        /* margin-bottom: 5px; */
+        padding: 5px 10px;
+        background:transparent;
+    }
+    .bold {
+        font-weight: bold;
+    }
+
+    .panel-body {
+            /* height: 350px; */
+            background: #fefefe;
+            padding: 20px;
             margin-bottom: 10px;
-        }
-        .bold {
-            font-weight: bold;
-        }
+    }
 
-        .panel-body {
-              height: 350px;
-              background: lightgray;
-              padding: 20px;
-              margin-bottom: 10px;
-        }
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+    }
 
-        ::-webkit-scrollbar-track {
-          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-          background-color: #F5F5F5;
-        }
+    ::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
 
-        ::-webkit-scrollbar {
-          width: 12px;
-          background-color: #F5F5F5;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-          background-color: #555;
-        }
+    ::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+    }
 
 
     ::-webkit-scrollbar-track {
@@ -233,7 +241,7 @@
         height: 575px;
     }
     .message-data {
-    margin-bottom: 10px;
+        margin-bottom: 10px;
     }
     .message-data-time {
         color: lighten(gray, 8%);
@@ -246,7 +254,7 @@
         font-size: 16px;
         border-radius: 10px;
         margin-bottom: 5px;
-        width: 85%;
+        /* width: 85%; */
         position: relative;
     }
     .my-message:after {
@@ -258,7 +266,7 @@
         width: 0;
         position: absolute;
         pointer-events: none;
-        border-bottom-color: rgb(212, 100, 100);
+        /* border-bottom-color: rgb(212, 100, 100); */
         border-width: 10px;
         margin-left: -10px;
         margin-top: 10px;
@@ -272,45 +280,20 @@
         width: 0;
         position: absolute;
         pointer-events: none;
-        border-bottom-color: rgb(35, 221, 18);
+        /* border-bottom-color: rgb(35, 221, 18); */
         border-width: 10px;
         margin-left: -10px;
         margin-top: 10px;
     }
     .my-message {
-      background: rgba(206, 119, 140, 0.664);
-      color:white;
+      background: #77afe4;
+      color:black;
       font-size: 20px;
     }
     .other-message {
-      background: rgba(7, 151, 19, 0.664);
-      color:white;
+      background: rgba(170, 224, 175, 0.664);
+      color:black;
       font-size: 20px;
-    }
-    .online, .offline, .me {
-        margin-right: 3px;
-        font-size: 10px;
-    }
-    .online {
-    color: green;
-    }
-    .offline {
-    color: orange;
-    }
-
-    .me {
-    color: rgb(14, 129, 85);
-    }
-
-    .align-left {
-    text-align: left;
-    }
-
-    .align-right {
-    text-align: right;
-    }
-    .float-right {
-    float: right;
     }
     .clearfix:after {
         visibility: hidden;
