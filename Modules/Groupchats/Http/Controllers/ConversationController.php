@@ -16,7 +16,7 @@ class ConversationController extends BaseApiController {
     public function get($id)
     {
         try {
-            return Conversation::where('group_id', $id)->with(['user'])->get();
+            return Conversation::where('groupchat_id', $id)->with(['user'])->get();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -27,7 +27,7 @@ class ConversationController extends BaseApiController {
         try {
             $conversation = Conversation::create([
                 'message' => $request->message,
-                'group_id' => $request->group_id,
+                'groupchat_id' => $request->group_id,
                 'user_id' => current_user()->id,
             ]);
 
