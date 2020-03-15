@@ -2,7 +2,7 @@
 
 use Modules\Core\Http\Controllers\BaseApiController;
 use Modules\Groupchats\Repositories\GroupchatInterface as Repository;
-use Modules\Groupchats\Events\NewMessage;
+use App\Events\NewMessage;
 use Modules\Groupchats\Entities\Conversation;
 use Modules\Groupchats\Http\Requests\ConversationRequest;
 

@@ -32177,30 +32177,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         this.listenForNewMessage();
         this.getMessage();
+        var _this = this;
+        Echo.private('groups.' + this.group.id).listenForWhisper('typing', function (e) {
+            _this.username = e.username;
+            _this.typing = e.typing;
+
+            // remove is typing indicator after 0.9s
+            setTimeout(function () {
+                _this.typing = false;
+            }, 900);
+        });
     },
 
 
     methods: {
         store: function store() {
-            var _this = this;
+            var _this2 = this;
 
             axios.post('/conversations/store', { message: this.message, group_id: this.group.id }).then(function (response) {
-                _this.message = '';
-                _this.conversations.push(response.data);
+                _this2.message = '';
+                _this2.conversations.push(response.data);
             });
         },
         getMessage: function getMessage() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/conversations/' + this.group.id).then(function (response) {
-                _this2.conversations = response.data;
+                _this3.conversations = response.data;
             });
         },
         listenForNewMessage: function listenForNewMessage() {
-            var _this3 = this;
+            var _this4 = this;
 
             Echo.private('groups.' + this.group.id).listen('NewMessage', function (e) {
-                console.log(e);
                 if (!("Notification" in window)) {
                     alert("Web Notification is not supported");
                     return;
@@ -32211,11 +32220,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         // icon: "/" + message.message.profile.profile_picture // optional image url
                     });
                     // link to page on clicking the notification
-                    notification.onclick = function () {
-                        window.open(window.location.href);
-                    };
+                    // notification.onclick = () => {
+                    //     window.open(window.location.href);
+                    // };
                 });
-                _this3.conversations.push(e);
+                _this4.conversations.push(e);
             });
         },
         isTyping: function isTyping() {

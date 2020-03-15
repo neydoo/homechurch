@@ -111,6 +111,17 @@
         created() {
             this.listenForNewMessage();
             this.getMessage();
+            let _this = this;
+            Echo.private('groups.' + this.group.id)
+                .listenForWhisper('typing', (e) => {
+                _this.username = e.username;
+                _this.typing = e.typing;
+
+                // remove is typing indicator after 0.9s
+                setTimeout(function() {
+                    _this.typing = false
+                }, 900);
+            });
         },
 
         methods: {
@@ -130,7 +141,6 @@
 
             listenForNewMessage() {
                 Echo.private('groups.' + this.group.id).listen('NewMessage', (e) => {
-                    console.log(e);
                     if (!("Notification" in window)) {
                         alert("Web Notification is not supported");
                         return;
@@ -144,9 +154,9 @@
                             }
                         );
                         // link to page on clicking the notification
-                        notification.onclick = () => {
-                            window.open(window.location.href);
-                        };
+                        // notification.onclick = () => {
+                        //     window.open(window.location.href);
+                        // };
                     });
                     this.conversations.push(e);
                 });

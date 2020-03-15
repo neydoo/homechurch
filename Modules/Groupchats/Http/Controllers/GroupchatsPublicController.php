@@ -5,7 +5,7 @@ use Modules\Groupchats\Http\Requests\FormRequest;
 use Modules\Groupchats\Http\Requests\AddUserRequest;
 use Modules\Groupchats\Repositories\GroupchatInterface as Repository;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
-use Modules\Groupchats\Events\GroupCreated;
+use App\Events\GroupCreated;
 
 class GroupchatsPublicController extends BasePublicController {
 

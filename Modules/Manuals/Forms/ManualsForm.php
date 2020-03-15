@@ -29,7 +29,7 @@ class ManualsForm extends Form
                 'selected'=>1
             ])
 
-            ->add('image', 'file', [
+            ->add('document', 'file', [
                 'label' => 'Document'
             ]);
     }
