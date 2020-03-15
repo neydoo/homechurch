@@ -15,18 +15,27 @@ class ConversationController extends BaseApiController {
 
     public function get($id)
     {
-        return Conversation::where('group_id', $id)->with(['user'])->get();
+        try {
+            return Conversation::where('group_id', $id)->with(['user'])->get();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
+
     public function store(ConversationRequest $request)
     {
-        $conversation = Conversation::create([
-            'message' => $request->message,
-            'group_id' => $request->group_id,
-            'user_id' => current_user()->id,
-        ]);
+        try {
+            $conversation = Conversation::create([
+                'message' => $request->message,
+                'group_id' => $request->group_id,
+                'user_id' => current_user()->id,
+            ]);
 
-        // broadcast(new NewMessage($conversation))->toOthers();
+            broadcast(new NewMessage($conversation))->toOthers();
 
-        return $conversation->load('user');
+            return $conversation->load('user');
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }
