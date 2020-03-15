@@ -136,7 +136,7 @@ class User extends EloquentUser implements UserInterface {
 
     public function hasChurch($type)
     {
-        return $this->churchtype === $type;
+        return (!empty($type) && !empty($this->churchtype)) ? $this->churchtype === $type : false;
     }
 
     public function churchleader()

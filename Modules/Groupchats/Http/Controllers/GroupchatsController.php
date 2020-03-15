@@ -41,7 +41,7 @@ class GroupchatsController extends BaseAdminController {
         $module = $model->getTable();
         $groups = current_user()->groupchats;
         $users = User::where('id', '<>', current_user()->id)->get();
-        $churches = (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church() : $this->church->all([],true);
+        $churches = (current_user()->hasChurch(current_user()['churchtype']) == true) ? pluck_user_church() : $this->church->all([],true);
         return view('core::admin.edit')
             ->with(compact('module','users','groups','churches','model'));
     }
