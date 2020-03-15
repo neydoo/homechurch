@@ -78,6 +78,7 @@ class AreasController extends BaseAdminController {
     public function store(FormRequest $request)
     {
         $data = $request->all();
+        $data = get_relationship($data);
         $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'];
 
         $model = $this->repository->create($data);
@@ -90,6 +91,7 @@ class AreasController extends BaseAdminController {
         $data = $request->all();
 
         $data['id'] = $model->id;
+        $data = get_relationship($data);
         $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'];
 
         $model = $this->repository->update($data);

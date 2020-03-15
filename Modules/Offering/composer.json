@@ -1,0 +1,25 @@
+{
+    "name": "adedotun/offering",
+    "description": "",
+    "authors": [
+        {
+            "name": "Adedotun Bashorun",
+            "email": "adedotunolawale@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Offering\\Providers\\OfferingServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Offering\\": ""
+        }
+    }
+}

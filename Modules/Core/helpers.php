@@ -3,6 +3,11 @@
 use Illuminate\Support\Str;
 use Modules\Users\Entities\ChurchLeader;
 use Modules\Users\Entities\Sentinel\User;
+use Modules\Areas\Entities\Area;
+use Modules\Zones\Entities\Zone;
+use Modules\Districts\Entities\District;
+use Modules\States\Entities\State;
+use Modules\Regions\Entities\Region;
 
 if(!function_exists('generate_datatable')){
     function generate_datatable($table_headings){
@@ -31,6 +36,7 @@ if(!function_exists('get_current_church')){
         return current_user()::getChurch(current_user()->id);
     }
 }
+
 if(!function_exists('getDataTabeleQuery')){
     function getDataTabeleQuery($model){
         $churchtype = !empty(get_current_church()) ? get_current_church() : '';
@@ -60,6 +66,108 @@ if(!function_exists('getDataTabeleQuery')){
     }
 }
 
+if(!function_exists('pluck_user_church'))
+{
+    function pluck_user_church()
+    {
+        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        if(!empty($churchtype)){
+            if($churchtype->type == 'area'){
+                return \Churches::allBy('area_id',get_current_church()->churchleaderable_id);
+            }
+            if($churchtype->type == 'zone'){
+                return \Churches::allBy('zone_id',get_current_church()->churchleaderable_id);
+            }
+            if($churchtype->type == 'district'){
+                return \Churches::allBy('district_id',get_current_church()->churchleaderable_id);
+            }
+            if($churchtype->type == 'state'){
+                return \Churches::allBy('state_id',get_current_church()->churchleaderable_id);
+            }
+            if($churchtype->type == 'region'){
+                return \Churches::allBy('region_id',get_current_church()->churchleaderable_id);
+            }
+        }
+    }
+}
+
+if(!function_exists('pluck_user_homechurch'))
+{
+    function pluck_user_homechurch()
+    {
+        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        if(!empty($churchtype)){
+            if($churchtype->type == 'area'){
+                $church = \Churches::allBy('area_id',get_current_church()->churchleaderable_id)->pluck('id');
+                return \Homechurches::allBy('church_id',$church);
+            }
+            if($churchtype->type == 'zone'){
+                $church = \Churches::allBy('zone_id',get_current_church()->churchleaderable_id)->pluck('id');
+                return \Homechurches::allBy('church_id',$church);
+            }
+            if($churchtype->type == 'district'){
+                $church = \Churches::allBy('district_id',get_current_church()->churchleaderable_id)->pluck('id');
+                return \Homechurches::allBy('church_id',$church);
+            }
+            if($churchtype->type == 'state'){
+                $church = \Churches::allBy('state_id',get_current_church()->churchleaderable_id)->pluck('id');
+                return \Homechurches::allBy('church_id',$church);
+            }
+            if($churchtype->type == 'region'){
+                $church = \Churches::allBy('region_id',get_current_church()->churchleaderable_id)->pluck('id');
+                return \Homechurches::allBy('church_id',$church);
+            }
+        }
+    }
+}
+
+if(!function_exists('getAreaFormData')){
+    function getAreaFormData(){
+        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        if(!empty($churchtype)){
+            if($churchtype->type == 'area'){
+                return Area::whereId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'zone'){
+                return Area::whereZoneId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'district'){
+                return Area::whereDistrictId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'state'){
+                return Area::whereStateId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'region'){
+                return Area::whereRegionId($churchtype->churchleaderable_id)->get();
+            }
+        }else{
+            return $query = [];
+        }
+    }
+}
+
+if(!function_exists('getZoneFormData')){
+    function getZoneFormData(){
+        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        if(!empty($churchtype)){
+            if($churchtype->type == 'zone'){
+                return Area::whereId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'district'){
+                return Area::whereDistrictId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'state'){
+                return Area::whereStateId($churchtype->churchleaderable_id)->get();
+            }
+            if($churchtype->type == 'region'){
+                return Area::whereRegionId($churchtype->churchleaderable_id)->get();
+            }
+        }else{
+            return $query = [];
+        }
+    }
+}
+
 if(!function_exists('get_categories')){
     function get_categories($type='publication')
     {
@@ -67,6 +175,44 @@ if(!function_exists('get_categories')){
         return $model->allBy('type',$type)->pluck('title', 'id')->all();
     }
 }
+
+if(!function_exists('get_relationship')){
+    function get_relationship($data)
+    {
+        if(!empty($data['area_id'])){
+            $res = Area::whereId($data['area_id'])->first();
+            $data['country_id'] = $res->country_id;
+            $data['region_id'] = $res->region_id;
+            $data['state_id'] = $res->state_id;
+            $data['district_id'] = $res->district_id;
+            $data['zone_id'] = $res->zone_id;
+        }
+        if(!empty($data['zone_id'])){
+            $res = Zone::whereId($data['zone_id'])->first();
+            $data['country_id'] = $res->country_id;
+            $data['region_id'] = $res->region_id;
+            $data['state_id'] = $res->state_id;
+            $data['district_id'] = $res->district_id;
+        }
+        if(!empty($data['district_id'])){
+            $res = District::whereId($data['district_id'])->first();
+            $data['country_id'] = $res->country_id;
+            $data['region_id'] = $res->region_id;
+            $data['state_id'] = $res->state_id;
+        }
+        if(!empty($data['state_id'])){
+            $res = State::whereId($data['state_id'])->first();
+            $data['country_id'] = $res->country_id;
+            $data['region_id'] = $res->region_id;
+        }
+        if(!empty($data['region_id'])){
+            $res = Region::whereId($data['region_id'])->first();
+            $data['country_id'] = $res->country_id;
+        }
+        return $data;
+    }
+}
+
 if(!function_exists('get_faq_categories')){
     function get_faq_categories()
     {

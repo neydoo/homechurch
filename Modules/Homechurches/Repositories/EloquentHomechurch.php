@@ -13,7 +13,7 @@ class EloquentHomechurch extends RepositoriesAbstract implements HomechurchInter
 
     public function getForDataTable()
     {
-        $query = $this->model
+        $query = getDataTabeleQuery($this->model)
             ->join('churches', 'churches.id', '=', 'homechurches.church_id')
             ->join('countries', 'countries.id', '=', 'churches.country_id')
             ->join('regions', 'regions.id', '=', 'churches.region_id')
