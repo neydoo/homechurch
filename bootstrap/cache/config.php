@@ -8,7 +8,7 @@
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
-    'key' => 'base64:qjqoeWBinUuOGA/5hpAN/RMOdvj9hfv50uQjWROB60U=',
+    'key' => 'base64:+M2xgn1oh9EtEh40hx6K33n6ad2TR5wrh67LZtaLW+8=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -121,7 +121,7 @@
   ),
   'broadcasting' => 
   array (
-    'default' => 'pusher',
+    'default' => 'log',
     'connections' => 
     array (
       'pusher' => 
@@ -173,7 +173,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/framework/cache/data',
+        'path' => '/Users/mac/Documents/projects/digc/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -284,8 +284,8 @@
   ),
   'croppa' => 
   array (
-    'src_dir' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/public/uploads',
-    'crops_dir' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/public/uploads',
+    'src_dir' => '/Users/mac/Documents/projects/digc/public/uploads',
+    'crops_dir' => '/Users/mac/Documents/projects/digc/public/uploads',
     'max_crops' => false,
     'path' => 'uploads/(.*)$',
     'ignore' => '\\.(gif|GIF)$',
@@ -312,7 +312,7 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'homechurch',
+        'database' => 'digc_homechurch',
         'prefix' => '',
       ),
       'mysql' => 
@@ -320,9 +320,9 @@
         'driver' => 'mysql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'homechurch',
+        'database' => 'digc_homechurch',
         'username' => 'root',
-        'password' => 'password',
+        'password' => '',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -335,9 +335,9 @@
         'driver' => 'pgsql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'homechurch',
+        'database' => 'digc_homechurch',
         'username' => 'root',
-        'password' => 'password',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
         'schema' => 'public',
@@ -348,9 +348,9 @@
         'driver' => 'sqlsrv',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'homechurch',
+        'database' => 'digc_homechurch',
         'username' => 'root',
-        'password' => 'password',
+        'password' => '',
         'charset' => 'utf8',
         'prefix' => '',
       ),
@@ -425,12 +425,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/app',
+        'root' => '/Users/mac/Documents/projects/digc/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/app/public',
+        'root' => '/Users/mac/Documents/projects/digc/storage/app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -587,13 +587,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/logs/laravel.log',
+        'path' => '/Users/mac/Documents/projects/digc/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/logs/laravel.log',
+        'path' => '/Users/mac/Documents/projects/digc/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 7,
       ),
@@ -636,7 +636,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/resources/views/vendor/mail',
+        0 => '/Users/mac/Documents/projects/digc/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -646,7 +646,7 @@
     'stubs' => 
     array (
       'enabled' => true,
-      'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/Modules/Core/Console/Commands/stubs',
+      'path' => '/Users/mac/Documents/projects/digc/Modules/Core/Console/Commands/stubs',
       'files' => 
       array (
         'start' => 'start.php',
@@ -748,9 +748,9 @@
     ),
     'paths' => 
     array (
-      'modules' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/Modules',
-      'assets' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/public/modules',
-      'migration' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/database/migrations',
+      'modules' => '/Users/mac/Documents/projects/digc/Modules',
+      'assets' => '/Users/mac/Documents/projects/digc/public/modules',
+      'migration' => '/Users/mac/Documents/projects/digc/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -885,7 +885,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/vendor/*/*',
+        0 => '/Users/mac/Documents/projects/digc/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -1012,7 +1012,7 @@
       'endpoint' => 'https://api.sandbox.paypal.com',
       'connection' => 30,
       'log_enabled' => true,
-      'log_storage_path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/logs/paypal.log',
+      'log_storage_path' => '/Users/mac/Documents/projects/digc/storage/logs/paypal.log',
       'log_level' => 'FINE',
     ),
   ),
@@ -1084,7 +1084,7 @@
     array (
       'model' => 'App\\User',
       'key' => NULL,
-      'secret' => 'sk_test_dD9lZ8JxUsCWiogQHJov1b0U',
+      'secret' => NULL,
     ),
     'twilio' => 
     array (
@@ -1098,7 +1098,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/framework/sessions',
+    'files' => '/Users/mac/Documents/projects/digc/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1118,9 +1118,9 @@
   array (
     'paths' => 
     array (
-      0 => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/resources/views',
+      0 => '/Users/mac/Documents/projects/digc/resources/views',
     ),
-    'compiled' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/framework/views',
+    'compiled' => '/Users/mac/Documents/projects/digc/storage/framework/views',
   ),
   'ziggy' => 
   array (
@@ -1141,7 +1141,7 @@
     array (
       'enabled' => true,
       'driver' => 'file',
-      'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/debugbar',
+      'path' => '/Users/mac/Documents/projects/digc/storage/debugbar',
       'connection' => NULL,
       'provider' => '',
     ),
@@ -1247,120 +1247,6 @@
     'proxies' => NULL,
     'headers' => 30,
   ),
-  'menus' => 
-  array (
-    'name' => 'Menus',
-    'order' => 
-    array (
-      'id' => 'asc',
-    ),
-    'sidebar' => 
-    array (
-      'weight' => 2,
-      'icon' => 'fa fa-file',
-    ),
-    'th' => 
-    array (
-      0 => 'name',
-      1 => 'slug',
-      2 => 'status',
-    ),
-    'columns' => 
-    array (
-      0 => 
-      array (
-        'data' => 'name',
-        'name' => 'name',
-      ),
-      1 => 
-      array (
-        'data' => 'slug',
-        'name' => 'slug',
-      ),
-      2 => 
-      array (
-        'data' => 'status',
-        'name' => 'status',
-      ),
-      3 => 
-      array (
-        'data' => 'action',
-        'name' => 'action',
-      ),
-    ),
-    'form' => 'Menus\\Forms\\MenusForm',
-    'link_form' => 'Menus\\Forms\\MenuLinksForm',
-    'permissions' => 
-    array (
-      'menus' => 
-      array (
-        0 => 'index',
-        1 => 'create',
-        2 => 'store',
-        3 => 'edit',
-        4 => 'update',
-        5 => 'destroy',
-      ),
-      'menus.menu_links' => 
-      array (
-        0 => 'index',
-        1 => 'create',
-        2 => 'store',
-        3 => 'edit',
-        4 => 'update',
-        5 => 'destroy',
-      ),
-    ),
-  ),
-  'banners' => 
-  array (
-    'name' => 'Banners',
-    'order' => 
-    array (
-      'id' => 'asc',
-    ),
-    'sidebar' => 
-    array (
-      'weight' => 2,
-      'icon' => 'fa fa-file-image',
-    ),
-    'th' => 
-    array (
-      0 => 'caption',
-      1 => 'status',
-    ),
-    'columns' => 
-    array (
-      0 => 
-      array (
-        'data' => 'caption',
-        'name' => 'caption',
-      ),
-      1 => 
-      array (
-        'data' => 'status',
-        'name' => 'status',
-      ),
-      2 => 
-      array (
-        'data' => 'action',
-        'name' => 'action',
-      ),
-    ),
-    'form' => 'Banners\\Forms\\BannersForm',
-    'permissions' => 
-    array (
-      'banners' => 
-      array (
-        0 => 'index',
-        1 => 'create',
-        2 => 'store',
-        3 => 'edit',
-        4 => 'update',
-        5 => 'destroy',
-      ),
-    ),
-  ),
   'users' => 
   array (
     'name' => 'Users',
@@ -1463,9 +1349,54 @@
       12 => 'gender',
     ),
   ),
-  'core' => 
+  'banners' => 
   array (
-    'name' => 'Core',
+    'name' => 'Banners',
+    'order' => 
+    array (
+      'id' => 'asc',
+    ),
+    'sidebar' => 
+    array (
+      'weight' => 2,
+      'icon' => 'fa fa-file-image',
+    ),
+    'th' => 
+    array (
+      0 => 'caption',
+      1 => 'status',
+    ),
+    'columns' => 
+    array (
+      0 => 
+      array (
+        'data' => 'caption',
+        'name' => 'caption',
+      ),
+      1 => 
+      array (
+        'data' => 'status',
+        'name' => 'status',
+      ),
+      2 => 
+      array (
+        'data' => 'action',
+        'name' => 'action',
+      ),
+    ),
+    'form' => 'Banners\\Forms\\BannersForm',
+    'permissions' => 
+    array (
+      'banners' => 
+      array (
+        0 => 'index',
+        1 => 'create',
+        2 => 'store',
+        3 => 'edit',
+        4 => 'update',
+        5 => 'destroy',
+      ),
+    ),
   ),
   'settings' => 
   array (
@@ -1492,6 +1423,10 @@
         1 => 'store',
       ),
     ),
+  ),
+  'core' => 
+  array (
+    'name' => 'Core',
   ),
   'photos' => 
   array (
@@ -1532,6 +1467,71 @@
     'permissions' => 
     array (
       'photos' => 
+      array (
+        0 => 'index',
+        1 => 'create',
+        2 => 'store',
+        3 => 'edit',
+        4 => 'update',
+        5 => 'destroy',
+      ),
+    ),
+  ),
+  'menus' => 
+  array (
+    'name' => 'Menus',
+    'order' => 
+    array (
+      'id' => 'asc',
+    ),
+    'sidebar' => 
+    array (
+      'weight' => 2,
+      'icon' => 'fa fa-file',
+    ),
+    'th' => 
+    array (
+      0 => 'name',
+      1 => 'slug',
+      2 => 'status',
+    ),
+    'columns' => 
+    array (
+      0 => 
+      array (
+        'data' => 'name',
+        'name' => 'name',
+      ),
+      1 => 
+      array (
+        'data' => 'slug',
+        'name' => 'slug',
+      ),
+      2 => 
+      array (
+        'data' => 'status',
+        'name' => 'status',
+      ),
+      3 => 
+      array (
+        'data' => 'action',
+        'name' => 'action',
+      ),
+    ),
+    'form' => 'Menus\\Forms\\MenusForm',
+    'link_form' => 'Menus\\Forms\\MenuLinksForm',
+    'permissions' => 
+    array (
+      'menus' => 
+      array (
+        0 => 'index',
+        1 => 'create',
+        2 => 'store',
+        3 => 'edit',
+        4 => 'update',
+        5 => 'destroy',
+      ),
+      'menus.menu_links' => 
       array (
         0 => 'index',
         1 => 'create',
@@ -1624,6 +1624,61 @@
     'permissions' => 
     array (
       'announcements' => 
+      array (
+        0 => 'index',
+        1 => 'create',
+        2 => 'store',
+        3 => 'edit',
+        4 => 'update',
+        5 => 'destroy',
+      ),
+    ),
+  ),
+  'manuals' => 
+  array (
+    'name' => 'Manuals',
+    'order' => 
+    array (
+      'id' => 'asc',
+    ),
+    'sidebar' => 
+    array (
+      'weight' => 2,
+      'icon' => 'fa fa-file',
+    ),
+    'th' => 
+    array (
+      0 => 'name',
+      1 => 'body',
+      2 => 'status',
+    ),
+    'columns' => 
+    array (
+      0 => 
+      array (
+        'data' => 'name',
+        'name' => 'name',
+      ),
+      1 => 
+      array (
+        'data' => 'body',
+        'name' => 'body',
+      ),
+      2 => 
+      array (
+        'data' => 'status',
+        'name' => 'status',
+      ),
+      3 => 
+      array (
+        'data' => 'action',
+        'name' => 'action',
+      ),
+    ),
+    'form' => 'Manuals\\Forms\\ManualsForm',
+    'permissions' => 
+    array (
+      'manuals' => 
       array (
         0 => 'index',
         1 => 'create',
@@ -1750,26 +1805,38 @@
     'sidebar' => 
     array (
       'weight' => 2,
-      'icon' => 'fa fa-file',
+      'icon' => 'fa fa-money',
     ),
     'th' => 
     array (
-      0 => 'title',
-      1 => 'status',
+      0 => 'Home Cell',
+      1 => 'amount',
+      2 => 'date',
+      3 => 'week',
     ),
     'columns' => 
     array (
       0 => 
       array (
-        'data' => 'title',
-        'name' => 'title',
+        'data' => 'homechurch_id',
+        'name' => 'homechurch_id',
       ),
       1 => 
       array (
-        'data' => 'status',
-        'name' => 'status',
+        'data' => 'amount',
+        'name' => 'amount',
       ),
       2 => 
+      array (
+        'data' => 'date',
+        'name' => 'date',
+      ),
+      3 => 
+      array (
+        'data' => 'week',
+        'name' => 'week',
+      ),
+      4 => 
       array (
         'data' => 'action',
         'name' => 'action',
@@ -1785,7 +1852,7 @@
         2 => 'store',
         3 => 'edit',
         4 => 'update',
-        5 => 'destroy',
+        5 => 'print',
       ),
     ),
   ),
@@ -1828,140 +1895,6 @@
     'permissions' => 
     array (
       'newsletters' => 
-      array (
-        0 => 'index',
-        1 => 'create',
-        2 => 'store',
-        3 => 'edit',
-        4 => 'update',
-        5 => 'destroy',
-      ),
-    ),
-  ),
-  'manuals' => 
-  array (
-    'name' => 'Manuals',
-    'order' => 
-    array (
-      'id' => 'asc',
-    ),
-    'sidebar' => 
-    array (
-      'weight' => 2,
-      'icon' => 'fa fa-file',
-    ),
-    'th' => 
-    array (
-      0 => 'name',
-      1 => 'body',
-      2 => 'status',
-    ),
-    'columns' => 
-    array (
-      0 => 
-      array (
-        'data' => 'name',
-        'name' => 'name',
-      ),
-      1 => 
-      array (
-        'data' => 'body',
-        'name' => 'body',
-      ),
-      2 => 
-      array (
-        'data' => 'status',
-        'name' => 'status',
-      ),
-      3 => 
-      array (
-        'data' => 'action',
-        'name' => 'action',
-      ),
-    ),
-    'form' => 'Manuals\\Forms\\ManualsForm',
-    'permissions' => 
-    array (
-      'manuals' => 
-      array (
-        0 => 'index',
-        1 => 'create',
-        2 => 'store',
-        3 => 'edit',
-        4 => 'update',
-        5 => 'destroy',
-      ),
-    ),
-  ),
-  'areas' => 
-  array (
-    'name' => 'Areas',
-    'order' => 
-    array (
-      'id' => 'asc',
-    ),
-    'sidebar' => 
-    array (
-      'weight' => 2,
-      'icon' => 'fa fa-file',
-    ),
-    'th' => 
-    array (
-      0 => 'name',
-      1 => 'code',
-      2 => 'country',
-      3 => 'region',
-      4 => 'state',
-      5 => 'district',
-      6 => 'zone',
-    ),
-    'columns' => 
-    array (
-      0 => 
-      array (
-        'data' => 'name',
-        'name' => 'name',
-      ),
-      1 => 
-      array (
-        'data' => 'code',
-        'name' => 'code',
-      ),
-      2 => 
-      array (
-        'data' => 'country_id',
-        'name' => 'country_id',
-      ),
-      3 => 
-      array (
-        'data' => 'region_id',
-        'name' => 'region_id',
-      ),
-      4 => 
-      array (
-        'data' => 'state_id',
-        'name' => 'state_id',
-      ),
-      5 => 
-      array (
-        'data' => 'district_id',
-        'name' => 'district_id',
-      ),
-      6 => 
-      array (
-        'data' => 'zone_id',
-        'name' => 'zone_id',
-      ),
-      7 => 
-      array (
-        'data' => 'action',
-        'name' => 'action',
-      ),
-    ),
-    'form' => 'Areas\\Forms\\AreasForm',
-    'permissions' => 
-    array (
-      'areas' => 
       array (
         0 => 'index',
         1 => 'create',
@@ -2048,6 +1981,85 @@
     'permissions' => 
     array (
       'homechurches' => 
+      array (
+        0 => 'index',
+        1 => 'create',
+        2 => 'store',
+        3 => 'edit',
+        4 => 'update',
+        5 => 'destroy',
+      ),
+    ),
+  ),
+  'areas' => 
+  array (
+    'name' => 'Areas',
+    'order' => 
+    array (
+      'id' => 'asc',
+    ),
+    'sidebar' => 
+    array (
+      'weight' => 2,
+      'icon' => 'fa fa-file',
+    ),
+    'th' => 
+    array (
+      0 => 'name',
+      1 => 'code',
+      2 => 'country',
+      3 => 'region',
+      4 => 'state',
+      5 => 'district',
+      6 => 'zone',
+    ),
+    'columns' => 
+    array (
+      0 => 
+      array (
+        'data' => 'name',
+        'name' => 'name',
+      ),
+      1 => 
+      array (
+        'data' => 'code',
+        'name' => 'code',
+      ),
+      2 => 
+      array (
+        'data' => 'country_id',
+        'name' => 'country_id',
+      ),
+      3 => 
+      array (
+        'data' => 'region_id',
+        'name' => 'region_id',
+      ),
+      4 => 
+      array (
+        'data' => 'state_id',
+        'name' => 'state_id',
+      ),
+      5 => 
+      array (
+        'data' => 'district_id',
+        'name' => 'district_id',
+      ),
+      6 => 
+      array (
+        'data' => 'zone_id',
+        'name' => 'zone_id',
+      ),
+      7 => 
+      array (
+        'data' => 'action',
+        'name' => 'action',
+      ),
+    ),
+    'form' => 'Areas\\Forms\\AreasForm',
+    'permissions' => 
+    array (
+      'areas' => 
       array (
         0 => 'index',
         1 => 'create',
@@ -2364,6 +2376,85 @@
     'permissions' => 
     array (
       'churches' => 
+      array (
+        0 => 'index',
+        1 => 'create',
+        2 => 'store',
+        3 => 'edit',
+        4 => 'update',
+        5 => 'destroy',
+      ),
+    ),
+  ),
+  'attendance' => 
+  array (
+    'name' => 'Attendance',
+    'order' => 
+    array (
+      'id' => 'asc',
+    ),
+    'sidebar' => 
+    array (
+      'weight' => 2,
+      'icon' => 'fa fa-file',
+    ),
+    'th' => 
+    array (
+      0 => 'Home Cell',
+      1 => 'male',
+      2 => 'female',
+      3 => 'children',
+      4 => 'total',
+      5 => 'date',
+      6 => 'week',
+    ),
+    'columns' => 
+    array (
+      0 => 
+      array (
+        'data' => 'homechurch_id',
+        'name' => 'homechurch_id',
+      ),
+      1 => 
+      array (
+        'data' => 'male',
+        'name' => 'male',
+      ),
+      2 => 
+      array (
+        'data' => 'female',
+        'name' => 'female',
+      ),
+      3 => 
+      array (
+        'data' => 'children',
+        'name' => 'children',
+      ),
+      4 => 
+      array (
+        'data' => 'total',
+        'name' => 'toatl',
+      ),
+      5 => 
+      array (
+        'data' => 'date',
+        'name' => 'date',
+      ),
+      6 => 
+      array (
+        'data' => 'week',
+        'name' => 'week',
+      ),
+      7 => 
+      array (
+        'data' => 'action',
+        'name' => 'action',
+      ),
+    ),
+    'form' => 'Attendance\\Forms\\AttendanceForm',
+    'permissions' => 
+    array (
+      'attendance' => 
       array (
         0 => 'index',
         1 => 'create',

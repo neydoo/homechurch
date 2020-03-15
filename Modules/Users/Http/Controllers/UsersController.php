@@ -29,9 +29,16 @@ class UsersController extends BaseUsersController
         $form = $this->form(config($module . '.form'), [
             'method' => 'POST',
             'url' => route('admin.' . $module . '.store'),
+            'data' => [
+                'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                'states' => \States::getAll()->pluck('name', 'id')->all(),
+                'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
+                'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
+                'areas' => \Areas::getAll()->pluck('name', 'id')->all(),
+                'churches' => \Churches::getAll()->pluck('name', 'id')->all()
+            ]
         ]);
         $roles = $this->role->all();
-
         return view('core::admin.create')
             ->with(compact('model', 'module', 'form', 'roles'));
     }
@@ -43,7 +50,25 @@ class UsersController extends BaseUsersController
         $form = $this->form(config($module . '.form'), [
             'method' => 'PUT',
             'url' => route('admin.' . $module . '.update', $model),
-            'model' => $model
+            'model' => $model,
+            'data' => [
+                    'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                    'states' => \States::getAll()->pluck('name', 'id')->all(),
+                    'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
+                    'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
+                    'areas' => \Areas::getAll()->pluck('name', 'id')->all(),
+                    'churches' => \Churches::getAll()->pluck('name', 'id')->all()
+                ]
+            ])->modify('country_id', 'select', [
+                'selected' => $model->country_id
+            ])->modify('region_id', 'select', [
+                'selected' => $model->region_id
+            ])->modify('state_id', 'select', [
+                'selected' => $model->state_id
+            ])->modify('district_id', 'select', [
+                'selected' => $model->district_id
+            ])->modify('zone_id', 'select', [
+                'selected' => $model->zone_id
         ]);
         $roles = $this->role->all();
         $currentUser = $this->auth->check();
@@ -57,15 +82,19 @@ class UsersController extends BaseUsersController
 
         $model = $this->repository->createWithRoles($data, $request->roles, true);
 
+        !empty($request->type) ? get_type($request) : '';
         return $this->redirect($request, $model, trans('core::global.new_record'));
     }
 
     public function update($id, FormEditRequest $request)
     {
+        $form_req = $request->all();
+        $form_req['user_id'] = $id;
         $data = $this->mergeRequestWithPermissions($request);
 
         $model = $this->repository->updateAndSyncRoles($id, $data, $request->roles);
-
+        
+        !empty($request->type) ? get_type($form_req) : '';
         return $this->redirect($request, $model, trans('core::global.update_record'));
     }
 

@@ -21,7 +21,7 @@ class EloquentRegion extends RepositoriesAbstract implements RegionInterface
 
     public function getForDataTable()
     {
-        $query = $this->model
+        $query = getDataTabeleQuery($this->model)
             ->leftJoin('countries as country', 'country.id', '=', 'regions.country_id')
             ->select([
                 'regions.id as id',

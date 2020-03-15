@@ -32,6 +32,12 @@
                     New Password </a>
             </li>
         @endif
+        @if($model->hasRoleName('admin'))
+        <li class="nav-item">
+            <a href="#tab_5" data-toggle="tab" class="nav-link">
+                Assign Church </a>
+        </li>
+        @endif
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -123,7 +129,128 @@
                 </div>
             </div>
         @endif
+        @if(isset($id))
+            <div class="tab-pane" id="tab_5">
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! form_row($form->type) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->region_id) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->state_id) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->district_id) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->zone_id) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->area_id) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->church_id) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->status) !!}
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 @include('core::admin._buttons-form')
 {!! form_end($form,false) !!}
+
+@section('page-js')
+<script>
+    $(function() {
+        $("#country_id").change(function(){
+            var country_id = $(this).val();
+            $.ajax({
+                url: "/admin/regions/country/region/"+country_id,
+                type: 'get',
+                dataType: 'json',
+                success:function(response){
+                    console.log(response);
+                    $("#region_id").empty();
+                    $("#region_id").append("<option value=''>-- Select Region --</option>")
+                    response.regions.forEach((element, index) => {
+                        $("#region_id").append("<option value='"+element.id+"'>"+element.name+"</option>");
+                    });
+                }
+            });
+        });
+
+        $("#region_id").change(function(){
+            var region_id = $(this).val();
+            
+            $.ajax({
+                url: "/admin/states/region/state/"+region_id,
+                type: 'get',
+                dataType: 'json',
+                success:function(response){
+                    $("#state_id").empty();
+                    $("#state_id").append("<option value=''>-- Select State --</option>")
+                    response.states.forEach((element, index) => {
+                        $("#state_id").append("<option value='"+element.id+"'>"+element.name+"</option>");
+                    });
+                }
+            });
+        });
+
+        $("#state_id").change(function(){
+            var state_id = $(this).val();
+            
+            $.ajax({
+                url: "/admin/districts/state/district/"+state_id,
+                type: 'get',
+                dataType: 'json',
+                success:function(response){
+                    $("#district_id").empty();
+                    $("#district_id").append("<option value=''>-- Select District --</option>")
+                    response.districts.forEach((element, index) => {
+                        $("#district_id").append("<option value='"+element.id+"'>"+element.name+"</option>");
+                    });
+                }
+            });
+        });
+
+        $("#district_id").change(function(){
+            var district_id = $(this).val();
+            
+            $.ajax({
+                url: "/admin/zones/district/zone/"+district_id,
+                type: 'get',
+                dataType: 'json',
+                success:function(response){
+                    $("#zone_id").empty();
+                    $("#zone_id").append("<option value=''>-- Select Zone --</option>")
+                    response.zones.forEach((element, index) => {
+                        $("#zone_id").append("<option value='"+element.id+"'>"+element.name+"</option>");
+                    });
+                }
+            });
+        });
+
+        $("#zone_id").change(function(){
+            var zone_id = $(this).val();
+            
+            $.ajax({
+                url: "/admin/areas/zone/area/"+zone_id,
+                type: 'get',
+                dataType: 'json',
+                success:function(response){
+                    $("#area_id").empty();
+                    $("#area_id").append("<option value=''>-- Select Area --</option>")
+                    response.areas.forEach((element, index) => {
+                        $("#area_id").append("<option value='"+element.id+"'>"+element.name+"</option>");
+                    });
+                }
+            });
+        });
+    });
+</script>
+@endsection

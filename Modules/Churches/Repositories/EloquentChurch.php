@@ -20,7 +20,7 @@ class EloquentChurch extends RepositoriesAbstract implements ChurchInterface
 
     public function getForDataTable()
     {
-        $query = $this->model
+        $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'churches.country_id')
             ->join('regions', 'regions.id', '=', 'churches.region_id')
             ->join('states', 'states.id', '=', 'churches.state_id')

@@ -22,6 +22,7 @@ class ChurchesController extends BaseAdminController {
 
     public function create()
     {
+        // dd(current_user()->hasChurch(current_user()['churchtype']));
         $module = $this->repository->getTable();
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
@@ -32,7 +33,7 @@ class ChurchesController extends BaseAdminController {
                 'states' => \States::getAll()->pluck('name', 'id')->all(),
                 'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
                 'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
-                'areas' => \Areas::getAll()->pluck('name', 'id')->all()
+                'areas' => (current_user()->hasChurch(current_user()['churchtype'])) ? getAreaFormData()->pluck('name', 'id')->all() : \Areas::getAll()->pluck('name', 'id')->all()
             ]
         ]);
         return view('core::admin.create')
@@ -52,7 +53,7 @@ class ChurchesController extends BaseAdminController {
                 'states' => \States::getAll()->pluck('name', 'id')->all(),
                 'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
                 'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
-                'areas' => \Areas::getAll()->pluck('name', 'id')->all()
+                'areas' => (current_user()->hasChurch(current_user()['churchtype'])) ? getAreaFormData()->pluck('name', 'id')->all() : \Areas::getAll()->pluck('name', 'id')->all()
             ]
         ])->modify('country_id', 'select', [
             'selected' => $model->country_id
@@ -74,6 +75,7 @@ class ChurchesController extends BaseAdminController {
     public function store(FormRequest $request)
     {
         $data = $request->all();
+        $data = get_relationship($data);
         $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'].$data['area_id'];
 
         $model = $this->repository->create($data);
@@ -86,6 +88,7 @@ class ChurchesController extends BaseAdminController {
         $data = $request->all();
 
         $data['id'] = $model->id;
+        $data = get_relationship($data);
         $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'].$data['area_id'];
 
         $model = $this->repository->update($data);

@@ -20,7 +20,7 @@ class EloquentDistrict extends RepositoriesAbstract implements DistrictInterface
 
     public function getForDataTable()
     {
-        $query = $this->model
+        $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'districts.country_id')
             ->join('regions', 'regions.id', '=', 'districts.region_id')
             ->join('states', 'states.id', '=', 'districts.state_id')

@@ -20,7 +20,7 @@ class EloquentArea extends RepositoriesAbstract implements AreaInterface
 
     public function getForDataTable()
     {
-        $query = $this->model
+        $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'areas.country_id')
             ->join('regions', 'regions.id', '=', 'areas.region_id')
             ->join('states', 'states.id', '=', 'areas.state_id')

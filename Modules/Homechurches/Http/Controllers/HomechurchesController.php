@@ -27,7 +27,7 @@ class HomechurchesController extends BaseAdminController {
             'method' => 'POST',
             'url' => route('admin.'.$module.'.store'),
             'data' => [
-                'churches' => \Churches::getAll()->pluck('name', 'id')->all()
+                'churches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church()->pluck('name', 'id')->all() : \Churches::getAll()->pluck('name', 'id')->all()
             ]
         ]);
         return view('core::admin.create')
@@ -35,21 +35,21 @@ class HomechurchesController extends BaseAdminController {
     }
 
     public function edit(Homechurch $model)
-        {
-            $module = $model->getTable();
-            $form = $this->form(config($module.'.form'), [
-                'method' => 'PUT',
-                'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model,'model'=>$model,
-                'data' => [
-                    'churches' => \Churches::getAll()->pluck('name', 'id')->all()
-                ]
-            ])->modify('church_id', 'select', [
-                'selected' => $model->church_id
-            ]);
-            return view('core::admin.edit')
-                ->with(compact('model','module','form'));
-        }
+    {
+        $module = $model->getTable();
+        $form = $this->form(config($module.'.form'), [
+            'method' => 'PUT',
+            'url' => route('admin.'.$module.'.update',$model),
+            'model'=>$model,'model'=>$model,
+            'data' => [
+                'churches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church()->pluck('name', 'id')->all() : \Churches::getAll()->pluck('name', 'id')->all()
+            ]
+        ])->modify('church_id', 'select', [
+            'selected' => $model->church_id
+        ]);
+        return view('core::admin.edit')
+            ->with(compact('model','module','form'));
+    }
 
     public function store(FormRequest $request)
     {

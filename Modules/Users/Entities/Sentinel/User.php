@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\Users\Entities\UserInterface;
 use Modules\Groupchats\Entities\Groupchat;
+use Modules\Users\Entities\ChurchLeader;
 
 class User extends EloquentUser implements UserInterface {
 
@@ -131,5 +132,20 @@ class User extends EloquentUser implements UserInterface {
     public function homechurch()
     {
         return $this->belongsTo('Modules\Homechurches\Entities\Homechurch')->withTimestamps();
+    }
+
+    public function hasChurch($type)
+    {
+        return $this->churchtype === $type;
+    }
+
+    public function churchleader()
+    {
+        return $this->morphMany('Modules\Users\Entities\ChurchLeader', 'churchleaderable');
+    }
+
+    public static function getChurch($id)
+    {
+       return ChurchLeader::whereUserId($id)->first();
     }
 }
