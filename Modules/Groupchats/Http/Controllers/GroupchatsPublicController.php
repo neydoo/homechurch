@@ -35,10 +35,16 @@ class GroupchatsPublicController extends BasePublicController {
 
     public function index()
     {
-        $groups = current_user()->groupchats;
+        try {
+            $groups = current_user()->groupchats;
 
-        return view('groupchats::public.index')
-            ->with(compact('groups'));
+            return view('groupchats::public.index')
+                ->with(compact('groups'));
+        } catch (\Exception $e) {
+            return redirect('login');
+            //throw $th;
+        }
+        
     }
 
     public function addUser(AddUserRequest $request)

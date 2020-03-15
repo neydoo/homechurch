@@ -189,6 +189,44 @@ abstract class RepositoriesAbstract implements RepositoryInterface
         return $models;
     }
 
+    public function allByIn($key, $value, array $with = array(), $all = false)
+    {
+        $query = $this->make($with);
+
+        if (!$all) {
+            //$query->online();
+        }
+
+        $query->whereIn($key, $value);
+
+        // Query ORDER BY
+        $query->order();
+
+        // Get
+        $models = $query->get();
+
+        return $models;
+    }
+
+    public function allByNotIn($key, $value, array $with = array(), $all = false)
+    {
+        $query = $this->make($with);
+
+        if (!$all) {
+            //$query->online();
+        }
+
+        $query->whereNotIn($key, $value);
+
+        // Query ORDER BY
+        $query->order();
+
+        // Get
+        $models = $query->get();
+
+        return $models;
+    }
+
 
     /**
      * Get all models by key/value and nest collection

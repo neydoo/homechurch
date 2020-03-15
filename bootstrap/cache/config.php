@@ -8,7 +8,7 @@
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
-    'key' => 'base64:+M2xgn1oh9EtEh40hx6K33n6ad2TR5wrh67LZtaLW+8=',
+    'key' => 'base64:qjqoeWBinUuOGA/5hpAN/RMOdvj9hfv50uQjWROB60U=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -121,7 +121,7 @@
   ),
   'broadcasting' => 
   array (
-    'default' => 'log',
+    'default' => 'pusher',
     'connections' => 
     array (
       'pusher' => 
@@ -173,7 +173,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/Users/mac/Documents/projects/digc/storage/framework/cache/data',
+        'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -284,8 +284,8 @@
   ),
   'croppa' => 
   array (
-    'src_dir' => '/Users/mac/Documents/projects/digc/public/uploads',
-    'crops_dir' => '/Users/mac/Documents/projects/digc/public/uploads',
+    'src_dir' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/public/uploads',
+    'crops_dir' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/public/uploads',
     'max_crops' => false,
     'path' => 'uploads/(.*)$',
     'ignore' => '\\.(gif|GIF)$',
@@ -312,7 +312,7 @@
       'sqlite' => 
       array (
         'driver' => 'sqlite',
-        'database' => 'digc_homechurch',
+        'database' => 'homechurch',
         'prefix' => '',
       ),
       'mysql' => 
@@ -320,9 +320,9 @@
         'driver' => 'mysql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'digc_homechurch',
+        'database' => 'homechurch',
         'username' => 'root',
-        'password' => '',
+        'password' => 'password',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -335,9 +335,9 @@
         'driver' => 'pgsql',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'digc_homechurch',
+        'database' => 'homechurch',
         'username' => 'root',
-        'password' => '',
+        'password' => 'password',
         'charset' => 'utf8',
         'prefix' => '',
         'schema' => 'public',
@@ -348,9 +348,9 @@
         'driver' => 'sqlsrv',
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'digc_homechurch',
+        'database' => 'homechurch',
         'username' => 'root',
-        'password' => '',
+        'password' => 'password',
         'charset' => 'utf8',
         'prefix' => '',
       ),
@@ -425,12 +425,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/mac/Documents/projects/digc/storage/app',
+        'root' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/mac/Documents/projects/digc/storage/app/public',
+        'root' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -587,13 +587,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/Users/mac/Documents/projects/digc/storage/logs/laravel.log',
+        'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/Users/mac/Documents/projects/digc/storage/logs/laravel.log',
+        'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 7,
       ),
@@ -636,7 +636,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/Users/mac/Documents/projects/digc/resources/views/vendor/mail',
+        0 => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -646,7 +646,7 @@
     'stubs' => 
     array (
       'enabled' => true,
-      'path' => '/Users/mac/Documents/projects/digc/Modules/Core/Console/Commands/stubs',
+      'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/Modules/Core/Console/Commands/stubs',
       'files' => 
       array (
         'start' => 'start.php',
@@ -748,9 +748,9 @@
     ),
     'paths' => 
     array (
-      'modules' => '/Users/mac/Documents/projects/digc/Modules',
-      'assets' => '/Users/mac/Documents/projects/digc/public/modules',
-      'migration' => '/Users/mac/Documents/projects/digc/database/migrations',
+      'modules' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/Modules',
+      'assets' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/public/modules',
+      'migration' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -885,7 +885,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => '/Users/mac/Documents/projects/digc/vendor/*/*',
+        0 => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -978,7 +978,7 @@
     array (
       'per_page' => 20,
     ),
-    'sermons' => 
+    'manuals' => 
     array (
       'per_page' => 20,
     ),
@@ -989,6 +989,7 @@
       2 => 'manuals',
       3 => 'faqs',
       4 => 'groupchats',
+      5 => 'manuals',
     ),
     'middleware' => 
     array (
@@ -1012,7 +1013,7 @@
       'endpoint' => 'https://api.sandbox.paypal.com',
       'connection' => 30,
       'log_enabled' => true,
-      'log_storage_path' => '/Users/mac/Documents/projects/digc/storage/logs/paypal.log',
+      'log_storage_path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/logs/paypal.log',
       'log_level' => 'FINE',
     ),
   ),
@@ -1084,7 +1085,7 @@
     array (
       'model' => 'App\\User',
       'key' => NULL,
-      'secret' => NULL,
+      'secret' => 'sk_test_dD9lZ8JxUsCWiogQHJov1b0U',
     ),
     'twilio' => 
     array (
@@ -1098,7 +1099,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/Users/mac/Documents/projects/digc/storage/framework/sessions',
+    'files' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1118,9 +1119,9 @@
   array (
     'paths' => 
     array (
-      0 => '/Users/mac/Documents/projects/digc/resources/views',
+      0 => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/resources/views',
     ),
-    'compiled' => '/Users/mac/Documents/projects/digc/storage/framework/views',
+    'compiled' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/framework/views',
   ),
   'ziggy' => 
   array (
@@ -1141,7 +1142,7 @@
     array (
       'enabled' => true,
       'driver' => 'file',
-      'path' => '/Users/mac/Documents/projects/digc/storage/debugbar',
+      'path' => '/Users/adedotunbashorun/Documents/personal/homechurch-V2.0/storage/debugbar',
       'connection' => NULL,
       'provider' => '',
     ),

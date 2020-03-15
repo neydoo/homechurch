@@ -57,9 +57,9 @@ class ManualsServiceProvider extends ServiceProvider
             return $repository;
         });
 
-        /*$app->view->composer('manuals::public.*', function ($view) {
+        $app->view->composer('manuals::public.*', function ($view) {
             $view->page = \MyApp::getPageLinkedToModule('manuals');
-        });*/
+        });
     }
 
     /**

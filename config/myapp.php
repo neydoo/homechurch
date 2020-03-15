@@ -32,12 +32,12 @@ return [
         'per_page' => 20,
     ],
 
-    'sermons' => [
+    'manuals' => [
         'per_page' => 20,
     ],
 
 
-    'linkable_to_page' => ['testimonials','announcements','manuals','faqs','groupchats'],
+    'linkable_to_page' => ['testimonials','announcements','manuals','faqs','groupchats','manuals'],
 
     'middleware' => [
         'backend' => [

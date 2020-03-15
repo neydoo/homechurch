@@ -99,23 +99,23 @@ if(!function_exists('pluck_user_homechurch'))
         if(!empty($churchtype)){
             if($churchtype->type == 'area'){
                 $church = \Churches::allBy('area_id',get_current_church()->churchleaderable_id)->pluck('id');
-                return \Homechurches::allBy('church_id',$church);
+                return \Homechurches::allByIn('church_id',$church);
             }
             if($churchtype->type == 'zone'){
                 $church = \Churches::allBy('zone_id',get_current_church()->churchleaderable_id)->pluck('id');
-                return \Homechurches::allBy('church_id',$church);
+                return \Homechurches::allByIn('church_id',$church);
             }
             if($churchtype->type == 'district'){
                 $church = \Churches::allBy('district_id',get_current_church()->churchleaderable_id)->pluck('id');
-                return \Homechurches::allBy('church_id',$church);
+                return \Homechurches::allByIn('church_id',$church);
             }
             if($churchtype->type == 'state'){
                 $church = \Churches::allBy('state_id',get_current_church()->churchleaderable_id)->pluck('id');
-                return \Homechurches::allBy('church_id',$church);
+                return \Homechurches::allByIn('church_id',$church);
             }
             if($churchtype->type == 'region'){
                 $church = \Churches::allBy('region_id',get_current_church()->churchleaderable_id)->pluck('id');
-                return \Homechurches::allBy('church_id',$church);
+                return \Homechurches::allByIn('church_id',$church);
             }
         }
     }
