@@ -14,7 +14,7 @@ class Conversation extends Base {
 
     public $attachments = ['image'];
 
-    protected $fillable = ['message', 'user_id', 'group_id'];
+    protected $fillable = ['message', 'user_id', 'groupchat_id'];
 
     public function user()
     {
