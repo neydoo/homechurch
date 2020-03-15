@@ -6,6 +6,9 @@
                 <div class="kt-portlet__head-actions">
                     @if(isset($type))
                         @include('core::admin._button-'.$type, ['module' => $module,'caption'=>$caption])
+                        @if(has_access($module.'.print'))
+                            @include('core::admin._button-print', ['module' => $module])
+                        @endif
                     @else
                         @include('core::admin._button-create', ['module' => $module])
                     @endif

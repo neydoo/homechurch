@@ -4,6 +4,8 @@ use Modules\Core\Http\Controllers\BaseAdminController;
 use Modules\Attendance\Http\Requests\FormRequest;
 use Modules\Attendance\Repositories\AttendanceInterface as Repository;
 use Modules\Attendance\Entities\Attendance;
+use Yajra\Datatables\Datatables;
+use DateTime;
 
 class AttendanceController extends BaseAdminController {
 
@@ -25,23 +27,31 @@ class AttendanceController extends BaseAdminController {
         $module = $this->repository->getTable();
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
-            'url' => route('admin.'.$module.'.store')
+            'url' => route('admin.'.$module.'.store'),
+            'data' => [
+                'homechurches' => (current_user()->hasChurch(current_user()['type'])) ? : \Homechurches::all([],true)->pluck('name', 'id')->all()
+            ]
         ]);
         return view('core::admin.create')
             ->with(compact('module','form'));
     }
 
     public function edit(Attendance $model)
-        {
-            $module = $model->getTable();
-            $form = $this->form(config($module.'.form'), [
-                'method' => 'PUT',
-                'url' => route('admin.'.$module.'.update',$model),
-                'model'=>$model
-            ]);
-            return view('core::admin.edit')
-                ->with(compact('model','module','form'));
-        }
+    {
+        $module = $model->getTable();
+        $form = $this->form(config($module.'.form'), [
+            'method' => 'PUT',
+            'url' => route('admin.'.$module.'.update',$model),
+            'model'=>$model,
+            'data' => [
+                'homechurches' => (current_user()->hasChurch(current_user()['type'])) ? : \Homechurches::all([],true)->pluck('name', 'id')->all()
+            ]
+        ])->modify('homechurch_id', 'select', [
+            'selected' => $model->homechurch_id
+        ]);
+        return view('core::admin.edit')
+            ->with(compact('model','module','form'));
+    }
 
     public function store(FormRequest $request)
     {
@@ -63,4 +73,34 @@ class AttendanceController extends BaseAdminController {
         return $this->redirect($request, $model, trans('core::global.update_record'));
     }
 
+    public function dataTable()
+    {
+        $id = request()->get('id');
+        $model = !empty($id) ? $this->repository->getForDatatable($id) : $this->repository->getForDatatable();
+
+        $model_table = $this->repository->getTable();
+
+        return Datatables::of($model)
+            ->addColumn('total', function($row) {
+                return $row->male +  $row->female +  $row->children;
+            })
+            ->addColumn('action', $model_table . '::admin._table-action')
+            ->editColumn('status', function($row) {
+                $html = '';
+                $html .= status_label($row->status);
+
+                return $html;
+            })
+            ->editColumn('date', function($row) {
+                $date = new DateTime($row->date);
+                return $date->format('Y-M-d');
+            })
+            ->addColumn('week', function($row) {
+                $date = new DateTime($row->date);
+                return $date->format('W');
+            })
+            ->escapeColumns(['action'])
+            ->removeColumn('id')
+            ->make();
+    }
 }

@@ -84,6 +84,62 @@ class UsersForm extends Form
 
             ->add('avatar', 'file', [
                 'label' => 'Avatar'
+            ])
+            ->add('type', 'select', [
+                'label'=>'Type',
+                'choices' => [
+                    'groupchat' => 'Group Chats',
+                    'homechurch' => 'Home Cells',
+                    'local' => 'Local',
+                    'area' => 'Area',
+                    'zone' => 'Zone',
+                    'district' => 'District',
+                    'state' => 'State',
+                    'region' => 'Region'
+                ],
+                'attr'=>[
+                    'class'=>'form-control required',
+                    // 'required'=>'required'
+                ],
+                'empty_value' => '- Select Type -'
+            ])
+            ->add('church_id', 'select', [
+                'label'=>'Local Church',
+                'choices' => $this->getData('churches'),
+                'empty_value' => '- Select church -'
+            ])
+            ->add('area_id', 'select', [
+                'label'=>'Area',
+                'choices' => $this->getData('areas'),
+                'empty_value' => '- Select Area -'
+            ])
+            ->add('zone_id', 'select', [
+                'label'=>'Zone',
+                'choices' => $this->getData('zones'),
+                'empty_value' => '- Select church -'
+            ])
+            ->add('district_id', 'select', [
+                'label'=>'Districts',
+                'choices' => $this->getData('districts'),
+                'empty_value' => '- Select District -'
+            ])
+            ->add('state_id', 'select', [
+                'label'=>'State',
+                'choices' => $this->getData('states'),
+                'empty_value' => '- Select State -'
+            ])
+            ->add('region_id', 'select', [
+                'label'=>'Region',
+                'choices' => $this->getData('regions'),
+                'empty_value' => '- Select Region -'
+            ])
+            ->add('status', 'select', [
+                'label'=>'Is Active?',
+                'choices' => [
+                    0 => 'No',
+                    1 => 'Yes'
+                ],
+                'empty_value' => '- Select Status -'
             ]);
 
     }

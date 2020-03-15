@@ -8,6 +8,7 @@ class Attendance extends Base {
     use PresentableTrait;
 
     protected $presenter = 'Modules\Attendance\Presenters\ModulePresenter';
+    protected $table = 'attendance';
 
     protected $guarded = ['_token','exit'];
 

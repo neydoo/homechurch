@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
+use Modules\Users\Entities\ChurchLeader;
+use Modules\Users\Entities\Sentinel\User;
 
 if(!function_exists('generate_datatable')){
     function generate_datatable($table_headings){
@@ -23,6 +25,41 @@ if(!function_exists('get_pages')){
         return $model->select('all', false,'title','id');
     }
 }
+if(!function_exists('get_current_church')){
+    function get_current_church()
+    {
+        return current_user()::getChurch(current_user()->id);
+    }
+}
+if(!function_exists('getDataTabeleQuery')){
+    function getDataTabeleQuery($model){
+        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        if(!empty($churchtype)){
+            if(current_user()->hasChurch('groupchat')){
+                return $query = $model->whereId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('homechurch')){
+                return $query = $model->whereId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('church')){
+                return $query = $model->whereChurchId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('area')){
+                return $query = $model->whereAreaId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('zone')){
+                return $query = $model->whereZoneId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('district')){
+                return $query = $model->whereDistrictId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('state')){
+                return $query = $model->whereStateId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('region')){
+                $query = $model->whereRegionId(get_current_church()->churchleaderable_id);
+            }else{
+                return $query = $model;
+            }
+        }else{
+            return $query = $model;
+        }
+    }
+}
+
 if(!function_exists('get_categories')){
     function get_categories($type='publication')
     {
@@ -358,5 +395,117 @@ if(!function_exists('title_few')){
         $text = strip_tags($text);
         $text = Str::words($text,$limit);
         return $text;
+    }
+}
+
+if(!function_exists('get_type')) {
+    function get_type($request) {
+        $type = $request['type'];
+        $check = ChurchLeader::whereUser($request['user_id'])->first();
+        switch ($type) {
+            case 'homechurch':
+                $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['homechurch_id'];
+                $data['churchleaderable_type'] = "Modules\Homechurches\Entities\Homechurch";
+                $data['churchleaderable_table'] = "churches";
+                $data['type'] = $type;
+                if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'local';
+                    $user->save();
+                }
+                break;
+            case 'groupchat':
+                $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['groupchat_id'];
+                $data['churchleaderable_type'] = "Modules\Groupchats\Entities\Groupchat";
+                $data['churchleaderable_table'] = "churches";
+                $data['type'] = $type;
+                if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'local';
+                    $user->save();
+                }
+                break;
+            case 'local':
+                $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['local_id'];
+                $data['churchleaderable_type'] = "Modules\Churches\Entities\Church";
+                $data['churchleaderable_table'] = "churches";
+                $data['type'] = $type;
+                if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'local';
+                    $user->save();
+                }
+                break;
+            case 'area':
+                $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['area_id'];
+                $data['churchleaderable_type'] = "Modules\Areas\Entities\Area";
+                $data['churchleaderable_table'] = "areas";
+                $data['type'] = $type;if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'area';
+                    $user->save();
+                }
+                break;
+            case 'zone':
+                $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['zone_id'];
+                $data['churchleaderable_type'] = "Modules\Zones\Entities\Zone";
+                $data['churchleaderable_table'] = "zones";
+                $data['type'] = $type;if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'zone';
+                    $user->save();
+                }
+                break;
+            case 'district':
+                $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['district_id'];
+                $data['churchleaderable_type'] = "Modules\Districts\Entities\District";
+                $data['churchleaderable_table'] = "districts";
+                $data['type'] = $type;if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'district';
+                    $user->save();
+                }
+                break;
+            case 'state':
+               $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['state_id'];
+                $data['churchleaderable_type'] = "Modules\States\Entities\State";
+                $data['churchleaderable_table'] = "states";
+                $data['type'] = $type;if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'state';
+                    $user->save();
+                }
+                break;
+            case 'region':
+               $data['user_id'] = $request['user_id'];
+                $data['churchleaderable_id'] = $request['region_id'];
+                $data['churchleaderable_type'] = "Modules\Regions\Entities\Region";
+                $data['churchleaderable_table'] = "regions";
+                $data['type'] = $type;if(empty($check)){
+                    ChurchLeader::create($data);
+                    $user = User::whereId($request['user_id'])->first();
+                    $user->churchtype = 'region';
+                    $user->save();
+                }
+                break;
+            
+            default:
+                break;
+        }
+
     }
 }
