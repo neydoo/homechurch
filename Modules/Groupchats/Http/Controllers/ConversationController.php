@@ -25,7 +25,7 @@ class ConversationController extends BaseApiController {
             'user_id' => current_user()->id,
         ]);
 
-        broadcast(new NewMessage($conversation))->toOthers();
+        // broadcast(new NewMessage($conversation))->toOthers();
 
         return $conversation->load('user');
     }
