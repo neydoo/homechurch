@@ -67095,7 +67095,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_c('h4', [_vm._v(_vm._s(_vm.group.name))])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body chat-panel"
-  }, [_c('ul', {
+  }, [(_vm.user.id) ? _c('ul', {
     directives: [{
       name: "chat-scroll",
       rawName: "v-chat-scroll"
@@ -67136,7 +67136,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('span', {
       staticClass: "pull-left"
     }, [_vm._v(_vm._s(conversation.message))])])])])
-  }), 0), _vm._v(" "), _c('div', {
+  }), 0) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "input-group"
   }, [_c('input', {
     directives: [{

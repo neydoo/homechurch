@@ -5,7 +5,7 @@
                 <h4>{{ group.name }}</h4>
             </div>
             <div class="panel-body chat-panel">
-                <ul class="chat" v-chat-scroll>
+                <ul class="chat" v-chat-scroll v-if="user.id">
                     <li class="left" v-for="conversation in conversations" :key="conversation.id">
                         <div class="chat-body clearfix pad" v-if="conversation.user.id === user.id">
                             <div class="header pull-right col-12">
