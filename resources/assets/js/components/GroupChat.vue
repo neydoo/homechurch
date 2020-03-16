@@ -100,7 +100,8 @@
                 message: '',
                 group_id: this.group.id,
                 typing: false,
-                username: ''
+                username: '',
+                current_user: null,
             }
         },
 
@@ -111,6 +112,7 @@
         created() {
             this.listenForNewMessage();
             this.getMessage();
+            this.current_user = Laravel.user;
             let _this = this;
             Echo.private('groups.' + this.group.id)
                 .listenForWhisper('typing', (e) => {

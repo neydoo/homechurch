@@ -32165,7 +32165,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             message: '',
             group_id: this.group.id,
             typing: false,
-            username: ''
+            username: '',
+            current_user: null
         };
     },
 
@@ -32177,6 +32178,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         this.listenForNewMessage();
         this.getMessage();
+        this.current_user = Laravel.user;
         var _this = this;
         Echo.private('groups.' + this.group.id).listenForWhisper('typing', function (e) {
             _this.username = e.username;
