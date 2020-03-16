@@ -23,7 +23,7 @@ class Conversation extends Base {
 
     public function group()
     {
-        return $this->belongsTo(Groupchat::class);
+        return $this->belongsTo(Groupchat::class,'groupchat_id');
     }
 
 }
