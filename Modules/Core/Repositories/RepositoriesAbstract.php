@@ -201,8 +201,6 @@ abstract class RepositoriesAbstract implements RepositoryInterface
 
         // Query ORDER BY
         $query->order();
-
-        // Get
         $models = $query->get();
 
         return $models;
@@ -220,8 +218,6 @@ abstract class RepositoriesAbstract implements RepositoryInterface
 
         // Query ORDER BY
         $query->order();
-
-        // Get
         $models = $query->get();
 
         return $models;
