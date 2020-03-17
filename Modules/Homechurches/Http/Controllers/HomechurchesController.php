@@ -4,6 +4,7 @@ use Modules\Core\Http\Controllers\BaseAdminController;
 use Modules\Homechurches\Http\Requests\FormRequest;
 use Modules\Homechurches\Repositories\HomechurchInterface as Repository;
 use Modules\Homechurches\Entities\Homechurch;
+use DB;
 
 class HomechurchesController extends BaseAdminController {
 
@@ -23,11 +24,13 @@ class HomechurchesController extends BaseAdminController {
     public function create()
     {
         $module = $this->repository->getTable();
+        $homechurches_users = DB::table('homechurch_user')->get()->pluck('id');
         $form = $this->form(config($module.'.form'), [
             'method' => 'POST',
             'url' => route('admin.'.$module.'.store'),
             'data' => [
-                'churches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church()->pluck('name', 'id')->all() : \Churches::getAll()->pluck('name', 'id')->all()
+                'churches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church()->pluck('name', 'id')->all() : \Churches::getAll()->pluck('name', 'id')->all(),
+                'users' => get_unassigned_members($homechurches_users)
             ]
         ]);
         return view('core::admin.create')
@@ -37,12 +40,14 @@ class HomechurchesController extends BaseAdminController {
     public function edit(Homechurch $model)
     {
         $module = $model->getTable();
+        $homechurches_users = DB::table('homechurch_user')->get()->pluck('id');
         $form = $this->form(config($module.'.form'), [
             'method' => 'PUT',
             'url' => route('admin.'.$module.'.update',$model),
             'model'=>$model,'model'=>$model,
             'data' => [
-                'churches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church()->pluck('name', 'id')->all() : \Churches::getAll()->pluck('name', 'id')->all()
+                'churches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church()->pluck('name', 'id')->all() : \Churches::getAll()->pluck('name', 'id')->all(),
+                'users' => get_unassigned_members($homechurches_users)
             ]
         ])->modify('church_id', 'select', [
             'selected' => $model->church_id
@@ -56,10 +61,11 @@ class HomechurchesController extends BaseAdminController {
         $data = $request->all();
 
         $model = $this->repository->create($data);
+        if(!empty($data['users'])){
+            $users = collect($request->users);
 
-        // $users = collect($request->users);
-
-        // $model->users()->attach($users);
+            $model->users()->attach($users);
+        }
 
         return $this->redirect($request, $model, trans('core::global.new_record'));
     }

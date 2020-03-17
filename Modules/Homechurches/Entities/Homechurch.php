@@ -2,6 +2,7 @@
 
 use Modules\Core\Entities\Base;
 use Modules\Core\Presenters\PresentableTrait;
+use Modules\Users\Entities\Sentinel\User;
 
 class Homechurch extends Base {
 

@@ -212,6 +212,19 @@ if(!function_exists('get_relationship')){
         return $data;
     }
 }
+if(!function_exists('get_unassigned_members')){
+    function get_unassigned_members($users)
+    {
+        return \Modules\Users\Entities\Sentinel\User::whereNotIn('id', $users)->pluck('last_name','id')->all();
+    }
+}
+
+if(!function_exists('get_assigned_members')){
+    function get_assigned_members($users)
+    {
+        return \Modules\Users\Entities\Sentinel\User::whereIn('id', $users)->pluck('name','id')->all();
+    }
+}
 
 if(!function_exists('get_faq_categories')){
     function get_faq_categories()

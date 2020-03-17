@@ -14,6 +14,11 @@ class HomechurchesForm extends Form
                 'choices' => $this->getData('churches'),
                 'empty_value' => '- Select Church -'
             ])
+            ->add('users', 'select', [
+                'label'=>'Users',
+                'choices' => $this->getData('users'),
+                'empty_value' => '- Select Members -'
+            ])
             ->add('name', 'text')
             ->add('description', 'textarea');
     }

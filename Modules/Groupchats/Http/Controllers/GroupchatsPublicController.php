@@ -21,10 +21,11 @@ class GroupchatsPublicController extends BasePublicController {
         $data['description'] = !empty($data['description']) ? $data['description'] : ucwords($data['name']);
         $model = $this->repository->create($data);
 
-        $users = collect($request->users);
-        $users->push(current_user()->id);
+        if(!empty($data['users'])){
+            $users = collect($request->users);
 
-        $model->users()->attach($users);
+            $model->users()->attach($users);
+        }
 
         broadcast(new GroupCreated($model))->toOthers();
 
