@@ -154,8 +154,14 @@
                         {!! form_row($form->church_id) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! form_row($form->status) !!}
+                        {!! form_row($form->homechurch_id) !!}
                     </div>
+                    <div class="col-md-6">
+                        {!! form_row($form->groupchat_id) !!}
+                    </div>
+                    {{--  <div class="col-md-6">
+                        {!! form_row($form->status) !!}
+                    </div>  --}}
                 </div>
             </div>
         @endif
@@ -167,6 +173,27 @@
 @section('page-js')
 <script>
     $(function() {
+        const church_type = "{{ isset($id) ? $model->churchtype : '' }}";
+        const church = "{{ get_current_church($model->id)->churchleaderable_id }}";
+
+        function hideAllExcept(type = ''){
+           (type === 'region') ? $("#region_id").closest('div').show() : $("#region_id").closest('div').hide();
+           (type === 'state') ? $("#state_id").closest('div').show() : $("#state_id").closest('div').hide();
+           (type === 'district') ? $("#district_id").closest('div').show() : $("#district_id").closest('div').hide();
+           (type === 'zone') ? $("#zone_id").closest('div').show() : $("#zone_id").closest('div').hide();
+           (type === 'area') ? $("#area_id").closest('div').show() : $("#area_id").closest('div').hide();
+           (type === 'church') ? $("#church_id").closest('div').show() : $("#church_id").closest('div').hide();
+           (type === 'homechurch') ? $("#homechurch_id").closest('div').show() : $("#homechurch_id").closest('div').hide();
+           (type === 'groupchat') ? $("#groupchat_id").closest('div').show() : $("#groupchat_id").closest('div').hide();
+        }
+        
+        hideAllExcept(church_type);
+        
+        $('#type').on('change', function(){
+            let type = $(this).val()
+            hideAllExcept(type);
+        })
+
         $("#country_id").change(function(){
             var country_id = $(this).val();
             $.ajax({

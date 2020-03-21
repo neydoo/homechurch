@@ -35,7 +35,9 @@ class UsersController extends BaseUsersController
                 'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
                 'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
                 'areas' => \Areas::getAll()->pluck('name', 'id')->all(),
-                'churches' => \Churches::getAll()->pluck('name', 'id')->all()
+                'churches' => \Churches::getAll()->pluck('name', 'id')->all(),
+                'homechurches' => \Homechurches::getAll()->pluck('name', 'id')->all(),
+                'groupchats' => \Groupchats::getAll()->pluck('name', 'id')->all()
             ]
         ]);
         $roles = $this->role->all();
@@ -57,19 +59,13 @@ class UsersController extends BaseUsersController
                     'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
                     'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
                     'areas' => \Areas::getAll()->pluck('name', 'id')->all(),
-                    'churches' => \Churches::getAll()->pluck('name', 'id')->all()
+                    'churches' => \Churches::getAll()->pluck('name', 'id')->all(),
+                    'homechurches' => \Homechurches::getAll()->pluck('name', 'id')->all(),
+                    'groupchats' => \Groupchats::getAll()->pluck('name', 'id')->all()
                 ]
-            ])->modify('country_id', 'select', [
-                'selected' => $model->country_id
-            ])->modify('region_id', 'select', [
-                'selected' => $model->region_id
-            ])->modify('state_id', 'select', [
-                'selected' => $model->state_id
-            ])->modify('district_id', 'select', [
-                'selected' => $model->district_id
-            ])->modify('zone_id', 'select', [
-                'selected' => $model->zone_id
-        ]);
+            ])->modify('type', 'select', [
+                'selected' => $model->churchtype
+            ]);
         $roles = $this->role->all();
         $currentUser = $this->auth->check();
         return view('core::admin.edit')

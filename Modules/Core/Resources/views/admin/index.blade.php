@@ -9,12 +9,15 @@
 @section('page-js')
 <script src="{{asset('assets/admin/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
     <script>
+        const type = "{{ current_user()->churchtype }}";
+        const second = {!! json_encode(config($module.'.second_columns')) !!};
+        const column = (type && second) ? {!! json_encode(config($module.'.second_columns')) !!} : {!! json_encode(config($module.'.columns')) !!}
         $(function() {
             $('#data-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{{route('admin.'.$module.'.datatable')}}',
-                columns: {!! json_encode(config($module.'.columns')) !!},
+                columns: column,
                 drawCallback:function(){
                     $(".delete-me").click(function () {
                         if(confirm($(this).attr('data-confirm'))){

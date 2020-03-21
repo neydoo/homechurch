@@ -90,18 +90,28 @@ class UsersForm extends Form
                 'choices' => [
                     'groupchat' => 'Group Chats',
                     'homechurch' => 'Home Cells',
-                    'local' => 'Local',
-                    'area' => 'Area',
-                    'zone' => 'Zone',
-                    'district' => 'District',
-                    'state' => 'State',
-                    'region' => 'Region'
+                    'church' => 'Local Church',
+                    'area' => 'Area Church',
+                    'zone' => 'Zonal Church',
+                    'district' => 'District Church',
+                    'state' => 'State Church',
+                    'region' => 'Region Church'
                 ],
                 'attr'=>[
                     'class'=>'form-control required',
                     // 'required'=>'required'
                 ],
                 'empty_value' => '- Select Type -'
+            ])
+            ->add('homechurch_id', 'select', [
+                'label'=>'Home Cell',
+                'choices' => $this->getData('homechurches'),
+                'empty_value' => '- Select Homecell -'
+            ])
+            ->add('groupchat_id', 'select', [
+                'label'=>'Online Chat',
+                'choices' => $this->getData('groupchats'),
+                'empty_value' => '- Select Onlinechat -'
             ])
             ->add('church_id', 'select', [
                 'label'=>'Local Church',

@@ -11,8 +11,17 @@ class EloquentHomechurch extends RepositoriesAbstract implements HomechurchInter
         $this->model = $model;
     }
 
+    public function getAll()
+    {
+        return $this->model
+            ->where('id','!=', '')->get();
+    }
+
     public function getForDataTable()
     {
+        if(current_user()->churchtype == 'homechurch'){
+            return  getDataTabeleQuery($this->model)->get();
+        }
         $query = getDataTabeleQuery($this->model)
             ->join('churches', 'churches.id', '=', 'homechurches.church_id')
             ->join('countries', 'countries.id', '=', 'churches.country_id')

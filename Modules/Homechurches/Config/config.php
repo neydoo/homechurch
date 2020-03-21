@@ -10,6 +10,7 @@ return [
 		'icon' => 'fa fa-file',
 	],
 	'th' => ['name','country','region','state','district','zone','area','church'],
+	'hth' => ['name'],
 	'columns'=>[
             ['data'=>'name','name'=>'name'],
 			['data'=>'country_id','name'=>'country_id', 'search' => false],
@@ -20,7 +21,11 @@ return [
 			['data'=>'area_id','name'=>'area_id'],
 			['data'=>'church_id','name'=>'church_id'],
             ['data'=>'action','name'=>'action'],
-    ],
+	],
+	'second_columns'=>[
+		['data'=>'name','name'=>'name'],
+		['data'=>'action','name'=>'action'],
+	],
 	'form'=>'Homechurches\Forms\HomechurchesForm',
 	'permissions'=>[
 		'homechurches' => [

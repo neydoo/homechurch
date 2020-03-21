@@ -11,6 +11,13 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
         $this->model = $model;
     }
 
+    public function getAll()
+    {
+        return $this->model
+            ->where('id','!=', '')->get();
+
+    }
+
     public function getForDataTable()
     {
         $query = getDataTabeleQuery($this->model)
