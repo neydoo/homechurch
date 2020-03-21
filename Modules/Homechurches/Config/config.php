@@ -10,7 +10,6 @@ return [
 		'icon' => 'fa fa-file',
 	],
 	'th' => ['name','country','region','state','district','zone','area','church'],
-	'hth' => ['name'],
 	'columns'=>[
             ['data'=>'name','name'=>'name'],
 			['data'=>'country_id','name'=>'country_id', 'search' => false],
@@ -22,6 +21,7 @@ return [
 			['data'=>'church_id','name'=>'church_id'],
             ['data'=>'action','name'=>'action'],
 	],
+	'hth' => ['name'],
 	'second_columns'=>[
 		['data'=>'name','name'=>'name'],
 		['data'=>'action','name'=>'action'],

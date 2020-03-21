@@ -30,7 +30,8 @@ class OfferingController extends BaseAdminController {
             'method' => 'POST',
             'url' => route('admin.'.$module.'.store'),
             'data' => [
-                'homechurches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_homechurch()->pluck('name', 'id')->all() : \Homechurches::all([],true)->pluck('name', 'id')->all()
+                'homechurches' => (current_user()->hasChurch(current_user()['churchtype']) && !empty(pluck_user_homechurch())) ? pluck_user_homechurch()->pluck('name', 'id')->all() : \Homechurches::all([],true)->pluck('name', 'id')->all(),
+                'groupchats' => (current_user()->hasChurch(current_user()['churchtype']) && !empty(pluck_user_groupchats())) ? pluck_user_groupchats()->pluck('name', 'id')->all() : \Groupchats::all([],true)->pluck('name', 'id')->all()
             ]
         ]);
         return view('core::admin.create')
@@ -45,10 +46,13 @@ class OfferingController extends BaseAdminController {
             'url' => route('admin.'.$module.'.update',$model),
             'model'=>$model,
             'data' => [
-                'homechurches' => (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_homechurch()->pluck('name', 'id')->all() : \Homechurches::all([],true)->pluck('name', 'id')->all()
+                'homechurches' => (current_user()->hasChurch(current_user()['churchtype'])&& !empty(pluck_user_homechurch())) ? pluck_user_homechurch()->pluck('name', 'id')->all() : \Homechurches::all([],true)->pluck('name', 'id')->all(),
+                'groupchats' => (current_user()->hasChurch(current_user()['churchtype']) && !empty(pluck_user_groupchats())) ? pluck_user_groupchats()->pluck('name', 'id')->all() : \Groupchats::all([],true)->pluck('name', 'id')->all()
             ]
         ])->modify('homechurch_id', 'select', [
             'selected' => $model->homechurch_id
+        ])->modify('groupchat_id', 'select', [
+            'selected' => $model->groupchat_id
         ]);
         return view('core::admin.edit')
             ->with(compact('model','module','form'));
@@ -57,7 +61,8 @@ class OfferingController extends BaseAdminController {
     public function store(FormRequest $request)
     {
         $data = $request->all();
-
+        $data['amount'] = $data['cash'] + $data['pos'] + $data['cheques'];
+        $data['user_id'] = current_user()->id;
         $model = $this->repository->create($data);
 
         return $this->redirect($request, $model, trans('core::global.new_record'));

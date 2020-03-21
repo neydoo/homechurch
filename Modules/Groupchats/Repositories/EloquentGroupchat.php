@@ -20,6 +20,9 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
 
     public function getForDataTable()
     {
+        if(current_user()->churchtype == 'groupchat'){
+            return  getDataTabeleQuery($this->model)->get();
+        }
         $query = getDataTabeleQuery($this->model)
             ->join('churches', 'churches.id', '=', 'groupchats.church_id')
             ->join('countries', 'countries.id', '=', 'churches.country_id')

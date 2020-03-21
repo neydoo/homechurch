@@ -21,11 +21,13 @@ class EloquentOffering extends RepositoriesAbstract implements OfferingInterface
     {
         $query = $this->model
             ->join('homechurches', 'homechurches.id', '=', 'offering.homechurch_id')
+            ->join('groupchats', 'groupchats.id', '=', 'offering.groupchat_id')
             ->select([
                 'offering.id as id',
                 'offering.amount as amount',
                 'offering.date as date',
-                'homechurches.name as homechurch_id',
+                'homechurches.name as church_id',
+                // 'groupchats.name as church_id',
             ]);
 
         return $query;

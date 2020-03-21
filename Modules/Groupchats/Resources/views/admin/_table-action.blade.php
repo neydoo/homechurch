@@ -7,3 +7,6 @@
 @if(has_access('groupchats.destroy'))
     {!! delete_btn(route('admin.groupchats.destroy',$id)) !!}
 @endif
+@if(has_access('offering.index'))
+    {!! view_btn(route('admin.offering.index'),'view') !!}
+@endif

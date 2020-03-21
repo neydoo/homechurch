@@ -28,4 +28,9 @@ class Homechurch extends Base {
         }
     }
 
+    public function offering()
+    {
+        return $this->morphMany('Modules\Offering\Entities\Offering', 'Offeringable');
+    }
+
 }

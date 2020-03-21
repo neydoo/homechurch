@@ -15,7 +15,13 @@ return [
 			['data'=>'description','name'=>'description'],
             ['data'=>'status','name'=>'status'],
             ['data'=>'action','name'=>'action'],
-     ],
+	 ],
+	 
+	'hth' => ['name'],
+	'second_columns'=>[
+		['data'=>'name','name'=>'name'],
+		['data'=>'action','name'=>'action'],
+	],
 	'form'=>'Groupchats\Forms\GroupchatsForm',
 	'permissions'=>[
 		'groupchats' => [

@@ -9,9 +9,9 @@ return [
 		'weight' => 2,
 		'icon' => 'fa fa-money',
 	],
-	'th' => ['Home Cell','amount', "date","week"],
+	'th' => ['Cell','amount', "date","week"],
 	'columns'=>[
-            ['data'=>'homechurch_id','name'=>'homechurch_id'],
+            ['data'=>'church_id','name'=>'church_id'],
             ['data'=>'amount','name'=>'amount'],
 			['data'=>'date','name'=>'date'],
 			['data'=>'week','name'=>'week'],

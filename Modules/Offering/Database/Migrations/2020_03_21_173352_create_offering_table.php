@@ -15,8 +15,13 @@ class CreateOfferingTable extends Migration
     {
         Schema::create('offering', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('homechurch_id');
-            $table->double('amount',2);
+            $table->bigInteger('user_id');
+            $table->double('amount')->nullable();
+            $table->double('cash')->nullable();
+            $table->double('pos')->nullable();
+            $table->double('cheques')->nullable();
+            $table->bigInteger('homechurch_id')->nullable();
+            $table->bigInteger('groupchat_id')->nullable();
             $table->timestamp('date');
             $table->timestamps();
         });

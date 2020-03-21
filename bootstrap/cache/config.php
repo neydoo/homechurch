@@ -1810,7 +1810,7 @@
     ),
     'th' => 
     array (
-      0 => 'Home Cell',
+      0 => 'Cell',
       1 => 'amount',
       2 => 'date',
       3 => 'week',
@@ -1819,8 +1819,8 @@
     array (
       0 => 
       array (
-        'data' => 'homechurch_id',
-        'name' => 'homechurch_id',
+        'data' => 'church_id',
+        'name' => 'church_id',
       ),
       1 => 
       array (
@@ -1929,10 +1929,6 @@
       6 => 'area',
       7 => 'church',
     ),
-    'hth' => 
-    array (
-      0 => 'name',
-    ),
     'columns' => 
     array (
       0 => 
@@ -1981,6 +1977,10 @@
         'data' => 'action',
         'name' => 'action',
       ),
+    ),
+    'hth' => 
+    array (
+      0 => 'name',
     ),
     'second_columns' => 
     array (
@@ -2124,6 +2124,23 @@
         'name' => 'status',
       ),
       3 => 
+      array (
+        'data' => 'action',
+        'name' => 'action',
+      ),
+    ),
+    'hth' => 
+    array (
+      0 => 'name',
+    ),
+    'second_columns' => 
+    array (
+      0 => 
+      array (
+        'data' => 'name',
+        'name' => 'name',
+      ),
+      1 => 
       array (
         'data' => 'action',
         'name' => 'action',
