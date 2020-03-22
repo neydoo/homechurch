@@ -77,6 +77,8 @@ class OfferingController extends BaseAdminController {
         $data = $request->all();
         $data['amount'] = $data['cash'] + $data['pos'] + $data['cheques'];
         $data['user_id'] = current_user()->id;
+        $data['cell_id'] = !empty($data['homechurch_id']) ? $data['homechurch_id'] : $data['groupchat_id'];
+        $data['type'] = !empty($data['homechurch_id']) ? 'home' : 'online';
         $model = $this->repository->create($data);
 
         return $this->redirect($request, $model, trans('core::global.new_record'));

@@ -9,7 +9,7 @@ class Offering extends Base {
 
     protected $presenter = 'Modules\Offering\Presenters\ModulePresenter';
 
-    protected $guarded = ['_token','exit','type'];
+    protected $guarded = ['_token','exit','homechurch_id','groupchat_id'];
 
     public $attachments = ['image'];
 
