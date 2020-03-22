@@ -175,7 +175,7 @@
 <script>
     $(function() {
         const church_type = "{{ isset($id) ? $model->churchtype : '' }}";
-        const church = "{{ get_current_church($model->id)->churchleaderable_id }}";
+        const church = "{{ !empty(get_current_church($model->id)) ? get_current_church($model->id)->churchleaderable_id : '' }}";
         
         hideAllExcept(church_type);
         
