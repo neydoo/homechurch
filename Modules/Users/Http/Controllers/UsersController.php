@@ -23,37 +23,14 @@ class UsersController extends BaseUsersController
     }
 
     public function create($parent = null)
-    {
-        $model = $this->repository->getModel();
-        $module = $model->getTable();
-        $form = $this->form(config($module . '.form'), [
-            'method' => 'POST',
-            'url' => route('admin.' . $module . '.store'),
-            'data' => [
-                'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
-                'states' => \States::getAll()->pluck('name', 'id')->all(),
-                'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
-                'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
-                'areas' => \Areas::getAll()->pluck('name', 'id')->all(),
-                'churches' => \Churches::getAll()->pluck('name', 'id')->all(),
-                'homechurches' => \Homechurches::getAll()->pluck('name', 'id')->all(),
-                'groupchats' => \Groupchats::getAll()->pluck('name', 'id')->all()
-            ]
-        ]);
-        $roles = $this->role->all();
-        return view('core::admin.create')
-            ->with(compact('model', 'module', 'form', 'roles'));
-    }
-
-    public function edit($id)
-    {
-        $model = $this->repository->find($id);
-        $module = 'users';
-        $form = $this->form(config($module . '.form'), [
-            'method' => 'PUT',
-            'url' => route('admin.' . $module . '.update', $model),
-            'model' => $model,
-            'data' => [
+    {   
+        try {
+            $model = $this->repository->getModel();
+            $module = $model->getTable();
+            $form = $this->form(config($module . '.form'), [
+                'method' => 'POST',
+                'url' => route('admin.' . $module . '.store'),
+                'data' => [
                     'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
                     'states' => \States::getAll()->pluck('name', 'id')->all(),
                     'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
@@ -63,13 +40,45 @@ class UsersController extends BaseUsersController
                     'homechurches' => \Homechurches::getAll()->pluck('name', 'id')->all(),
                     'groupchats' => \Groupchats::getAll()->pluck('name', 'id')->all()
                 ]
-            ])->modify('type', 'select', [
-                'selected' => $model->churchtype
             ]);
-        $roles = $this->role->all();
-        $currentUser = $this->auth->check();
-        return view('core::admin.edit')
+            $roles = $this->role->all();
+            return view('core::admin.create')
+                ->with(compact('model', 'module', 'form', 'roles'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $model = $this->repository->find($id);
+            $module = 'users';
+            $form = $this->form(config($module . '.form'), [
+                'method' => 'PUT',
+                'url' => route('admin.' . $module . '.update', $model),
+                'model' => $model,
+                'data' => [
+                        'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
+                        'states' => \States::getAll()->pluck('name', 'id')->all(),
+                        'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
+                        'zones' => \Zones::getAll()->pluck('name', 'id')->all(),
+                        'areas' => \Areas::getAll()->pluck('name', 'id')->all(),
+                        'churches' => \Churches::getAll()->pluck('name', 'id')->all(),
+                        'homechurches' => \Homechurches::getAll()->pluck('name', 'id')->all(),
+                        'groupchats' => \Groupchats::getAll()->pluck('name', 'id')->all()
+                    ]
+                ])->modify('type', 'select', [
+                    'selected' => $model->churchtype
+                ]);
+            $roles = $this->role->all();
+            $currentUser = $this->auth->check();
+            return view('core::admin.edit')
             ->with(compact('model', 'module', 'form', 'id', 'roles', 'currentUser'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+        
     }
 
     public function store(FormRequest $request)

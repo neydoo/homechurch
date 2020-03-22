@@ -37,14 +37,6 @@ class OfferingController extends BaseAdminController {
             ->with(compact('title', 'module','models'));
     }
 
-    // public function ajaxPagination(Request $request)
-    // {
-    //     $models = $this->repository->make(['user','homechurch','groupchat'])->paginate(10);
-    //     if ($request->ajax()) {
-    //         return view('offering::admin._list', compact('models'));
-    //     }
-    // }
-
     public function create()
     {
         $module = $this->repository->getTable();
