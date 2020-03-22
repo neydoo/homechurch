@@ -28,13 +28,13 @@ class OfferingForm extends Form
                 'empty_value' => '- Select Online church -'
             ])
             ->add('cash', 'text',[
-                'value' => 0,
+                // 'value' => 0,
             ])
             ->add('pos', 'text',[
-                'value' => 0,
+                // 'value' => 0,
             ])
             ->add('cheques', 'text',[
-                'value' => 0,
+                // 'value' => 0,
             ])
             ->add('date', 'date');
     }

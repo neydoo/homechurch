@@ -5,6 +5,7 @@ use Modules\Offering\Http\Requests\FormRequest;
 use Modules\Offering\Repositories\OfferingInterface as Repository;
 use Modules\Offering\Entities\Offering;
 use Yajra\Datatables\Datatables;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DateTime;
 
@@ -19,9 +20,30 @@ class OfferingController extends BaseAdminController {
     {
         $module = $this->repository->getTable();
         $title = trans($module . '::global.group_name');
-        return view('core::admin.index')
-            ->with(compact('title', 'module'));
+        if(request('search')){
+            $search = \request('search');
+            $models = $this->repository->make(['user','homechurch','groupchat'])
+            ->join('homechurches', function ($join) use ($search){
+                $join->on('homechurches.id', '=', 'offering.cell_id')
+                    ->where('homechurches.name','LIKE', '%' .$search . '%');
+            })->paginate(1);
+        }else{
+            $models = $this->repository->make(['user','homechurch','groupchat'])->paginate(1);
+        }
+        if (request()->ajax()) {
+            return view('offering::admin._list', compact('models'));
+        }
+        return view('offering::admin.index')
+            ->with(compact('title', 'module','models'));
     }
+
+    // public function ajaxPagination(Request $request)
+    // {
+    //     $models = $this->repository->make(['user','homechurch','groupchat'])->paginate(10);
+    //     if ($request->ajax()) {
+    //         return view('offering::admin._list', compact('models'));
+    //     }
+    // }
 
     public function create()
     {

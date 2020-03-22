@@ -17,20 +17,21 @@ class EloquentOffering extends RepositoriesAbstract implements OfferingInterface
 
     }
 
-    public function getForDataTable()
-    {
-        $query = $this->model
-            ->join('homechurches', 'homechurches.id', '=', 'offering.homechurch_id')
-            ->join('groupchats', 'groupchats.id', '=', 'offering.groupchat_id')
-            ->select([
-                'offering.id as id',
-                'offering.amount as amount',
-                'offering.date as date',
-                'homechurches.name as church_id',
-                // 'groupchats.name as church_id',
-            ]);
+    // public function getForDataTable()
+    // {
+    //     // $query = $this->model
+    //     //     // ->join('offering.offeringable_table', 'offering.offeringable_table.id', '=', 'offering.offeringable_id')
+    //     //     ->join('homechurches', 'homechurches.id', '=', 'homechurches.groupchat_id')
+    //     //     ->join('groupchats', 'groupchats.id', '=', 'offering.groupchat_id')
+    //     //     ->select([
+    //     //         'offering.id as id',
+    //     //         'offering.amount as amount',
+    //     //         'offering.date as date',
+    //     //         'homechurches.name as church_id',
+    //     //         // 'groupchats.name as church_id',
+    //     //     ]);
 
-        return $query;
-    }
+    //     // return $query;
+    // }
 
 }

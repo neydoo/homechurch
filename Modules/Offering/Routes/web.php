@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.offering.destroy',
             'uses' => 'OfferingController@destroy'
         ]);
-        Route::post('/print', [
+        Route::post('print', [
             'as' => 'admin.offering.print',
             'uses' => 'OfferingController@destroy'
         ]);

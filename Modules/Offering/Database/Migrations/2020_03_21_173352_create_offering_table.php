@@ -20,8 +20,8 @@ class CreateOfferingTable extends Migration
             $table->double('cash')->nullable();
             $table->double('pos')->nullable();
             $table->double('cheques')->nullable();
-            $table->bigInteger('homechurch_id')->nullable();
-            $table->bigInteger('groupchat_id')->nullable();
+            $table->bigInteger('cell_id')->nullable();
+            $table->string('type')->nullable();
             $table->timestamp('date');
             $table->timestamps();
         });

@@ -24,4 +24,14 @@ class Offering extends Base {
     {
         return $this->belongsTo(config('auth.providers.users.model'));
     }
+
+    public function homechurch()
+    {
+        return $this->belongsTo('Modules\Homechurches\Entities\Homechurch','cell_id');
+    }
+
+    public function groupchat()
+    {
+        return $this->belongsTo('Modules\Groupchats\Entities\Groupchat','cell_id');
+    }
 }

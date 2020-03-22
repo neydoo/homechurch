@@ -67,6 +67,36 @@ if(!function_exists('getDataTabeleQuery')){
     }
 }
 
+if(!function_exists('getOfferingDataTabeleQuery')){
+    function getOfferingDataTabeleQuery($repo){
+        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $model = $repo->make(['user','homechurch','groupchat']);
+        if(!empty($churchtype)){
+            if(current_user()->hasChurch('groupchat')){
+                return $query = $model->whereId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('homechurch')){
+                return $query = $model->whereId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('church')){
+                return $query = ($model->getTable() == 'churches') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereChurchId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('area')){
+                return $query = ($model->getTable() == 'areas') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereAreaId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('zone')){
+                return $query = ($model->getTable() == 'zones') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereZoneId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('district')){
+                return $query = ($model->getTable() == 'districts') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereDistrictId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('state')){
+                return $query = ($model->getTable() == 'states') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereStateId(get_current_church()->churchleaderable_id);
+            }elseif(current_user()->hasChurch('region')){
+                $query = ($model->getTable() == 'regions') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereRegionId(get_current_church()->churchleaderable_id);
+            }else{
+                return $query = $repo;
+            }
+        }else{
+            return $query = $repo;
+        }
+    }
+}
+
 if(!function_exists('pluck_user_church'))
 {
     function pluck_user_church()
