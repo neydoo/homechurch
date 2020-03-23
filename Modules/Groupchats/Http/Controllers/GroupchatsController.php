@@ -31,22 +31,24 @@ class GroupchatsController extends BaseAdminController {
     {
         $module = $this->repository->getTable();
         $groups = current_user()->groupchats;
-        $groups_users = DB::table('groupchat_user')->get()->pluck('id');
+        $all_groups = DB::table('groupchats')->get();
+        $groups_users = DB::table('groupchat_user')->pluck('id');
         $users = User::whereNotIn('id', $groups_users)->get();
         $churches = (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church() : $this->church->all([],true);
         return view('core::admin.create')
-            ->with(compact('module','users','groups','churches'));
+            ->with(compact('module','users','groups','churches','all_groups'));
     }
 
     public function edit(Groupchat $model)
     {
         $module = $model->getTable();
         $groups = current_user()->groupchats;
-        $groups_users = DB::table('groupchat_user')->get()->pluck('id');
+        $all_groups = DB::table('groupchats')->get();
+        $groups_users = DB::table('groupchat_user')->pluck('id');
         $users = User::whereNotIn('id', $groups_users)->get();
         $churches = (current_user()->hasChurch(current_user()['churchtype']) == true) ? pluck_user_church() : $this->church->all([],true);
         return view('core::admin.edit')
-            ->with(compact('module','users','groups','churches','model'));
+            ->with(compact('module','users','groups','churches','all_groups','model'));
     }
 
     public function store(FormRequest $request)

@@ -17,6 +17,7 @@ class CreateRegionsTable extends Migration
             $table->increments('id');
             $table->integer('country_id')->default(160);
             $table->string('name');
+            $table->string('code');
             $table->timestamps();
         });
     }

@@ -19,9 +19,19 @@ class GroupchatsPublicController extends BasePublicController {
     {
         $data = $request->all();
         $data['description'] = !empty($data['description']) ? $data['description'] : ucwords($data['name']);
+        $data = get_relationship($data);
         $model = $this->repository->create($data);
+        $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
+        (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
+        (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
+        (($data['area_id'] < 10) ? '0'.$data['area_id'] : $data['area_id']).
+        (($data['church_id'] < 10) ? '0'.$data['church_id'] : $data['church_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
+        $model->save();
 
-        if(!empty($data['users'])){
+        if(!empty($data['users'])  && !empty($data['users'][0])){
             $users = collect($request->users);
 
             $model->users()->attach($users);

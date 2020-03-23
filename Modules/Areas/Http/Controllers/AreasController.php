@@ -82,6 +82,13 @@ class AreasController extends BaseAdminController {
         $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'];
 
         $model = $this->repository->create($data);
+        $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
+        (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
+        (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
+        $model->save();
 
         return $this->redirect($request, $model, trans('core::global.new_record'));
     }
@@ -92,7 +99,12 @@ class AreasController extends BaseAdminController {
 
         $data['id'] = $model->id;
         $data = get_relationship($data);
-        $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'].$data['zone_id'];
+        $data['code'] = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
+        (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
+        (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
 
         $model = $this->repository->update($data);
 

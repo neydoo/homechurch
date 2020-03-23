@@ -12,7 +12,7 @@
     </a>
 @stop
 <div id="app">
-    <create-group :initial-users="{{ $users }}" :churches="{{ $churches }}" :groups="{{ $groups }}"></create-group>
+    <create-group :initial-users="{{ $users }}" :churches="{{ $churches }}" :groups="{{ $all_groups }}"></create-group>
     <hr/>
     <div class="row">
         <div class="col-sm-6">

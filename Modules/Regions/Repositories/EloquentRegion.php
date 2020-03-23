@@ -26,6 +26,7 @@ class EloquentRegion extends RepositoriesAbstract implements RegionInterface
             ->select([
                 'regions.id as id',
                 'regions.name as name',
+                'regions.code as code',
                 'country.name as country_id',
             ]);
 

@@ -59,9 +59,19 @@ class HomechurchesController extends BaseAdminController {
     public function store(FormRequest $request)
     {
         $data = $request->all();
-
+        $data = get_relationship($data);
+        // $data['user_id'] = current_user()->id;
         $model = $this->repository->create($data);
-        if(!empty($data['users'])){
+        $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
+        (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
+        (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
+        (($data['area_id'] < 10) ? '0'.$data['area_id'] : $data['area_id']).
+        (($data['church_id'] < 10) ? '0'.$data['church_id'] : $data['church_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
+        $model->save();
+        if(!empty($data['users']) && !empty($data['users'][0])){
             $users = collect($request->users);
 
             $model->users()->attach($users);
@@ -75,8 +85,22 @@ class HomechurchesController extends BaseAdminController {
         $data = $request->all();
 
         $data['id'] = $model->id;
+        $data = get_relationship($data);
+        $data['code'] = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
+        (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
+        (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
+        (($data['area_id'] < 10) ? '0'.$data['area_id'] : $data['area_id']).
+        (($data['church_id'] < 10) ? '0'.$data['church_id'] : $data['church_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
 
         $model = $this->repository->update($data);
+        if(!empty($data['users'])){
+            $users = collect($request->users);
+
+            $model->users()->attach($users);
+        }
 
         return $this->redirect($request, $model, trans('core::global.update_record'));
     }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 use Modules\Users\Entities\ChurchLeader;
 use Modules\Users\Entities\Sentinel\User;
+use Modules\Churches\Entities\Church;
 use Modules\Areas\Entities\Area;
 use Modules\Zones\Entities\Zone;
 use Modules\Districts\Entities\District;
@@ -320,6 +321,15 @@ if(!function_exists('get_categories')){
 if(!function_exists('get_relationship')){
     function get_relationship($data)
     {
+        if(!empty($data['church_id'])){
+            $res = Church::whereId($data['church_id'])->first();
+            $data['country_id'] = $res->country_id;
+            $data['region_id'] = $res->region_id;
+            $data['state_id'] = $res->state_id;
+            $data['district_id'] = $res->district_id;
+            $data['zone_id'] = $res->zone_id;
+            $data['area_id'] = $res->area_id;
+        }
         if(!empty($data['area_id'])){
             $res = Area::whereId($data['area_id'])->first();
             $data['country_id'] = $res->country_id;

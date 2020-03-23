@@ -26,6 +26,7 @@ class EloquentState extends RepositoriesAbstract implements StateInterface
             ->select([
                 'states.id as id',
                 'states.name as name',
+                'states.code as code',
                 'countries.name as country_id',
                 'regions.name as region_id',
             ]);

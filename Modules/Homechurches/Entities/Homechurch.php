@@ -10,7 +10,7 @@ class Homechurch extends Base {
 
     protected $presenter = 'Modules\Homechurches\Presenters\ModulePresenter';
 
-    protected $guarded = ['_token','exit'];
+    protected $guarded = ['_token','exit','users'];
 
     public $attachments = ['image'];
 

@@ -25,15 +25,16 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
         }
         $query = getDataTabeleQuery($this->model)
             ->join('churches', 'churches.id', '=', 'groupchats.church_id')
-            ->join('countries', 'countries.id', '=', 'churches.country_id')
-            ->join('regions', 'regions.id', '=', 'churches.region_id')
-            ->join('states', 'states.id', '=', 'churches.state_id')
-            ->join('districts', 'districts.id', '=', 'churches.district_id')
-            ->join('zones', 'zones.id', '=', 'churches.zone_id')
-            ->join('areas', 'areas.id', '=', 'churches.area_id')
+            ->join('countries', 'countries.id', '=', 'groupchats.country_id')
+            ->join('regions', 'regions.id', '=', 'groupchats.region_id')
+            ->join('states', 'states.id', '=', 'groupchats.state_id')
+            ->join('districts', 'districts.id', '=', 'groupchats.district_id')
+            ->join('zones', 'zones.id', '=', 'groupchats.zone_id')
+            ->join('areas', 'areas.id', '=', 'groupchats.area_id')
             ->select([
                 'groupchats.id as id',
                 'groupchats.name as name',
+                'groupchats.code as code',
                 'groupchats.description as description',
                 'groupchats.status as status',
                 'states.name as state_id',

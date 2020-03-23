@@ -66,8 +66,12 @@ class StatesController extends BaseAdminController {
     public function store(FormRequest $request)
     {
         $data = $request->all();
-
+        $data = get_relationship($data);
         $model = $this->repository->create($data);
+        $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
+        $model->save();
 
         return $this->redirect($request, $model, trans('core::global.new_record'));
     }
@@ -75,9 +79,11 @@ class StatesController extends BaseAdminController {
     public function update(State $model,FormRequest $request)
     {
         $data = $request->all();
-
+        $data = get_relationship($data);
         $data['id'] = $model->id;
-
+        $data['code'] = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+        (($model->id < 10) ? '0'.$model->id : $model->id);
         $model = $this->repository->update($data);
 
         return $this->redirect($request, $model, trans('core::global.update_record'));

@@ -17,7 +17,12 @@ class HomechurchesForm extends Form
             ->add('users', 'select', [
                 'label'=>'Users',
                 'choices' => $this->getData('users'),
-                'empty_value' => '- Select Members -'
+                'empty_value' => '- Select Members -',
+                'multiple'=>true,
+                'attr'=>[
+                    'class'=>'form-control',
+                    'multiple'=> true
+                ]
             ])
             ->add('name', 'text')
             ->add('description', 'textarea');

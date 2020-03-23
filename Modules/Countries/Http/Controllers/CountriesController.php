@@ -48,6 +48,8 @@ class CountriesController extends BaseAdminController {
         $data = $request->all();
 
         $model = $this->repository->create($data);
+        $model->code = ($model->id < 10) ? '0'.$model->id : $model->id;
+        $model->save();
 
         return $this->redirect($request, $model, trans('core::global.new_record'));
     }
@@ -57,7 +59,7 @@ class CountriesController extends BaseAdminController {
         $data = $request->all();
 
         $data['id'] = $model->id;
-
+        $data['code'] = ($model->id < 10) ? '0'.$model->id : $model->id;
         $model = $this->repository->update($data);
 
         return $this->redirect($request, $model, trans('core::global.update_record'));
