@@ -69,32 +69,62 @@ if(!function_exists('getDataTabeleQuery')){
 }
 
 if(!function_exists('getOfferingDataTabeleQuery')){
-    function getOfferingDataTabeleQuery($repo){
+    function getOfferingDataTabeleQuery($model){
         $churchtype = !empty(get_current_church()) ? get_current_church() : '';
-        $model = $repo->make(['user','homechurch','groupchat']);
-        if(!empty($churchtype)){
-            if(current_user()->hasChurch('groupchat')){
-                return $query = $model->whereId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('homechurch')){
-                return $query = $model->whereId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('church')){
-                return $query = ($model->getTable() == 'churches') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereChurchId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('area')){
-                return $query = ($model->getTable() == 'areas') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereAreaId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('zone')){
-                return $query = ($model->getTable() == 'zones') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereZoneId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('district')){
-                return $query = ($model->getTable() == 'districts') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereDistrictId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('state')){
-                return $query = ($model->getTable() == 'states') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereStateId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('region')){
-                $query = ($model->getTable() == 'regions') ? $model->whereId(get_current_church()->churchleaderable_id) : $model->whereRegionId(get_current_church()->churchleaderable_id);
-            }else{
-                return $query = $repo;
-            }
-        }else{
-            return $query = $repo;
+        if(empty($churchtype)) {
+            return $model;
         }
+        $type = $churchtype['type'];
+        switch ($type) {
+            case 'homechurch':
+                $home = \Homechurches::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
+                return $model->whereIn('homechurch_id', $home);
+                break;
+            case 'groupchat':
+                $group = \Groupchats::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
+                return $model->whereIn('group_id', $group);
+                break;
+            case'church':
+                $church = \Churches::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
+                $home = \Homechurches::allByIn('church_id',$church);
+                $group = \Groupchats::allByIn('church_id',$church);
+                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                break;
+            case 'area':
+                $church = \Churches::allBy('area_id',get_current_church()->churchleaderable_id)->pluck('id');
+                $home = \Homechurches::allByIn('church_id',$church);
+                $group = \Groupchats::allByIn('church_id',$church);
+                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                break;
+            case 'zone':
+                $church = \Churches::allBy('zone_id',get_current_church()->churchleaderable_id)->pluck('id');
+                $home = \Homechurches::allByIn('church_id',$church);
+                $group = \Groupchats::allByIn('church_id',$church);
+                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                break;
+            case 'district':
+                $church = \Churches::allBy('district_id',get_current_church()->churchleaderable_id)->pluck('id');
+                $home = \Homechurches::allByIn('church_id',$church);
+                $group = \Groupchats::allByIn('church_id',$church);
+                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                break;
+            case 'state':
+                $church = \Churches::allBy('state_id',get_current_church()->churchleaderable_id)->pluck('id');
+                $home = \Homechurches::allByIn('church_id',$church);
+                $group = \Groupchats::allByIn('church_id',$church);
+                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                break;
+            case    'region':
+                $church = \Churches::allBy('region_id',get_current_church()->churchleaderable_id)->pluck('id');
+                $home = \Homechurches::allByIn('church_id',$church);
+                $group = \Groupchats::allByIn('church_id',$church);
+                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                break;
+            default:
+                return $model;
+                break;
+        }
+        
     }
 }
 
@@ -103,25 +133,32 @@ if(!function_exists('pluck_user_church'))
     function pluck_user_church()
     {
         $churchtype = !empty(get_current_church()) ? get_current_church() : '';
-        if(!empty($churchtype)){
-            if($churchtype->type == 'church'){
+        if(empty($churchtype)) {
+            return Churches::getAll();
+        }
+        $type = $churchtype['type'];
+        switch ($type) {
+            case 'church':
                 return \Churches::allBy('id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'area'){
+                break;
+            case 'area':
                 return \Churches::allBy('area_id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'zone'){
+                break;
+            case 'zone':
                 return \Churches::allBy('zone_id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'district'){
+                break;
+            case 'district':
                 return \Churches::allBy('district_id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'state'){
+                break;
+            case 'state':
                 return \Churches::allBy('state_id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'region'){
+                break;
+            case 'region':
                 return \Churches::allBy('region_id',get_current_church()->churchleaderable_id);
-            }
+                break;
+            default:
+                return Churches::getAll();
+                break;
         }
     }
 }
@@ -131,34 +168,41 @@ if(!function_exists('pluck_user_homechurch'))
     function pluck_user_homechurch()
     {
         $churchtype = !empty(get_current_church()) ? get_current_church() : '';
-        if(!empty($churchtype)){
-            if($churchtype->type == 'homechurch'){
+        if(empty($churchtype)) {
+            return Homechurches::getAll();
+        }
+        $type = $churchtype['type'];
+        switch ($type) {
+            case 'homechurch':
                 return \Homechurches::allBy('id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'church'){
+                break;
+            case'church':
                 $church = \Churches::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Homechurches::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'area'){
+                break;
+            case 'area':
                 $church = \Churches::allBy('area_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Homechurches::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'zone'){
+                break;
+            case 'zone':
                 $church = \Churches::allBy('zone_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Homechurches::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'district'){
+                break;
+            case 'district':
                 $church = \Churches::allBy('district_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Homechurches::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'state'){
+                break;
+            case 'state':
                 $church = \Churches::allBy('state_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Homechurches::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'region'){
+                break;
+            case    'region':
                 $church = \Churches::allBy('region_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Homechurches::allByIn('church_id',$church);
-            }
+                break;
+            default:
+                return Homechurches::all([],true);
+                break;
         }
     }
 }
@@ -168,34 +212,41 @@ if(!function_exists('pluck_user_groupchats'))
     function pluck_user_groupchats()
     {
         $churchtype = !empty(get_current_church()) ? get_current_church() : '';
-        if(!empty($churchtype)){
-            if($churchtype->type == 'groupchat'){
+        if(empty($churchtype)) {
+            return Groupchats::getAll();
+        }
+        $type = $churchtype['type'];
+        switch ($type) {
+            case 'groupchat':
                 return \Groupchats::allBy('id',get_current_church()->churchleaderable_id);
-            }
-            if($churchtype->type == 'church'){
+                break;
+            case'church':
                 $church = \Churches::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Groupchats::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'area'){
+                break;
+            case 'area':
                 $church = \Churches::allBy('area_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Groupchats::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'zone'){
+                break;
+            case 'zone':
                 $church = \Churches::allBy('zone_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Groupchats::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'district'){
+                break;
+            case 'district':
                 $church = \Churches::allBy('district_id',get_current_church()->churchleaderable_id)->pluck('id');
-                return \Homechurches::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'state'){
+                return \Groupchats::allByIn('church_id',$church);
+                break;
+            case 'state':
                 $church = \Churches::allBy('state_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Groupchats::allByIn('church_id',$church);
-            }
-            if($churchtype->type == 'region'){
+                break;
+            case    'region':
                 $church = \Churches::allBy('region_id',get_current_church()->churchleaderable_id)->pluck('id');
                 return \Groupchats::allByIn('church_id',$church);
-            }
+                break;
+            default:
+                return Groupchats::all([],true);
+                break;
         }
     }
 }

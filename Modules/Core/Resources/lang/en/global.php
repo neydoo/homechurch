@@ -12,7 +12,7 @@ return array(
     'menus'=>[
         'main'=>'Main',
         'content'=>'Content',
-        'hierarchy' => 'Hierarchy',
+        'hierarchy' => 'Church Hierarchy',
         'manage' => 'Manage',
         'user'=>'Users & Roles',
         'promotions'=>'Promotions',

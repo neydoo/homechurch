@@ -30,7 +30,7 @@
             <h3>Add Users To Group</h3>
             <form>
                 <div class="form-group">
-                    <select v-model="group_id" class="form-control" id="church">
+                    <select v-model="group_id" class="form-control" id="group_id">
                         <option v-for="group in groups" :value="group.id" :key="group.id">
                             {{ group.name  }}
                         </option>

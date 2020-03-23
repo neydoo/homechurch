@@ -18,3 +18,22 @@
 </div>
 @include('core::admin._buttons-form')
 {!! form_end($form,false) !!}
+
+{{--  @section('page-js')
+<script src="{{asset('js/utility.js')}}" type="text/javascript"></script>
+<script>
+    $(function() {
+        const church_type = "{{ current_user()['churchtype'] }}";
+        if(church_type){
+            $('#type').closest('div').hide();
+        }
+        
+        hideAllExcept(church_type);
+        
+        $('#type').on('change', function(){
+            let type = $(this).val()
+            hideAllExcept(type);
+        })
+    });
+</script>
+@endsection  --}}

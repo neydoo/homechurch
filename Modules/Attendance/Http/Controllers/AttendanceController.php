@@ -29,7 +29,8 @@ class AttendanceController extends BaseAdminController {
             'method' => 'POST',
             'url' => route('admin.'.$module.'.store'),
             'data' => [
-                'homechurches' => (current_user()->hasChurch(current_user()['type'])) ? : \Homechurches::all([],true)->pluck('name', 'id')->all()
+                'homechurches' => pluck_user_homechurch()->pluck('name', 'id')->all(),
+                'groupchats' => pluck_user_groupchats()->pluck('name', 'id')->all(),
             ]
         ]);
         return view('core::admin.create')
@@ -44,7 +45,8 @@ class AttendanceController extends BaseAdminController {
             'url' => route('admin.'.$module.'.update',$model),
             'model'=>$model,
             'data' => [
-                'homechurches' => (current_user()->hasChurch(current_user()['type'])) ? : \Homechurches::all([],true)->pluck('name', 'id')->all()
+                'homechurches' => pluck_user_homechurch()->pluck('name', 'id')->all(),
+                'groupchats' => pluck_user_groupchats()->pluck('name', 'id')->all(),
             ]
         ])->modify('homechurch_id', 'select', [
             'selected' => $model->homechurch_id

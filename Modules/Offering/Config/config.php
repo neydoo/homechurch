@@ -7,7 +7,7 @@ return [
 	],
 	'sidebar' => [
 		'weight' => 2,
-		'icon' => 'fa fa-money',
+		'icon' => 'fa fa-list',
 	],
 	'th' => ['Cell','amount', "date","week"],
 	'columns'=>[

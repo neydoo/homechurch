@@ -67346,7 +67346,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "id": "church"
+      "id": "group_id"
     },
     on: {
       "change": function($event) {

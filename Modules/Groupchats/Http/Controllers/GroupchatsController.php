@@ -32,9 +32,9 @@ class GroupchatsController extends BaseAdminController {
         $module = $this->repository->getTable();
         $groups = current_user()->groupchats;
         $all_groups = DB::table('groupchats')->get();
-        $groups_users = DB::table('groupchat_user')->pluck('id');
+        $groups_users = DB::table('groupchat_user')->pluck('user_id');
         $users = User::whereNotIn('id', $groups_users)->get();
-        $churches = (current_user()->hasChurch(current_user()['churchtype'])) ? pluck_user_church() : $this->church->all([],true);
+        $churches = pluck_user_church();
         return view('core::admin.create')
             ->with(compact('module','users','groups','churches','all_groups'));
     }
@@ -44,9 +44,9 @@ class GroupchatsController extends BaseAdminController {
         $module = $model->getTable();
         $groups = current_user()->groupchats;
         $all_groups = DB::table('groupchats')->get();
-        $groups_users = DB::table('groupchat_user')->pluck('id');
+        $groups_users = DB::table('groupchat_user')->pluck('user_id');
         $users = User::whereNotIn('id', $groups_users)->get();
-        $churches = (current_user()->hasChurch(current_user()['churchtype']) == true) ? pluck_user_church() : $this->church->all([],true);
+        $churches = pluck_user_church();
         return view('core::admin.edit')
             ->with(compact('module','users','groups','churches','all_groups','model'));
     }

@@ -9,7 +9,7 @@ class Offering extends Base {
 
     protected $presenter = 'Modules\Offering\Presenters\ModulePresenter';
 
-    protected $guarded = ['_token','exit','homechurch_id','groupchat_id'];
+    protected $guarded = ['_token','exit'];
 
     public $attachments = ['image'];
 
@@ -27,11 +27,11 @@ class Offering extends Base {
 
     public function homechurch()
     {
-        return $this->belongsTo('Modules\Homechurches\Entities\Homechurch','cell_id');
+        return $this->belongsTo('Modules\Homechurches\Entities\Homechurch');
     }
 
     public function groupchat()
     {
-        return $this->belongsTo('Modules\Groupchats\Entities\Groupchat','cell_id');
+        return $this->belongsTo('Modules\Groupchats\Entities\Groupchat');
     }
 }

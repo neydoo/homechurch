@@ -20,16 +20,24 @@ class OfferingController extends BaseAdminController {
     {
         $module = $this->repository->getTable();
         $title = trans($module . '::global.group_name');
+        $model = $this->repository->make(['user','homechurch','groupchat']);
+        $mod = getOfferingDataTabeleQuery($model);
         if(request('search')){
-            $search = \request('search');
-            $models = $this->repository->make(['user','homechurch','groupchat'])
-            ->join('homechurches', function ($join) use ($search){
-                $join->on('homechurches.id', '=', 'offering.cell_id')
-                    ->where('homechurches.name','LIKE', '%' .$search . '%');
-            })->paginate(1);
-        }else{
-            $models = $this->repository->make(['user','homechurch','groupchat'])->paginate(1);
+            $search = request('search');
+            if(current_user()->hasChurch(current_user()['churchtype']) == 'homechurch'){
+                $mod->join('homechurches', function ($join) use ($search){
+                    $join->on('homechurches.id', '=', 'offering.homechurch_id')
+                        ->where('homechurches.name','LIKE', '%' .$search . '%');
+                });
+            }
+            if(current_user()->hasChurch(current_user()['churchtype']) == 'groupchat'){
+                $mod->join('groupchats', function ($join) use ($search){
+                    $join->on('groupchats.id', '=', 'offering.groupchat_id')
+                        ->where('homechurches.name','LIKE', '%' .$search . '%');
+                });
+            }
         }
+        $models = $mod->paginate(10);
         if (request()->ajax()) {
             return view('offering::admin._list', compact('models'));
         }
@@ -44,8 +52,8 @@ class OfferingController extends BaseAdminController {
             'method' => 'POST',
             'url' => route('admin.'.$module.'.store'),
             'data' => [
-                'homechurches' => (current_user()->hasChurch(current_user()['churchtype']) && !empty(pluck_user_homechurch())) ? pluck_user_homechurch()->pluck('name', 'id')->all() : \Homechurches::all([],true)->pluck('name', 'id')->all(),
-                'groupchats' => (current_user()->hasChurch(current_user()['churchtype']) && !empty(pluck_user_groupchats())) ? pluck_user_groupchats()->pluck('name', 'id')->all() : \Groupchats::all([],true)->pluck('name', 'id')->all()
+                'homechurches' => pluck_user_homechurch()->pluck('name', 'id')->all(),
+                'groupchats' => pluck_user_groupchats()->pluck('name', 'id')->all(),
             ]
         ]);
         return view('core::admin.create')
@@ -77,7 +85,7 @@ class OfferingController extends BaseAdminController {
         $data = $request->all();
         $data['amount'] = $data['cash'] + $data['pos'] + $data['cheques'];
         $data['user_id'] = current_user()->id;
-        $data['cell_id'] = !empty($data['homechurch_id']) ? $data['homechurch_id'] : $data['groupchat_id'];
+        // $data['cell_id'] = !empty($data['homechurch_id']) ? $data['homechurch_id'] : $data['groupchat_id'];
         $data['type'] = !empty($data['homechurch_id']) ? 'home' : 'online';
         $model = $this->repository->create($data);
 

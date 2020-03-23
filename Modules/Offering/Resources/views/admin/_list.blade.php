@@ -2,7 +2,7 @@
     {{ Form::text('search', null, ['id' => 'search', 'class' => 'col-md-4 form-control pull-right', 'style'=> 'margin-bottom:10px;', 'placeholder' => 'Search For ...']) }}
     {{-- {{ Form::submit('Go') }} --}}
 {{ Form::close() }}
-<table class="table table-striped table-hover table-bordered table-responsive" id="datatable">
+<table class="table table-striped table-hover table-bordered" style="width:100%">
     <thead>
     <tr>
         <th>Cell Name</th>

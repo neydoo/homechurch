@@ -18,7 +18,7 @@ class SidebarExtender extends BaseSidebarExtender implements PackageSideBarExten
         $menu->group(trans('core::global.menus.user'), function (Group $group)
         {
             $group->weight(100);
-            $group->item('Activities',function(Item $item){
+            $group->item('History',function(Item $item){
                 $item->weight(50);
                 $item->icon('fa fa-list');
                 $item->route('admin.history.index');
