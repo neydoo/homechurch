@@ -3,10 +3,11 @@
 use Modules\Core\Entities\Base;
 use Modules\Core\Presenters\PresentableTrait;
 use Modules\Users\Entities\Sentinel\User;
+use Modules\History\Traits\Historable;
 
 class Groupchat extends Base {
 
-    use PresentableTrait;
+    use PresentableTrait,Historable;
     protected $presenter = 'Modules\Groupchats\Presenters\ModulePresenter';
 
     protected $guarded = ['_token','exit','users'];

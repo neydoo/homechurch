@@ -3,10 +3,11 @@
 use Modules\Core\Entities\Base;
 use Modules\Core\Presenters\PresentableTrait;
 use Modules\Users\Entities\Sentinel\User;
+use Modules\History\Traits\Historable;
 
 class Homechurch extends Base {
 
-    use PresentableTrait;
+    use PresentableTrait,Historable;
 
     protected $presenter = 'Modules\Homechurches\Presenters\ModulePresenter';
 

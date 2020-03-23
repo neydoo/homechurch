@@ -2,10 +2,11 @@
 
 use Modules\Core\Entities\Base;
 use Modules\Core\Presenters\PresentableTrait;
+use Modules\History\Traits\Historable;
 
 class Attendance extends Base {
 
-    use PresentableTrait;
+    use PresentableTrait,Historable;
 
     protected $presenter = 'Modules\Attendance\Presenters\ModulePresenter';
     protected $table = 'attendance';

@@ -2,10 +2,11 @@
 
 use Modules\Core\Entities\Base;
 use Modules\Core\Presenters\PresentableTrait;
+use Modules\History\Traits\Historable;
 
 class Offering extends Base {
 
-    use PresentableTrait;
+    use PresentableTrait,Historable;
 
     protected $presenter = 'Modules\Offering\Presenters\ModulePresenter';
 
