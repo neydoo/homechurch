@@ -15,10 +15,10 @@ class CreateAnnouncementsTable extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('slug');
-            $table->string('title');
+            $table->string('slug')->nullable();
+            $table->string('title')->nullable();
             $table->text('body');
-            $table->string('image');
+            $table->string('image')->nullable();
 			$table->boolean('status')->default(0);
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
