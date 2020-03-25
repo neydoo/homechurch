@@ -14,7 +14,9 @@ class FormRequest extends AbstractFormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:5',
+            'body' => 'required|min:5',
+            'document' => 'required|mimes:doc,docx,jpg,jpeg,pdf,png,txt|max:2048'
         ];
     }
 
