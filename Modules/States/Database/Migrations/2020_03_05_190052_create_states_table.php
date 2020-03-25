@@ -18,7 +18,7 @@ class CreateStatesTable extends Migration
             $table->increments('id')->index();
             $table->string('name');
             $table->integer('country_id')->default(160);
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }
