@@ -41,7 +41,7 @@ if(!function_exists('get_current_church')){
 
 if(!function_exists('getDataTabeleQuery')){
     function getDataTabeleQuery($model){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(!empty($churchtype)){
             if(current_user()->hasChurch('groupchat')){
                 return $query = $model->whereId(get_current_church()->churchleaderable_id);
@@ -70,7 +70,7 @@ if(!function_exists('getDataTabeleQuery')){
 
 if(!function_exists('getOfferingDataTabeleQuery')){
     function getOfferingDataTabeleQuery($model){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(empty($churchtype)) {
             return $model;
         }
@@ -132,7 +132,7 @@ if(!function_exists('pluck_user_church'))
 {
     function pluck_user_church()
     {
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(empty($churchtype)) {
             return Churches::getAll();
         }
@@ -167,7 +167,7 @@ if(!function_exists('pluck_user_homechurch'))
 {
     function pluck_user_homechurch()
     {
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(empty($churchtype)) {
             return Homechurches::getAll();
         }
@@ -211,7 +211,7 @@ if(!function_exists('pluck_user_groupchats'))
 {
     function pluck_user_groupchats()
     {
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(empty($churchtype)) {
             return Groupchats::getAll();
         }
@@ -253,7 +253,7 @@ if(!function_exists('pluck_user_groupchats'))
 
 if(!function_exists('getChurchFormData')){
     function getChurchFormData(){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype =  get_current_church();
         if(!empty($churchtype)){
             if($churchtype->type == 'church'){
                 return Church::whereId($churchtype->churchleaderable_id)->get();
@@ -281,7 +281,7 @@ if(!function_exists('getChurchFormData')){
 
 if(!function_exists('getAreaFormData')){
     function getAreaFormData(){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(!empty($churchtype)){
             if($churchtype->type == 'area'){
                 return Area::whereId($churchtype->churchleaderable_id)->get();
@@ -306,7 +306,7 @@ if(!function_exists('getAreaFormData')){
 
 if(!function_exists('getZoneFormData')){
     function getZoneFormData(){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(!empty($churchtype)){
             if($churchtype->type == 'zone'){
                 return Zone::whereId($churchtype->churchleaderable_id)->get();
@@ -328,7 +328,7 @@ if(!function_exists('getZoneFormData')){
 
 if(!function_exists('getDistrictFormData')){
     function getDistrictFormData(){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(!empty($churchtype)){
             if($churchtype->type == 'district'){
                 return District::whereId($churchtype->churchleaderable_id)->get();
@@ -347,7 +347,7 @@ if(!function_exists('getDistrictFormData')){
 
 if(!function_exists('getStateFormData')){
     function getStateFormData(){
-        $churchtype = !empty(get_current_church()) ? get_current_church() : '';
+        $churchtype = get_current_church();
         if(!empty($churchtype)){
             if($churchtype->type == 'state'){
                 return State::whereId($churchtype->churchleaderable_id)->get();
