@@ -61,13 +61,18 @@ class RegionsController extends BaseAdminController {
 
     public function store(FormRequest $request)
     {
-        $data = $request->all();
+        try {
+            $data = $request->all();
 
-        $model = $this->repository->create($data);
-        $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).(($model->id < 10) ? '0'.$model->id : $model->id);
-        $model->save();
+            $model = $this->repository->create($data);
+            $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).(($model->id < 10) ? '0'.$model->id : $model->id);
+            $model->save();
 
-        return $this->redirect($request, $model, trans('core::global.new_record'));
+            return $this->redirect($request, $model, trans('core::global.new_record'));
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            //throw $th;
+        }
     }
 
     public function update(Region $model,FormRequest $request)

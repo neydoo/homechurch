@@ -14,15 +14,10 @@ class CountriesController extends BaseAdminController {
 
     public function index()
     {
-        try {
-            $module = $this->repository->getTable();
-            $title = trans($module . '::global.group_name');
-            return view('core::admin.index')
-                ->with(compact('title', 'module'));
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            //throw $th;
-        }
+        $module = $this->repository->getTable();
+        $title = trans($module . '::global.group_name');
+        return view('core::admin.index')
+            ->with(compact('title', 'module'));
     }
 
     public function create()
