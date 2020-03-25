@@ -45,11 +45,16 @@ class AnnouncementsController extends BaseAdminController {
 
     public function store(FormRequest $request)
     {
-        $data = $request->all();
+        try {
+            $data = $request->all();
 
-        $model = $this->repository->create($data);
+            $model = $this->repository->create($data);
 
-        return $this->redirect($request, $model, trans('core::global.new_record'));
+            return $this->redirect($request, $model, trans('core::global.new_record'));
+        } catch (\Exceptions $e) {
+            dd($e->getMessage());
+            //throw $th;
+        }
     }
 
     public function update(Announcement $model,FormRequest $request)
