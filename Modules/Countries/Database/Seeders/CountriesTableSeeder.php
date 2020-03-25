@@ -265,6 +265,12 @@ class CountriesTableSeeder extends Seeder
             array('id' => 245,'code' => 'ZM','name' => "Zambia",'phonecode' => 260),
             array('id' => 246,'code' => 'ZW','name' => "Zimbabwe",'phonecode' => 263),
         );
-        DB::table('countries')->insert($countries);
+        foreach($countries as $key => $country)
+        {
+            $model = app('Modules\Countries\Repositories\CountryInterface')->create($country);
+            $model->code = ($model->id < 10) ? '0'.$model->id : $model->id;
+            $model->save();
+        }
+        // DB::table('countries')->insert($countries);
     }
 }

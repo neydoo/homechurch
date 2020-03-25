@@ -4140,7 +4140,16 @@ class StatesTableSeeder extends Seeder
             array('name' => "Matabeleland North",'country_id' => 246),
             array('name' => "Matabeleland South",'country_id' => 246),
             array('name' => "Midlands",'country_id' => 246)
-		);
-		DB::table('states')->insert($states);
+        );
+        foreach ($states as $key => $data) {
+            $data = get_relationship($data);
+            $data['region_id'] = 1;
+            $model = app('Modules\States\Repositories\StateInterface')->create($data);
+            $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+            (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+            (($model->id < 10) ? '0'.$model->id : $model->id);
+            $model->save();
+        }
+		// DB::table('states')->insert($states);
     }
 }

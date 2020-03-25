@@ -14,7 +14,7 @@ class FormRequest extends AbstractFormRequest
     public function rules()
     {
         return [
-            //
+            'state_id'=>'required',
         ];
     }
 

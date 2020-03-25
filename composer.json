@@ -65,6 +65,9 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "compile": [
+            "chmod -R 777 public/uploads"
         ]
     },
     "config": {
