@@ -15,13 +15,13 @@ class CreateHomechurchesTable extends Migration
     {
         Schema::create('homechurches', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('country_id');
-            $table->bigInteger('region_id');
-            $table->bigInteger('state_id');
-            $table->bigInteger('district_id');
-            $table->bigInteger('zone_id');
-            $table->bigInteger('area_id'); 
-            $table->bigInteger('church_id');
+            $table->bigInteger('country_id')->nullable();
+            $table->bigInteger('region_id')->nullable();
+            $table->bigInteger('state_id')->nullable();
+            $table->bigInteger('district_id')->nullable();
+            $table->bigInteger('zone_id')->nullable();
+            $table->bigInteger('area_id')->nullable(); 
+            $table->bigInteger('church_id')->nullable();
             $table->string('name');
             $table->string('type')->nullable();
             $table->string('code')->nullable();

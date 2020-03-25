@@ -15,11 +15,11 @@ class CreateZonesTable extends Migration
     {
         Schema::create('zones', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('country_id');
-            $table->bigInteger('region_id');
-            $table->bigInteger('state_id');
+            $table->bigInteger('country_id')->nullable();
+            $table->bigInteger('region_id')->nullable();
+            $table->bigInteger('state_id')->nullable();
             $table->bigInteger('district_id');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }

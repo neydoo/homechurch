@@ -76,8 +76,6 @@ class ZonesController extends BaseAdminController {
     {
         $data = $request->all();
         $data = get_relationship($data);
-        $data['code'] = $data['country_id'].$data['region_id'].$data['state_id'].$data['district_id'];
-
         $model = $this->repository->create($data);
         $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
         (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).

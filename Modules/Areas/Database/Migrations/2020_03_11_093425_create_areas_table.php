@@ -15,12 +15,12 @@ class CreateAreasTable extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('country_id');
-            $table->bigInteger('region_id');
-            $table->bigInteger('state_id');
-            $table->bigInteger('district_id');
+            $table->bigInteger('country_id')->nullable();
+            $table->bigInteger('region_id')->nullable();
+            $table->bigInteger('state_id')->nullable();
+            $table->bigInteger('district_id')->nullable();
             $table->bigInteger('zone_id');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }
