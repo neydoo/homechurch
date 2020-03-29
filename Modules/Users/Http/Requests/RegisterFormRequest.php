@@ -12,9 +12,9 @@ class RegisterFormRequest extends AbstractFormRequest {
             'password'=>'required',
             'confirm_password'=>'required|same:password',
         ];
-        if(app()->environment() == 'production'){
-            $rules =  $rules + ['g-recaptcha-response' => 'required|captcha'];
-        }
+        // if(app()->environment() == 'production'){
+        //     $rules =  $rules + ['g-recaptcha-response' => 'required|captcha'];
+        // }
 
         return $rules;
     }
@@ -22,8 +22,8 @@ class RegisterFormRequest extends AbstractFormRequest {
     public function messages()
     {
         return [
-            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
-            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+            // 'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+            // 'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
         ];
     }
 }
