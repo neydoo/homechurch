@@ -10,35 +10,35 @@ Route::group(['prefix' => 'admin'], function()
     {
         Route::get('/', [
             'as' => 'admin.states.index',
-            'uses' => 'statesController@index'
+            'uses' => 'StatesController@index'
         ]);
         Route::get('/region/state/{id}', [
             'as' => 'admin.states.region',
-            'uses' => 'statesController@getRegionState'
+            'uses' => 'StatesController@getRegionState'
         ]);
         Route::get('create', [
             'as' => 'admin.states.create',
-            'uses' => 'statesController@create'
+            'uses' => 'StatesController@create'
         ]);
         Route::get('{state}/edit', [
             'as' => 'admin.states.edit',
-            'uses' => 'statesController@edit'
+            'uses' => 'StatesController@edit'
         ]);
         Route::post('/', [
             'as' => 'admin.states.store',
-            'uses' => 'statesController@store'
+            'uses' => 'StatesController@store'
         ]);
         Route::put('{state}', [
             'as' => 'admin.states.update',
-            'uses' => 'statesController@update'
+            'uses' => 'StatesController@update'
         ]);
         Route::get('datatable', [
             'as' => 'admin.states.datatable',
-            'uses' => 'statesController@dataTable'
+            'uses' => 'StatesController@dataTable'
         ]);
         Route::delete('{state}', [
             'as' => 'admin.states.destroy',
-            'uses' => 'statesController@destroy'
+            'uses' => 'StatesController@destroy'
         ]);
     });
 });

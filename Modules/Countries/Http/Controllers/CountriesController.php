@@ -1,4 +1,5 @@
-<?php namespace Modules\Countries\Http\Controllers;
+<?php 
+namespace Modules\Countries\Http\Controllers;
 
 use Modules\Core\Http\Controllers\BaseAdminController;
 use Modules\Countries\Http\Requests\FormRequest;

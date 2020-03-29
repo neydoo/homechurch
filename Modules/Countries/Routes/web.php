@@ -9,31 +9,31 @@ Route::group(['prefix' => 'admin'], function()
     {
         Route::get('/', [
             'as' => 'admin.countries.index',
-            'uses' => 'countriesController@index'
+            'uses' => 'CountriesController@index'
         ]);
         Route::get('create', [
             'as' => 'admin.countries.create',
-            'uses' => 'countriesController@create'
+            'uses' => 'CountriesController@create'
         ]);
         Route::get('{country}/edit', [
             'as' => 'admin.countries.edit',
-            'uses' => 'countriesController@edit'
+            'uses' => 'CountriesController@edit'
         ]);
         Route::post('/', [
             'as' => 'admin.countries.store',
-            'uses' => 'countriesController@store'
+            'uses' => 'CountriesController@store'
         ]);
         Route::put('{country}', [
             'as' => 'admin.countries.update',
-            'uses' => 'countriesController@update'
+            'uses' => 'CountriesController@update'
         ]);
         Route::get('datatable', [
             'as' => 'admin.countries.datatable',
-            'uses' => 'countriesController@dataTable'
+            'uses' => 'CountriesController@dataTable'
         ]);
         Route::delete('{country}', [
             'as' => 'admin.countries.destroy',
-            'uses' => 'countriesController@destroy'
+            'uses' => 'CountriesController@destroy'
         ]);
     });
 });
