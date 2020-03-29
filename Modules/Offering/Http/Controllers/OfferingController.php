@@ -137,9 +137,9 @@ class OfferingController extends BaseAdminController {
         return $this->redirect($request, $model, trans('core::global.update_record'));
     }
 
-    public function print(Offering $model,FormRequest $request)
+    public function printData($id)
     {
-        $data = $request->all();
+        // $data = $request->all();
 
         $data['id'] = $model->id;
 

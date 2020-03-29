@@ -4143,7 +4143,7 @@ class StatesTableSeeder extends Seeder
         );
         foreach ($states as $key => $data) {
             $data = get_relationship($data);
-            $data['region_id'] = 1;
+            $data['region_id'] = ($data['country_id'] === 160) ? 1 : null;
             $model = app('Modules\States\Repositories\StateInterface')->create($data);
             $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
             (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
