@@ -76,6 +76,10 @@
                 {!! form_row($form->mailgun_domain) !!}
                 {!! form_row($form->mailgun_secret) !!}
             </div>
+            <div id="sendgrid" class="hide-mail-driver">
+                {!! form_row($form->sendgrid_key) !!}
+                {!! form_row($form->sendgrid_password) !!}
+            </div>
         </div>
         <div class="tab-pane active" id="tab_1">
             <div class="form-group">

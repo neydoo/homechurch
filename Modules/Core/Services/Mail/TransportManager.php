@@ -24,13 +24,25 @@ class TransportManager extends \Illuminate\Mail\TransportManager {
             'encryption' => config('myapp.mail_encryption'),
             'username'   => config('myapp.mail_username'),
             'password'   => config('myapp.mail_password'),
-            'sendmail'   => config('myapp.mail_sendmail'),
+            'sendmail'   => '/usr/sbin/sendmail -bs',
+            'pretend'    => false,
+            'stream'     => [
+                'ssl' => [
+                    'allow_self_signed' => true,
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ],
+            ],
         ];
 
         $this->app['config']['services'] = [
             'mailgun' => [
                 'domain' => config('mailgun_domain'),
                 'secret' => config('mailgun_secret'),
+            ],
+            'sendgrid' => [
+                'username' => config('sendgrid_key'),
+                'password' => config('sendgrid_password'),
             ],
         ];
     }

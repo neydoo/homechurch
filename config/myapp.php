@@ -5,6 +5,7 @@ return [
     'mail_drivers'=> [
         'mail'    => 'Mail',
         'mailgun' => 'Mail Gun',
+        'sendgrid' => 'Sendgrid',
         'smtp'    => 'SMTP'
     ],
 
@@ -46,7 +47,6 @@ return [
         ],
         'account' => [
             'auth.account',
-            /*'web'*/
         ],
         'api' => [
             'web'

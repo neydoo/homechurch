@@ -116,6 +116,12 @@ class SettingsForm extends Form {
             ->add('mailgun_secret', 'text', [
                 'label' => 'Mailgun Secret'
             ])
+            ->add('sendgrid_key', 'text', [
+                'label' => 'Sendgrid Key'
+            ])
+            ->add('sendgrid_password', 'text', [
+                'label' => 'Sendgrid Password'
+            ])
             ->add('newsletter_msg','textarea', [
                 'label' => 'Footer Newsletter Content',
                 'attr' => ['rows'=>3]
