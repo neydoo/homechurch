@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin'], function()
         ]);
         Route::post('print', [
             'as' => 'admin.offering.print',
-            'uses' => 'OfferingController@destroy'
+            'uses' => 'OfferingController@printData'
         ]);
     });
 });

@@ -14,7 +14,7 @@ class SettingsAjaxController extends BaseAjaxController {
     public function sendTestMail()
     {
         try{
-            \Mail::send('settings::_test_email', compact('user', 'code'), function ($m) {
+            \Mail::send('settings::_test_email',[], function ($m) {
                 $email = request()->get('test_email');
                 $from_address = config('myapp.mail_from_address');
                 $from_name = config('myapp.mail_from_name');
