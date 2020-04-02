@@ -68,35 +68,6 @@ if(!function_exists('getDataTabeleQuery')){
     }
 }
 
-if(!function_exists('getQuery')){
-    function getQuery(){
-        $churchtype = get_current_church();
-        if(!empty($churchtype)){
-            if(current_user()->hasChurch('groupchat')){
-                return $query = whereId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('homechurch')){
-                return $query = whereId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('church')){
-                return $query = whereChurchId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('area')){
-                return $query = whereAreaId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('zone')){
-                return $query = whereZoneId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('district')){
-                return $query = whereDistrictId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('state')){
-                return $query = whereStateId(get_current_church()->churchleaderable_id);
-            }elseif(current_user()->hasChurch('region')){
-                $query = whereRegionId(get_current_church()->churchleaderable_id);
-            }else{
-                return $query = $model;
-            }
-        }else{
-            return $query = $model;
-        }
-    }
-}
-
 if(!function_exists('getOfferingDataTabeleQuery')){
     function getOfferingDataTabeleQuery($model){
         $churchtype = get_current_church();
