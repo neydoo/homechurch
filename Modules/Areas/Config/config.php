@@ -19,7 +19,13 @@ return [
 			['data'=>'district_id','name'=>'district_id'],
 			['data'=>'zone_id','name'=>'zone_id'],
             ['data'=>'action','name'=>'action'],
-     ],
+	 ],
+	'hth' => ['name','code'],
+	'second_columns'=>[
+		['data'=>'name','name'=>'name'],
+		['data'=>'code','name'=>'code'],
+		['data'=>'action','name'=>'action'],
+	],
 	'form'=>'Areas\Forms\AreasForm',
 	'permissions'=>[
 		'areas' => [
