@@ -34,9 +34,13 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.offering.destroy',
             'uses' => 'OfferingController@destroy'
         ]);
-        Route::post('print', [
+        Route::get('print', [
             'as' => 'admin.offering.print',
             'uses' => 'OfferingController@printData'
+        ]);
+        Route::get('excel', [
+            'as' => 'admin.offering.excel',
+            'uses' => 'OfferingController@downloadExcel'
         ]);
     });
 });

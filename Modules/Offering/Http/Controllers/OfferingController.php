@@ -8,6 +8,8 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DateTime;
+use Excel;
+use App\Exports\Offering as OfferingExcel;
 
 class OfferingController extends BaseAdminController {
 
@@ -137,15 +139,14 @@ class OfferingController extends BaseAdminController {
         return $this->redirect($request, $model, trans('core::global.update_record'));
     }
 
-    public function printData($id)
+    public function printData()
     {
-        // $data = $request->all();
-
-        $data['id'] = $model->id;
-
-        $model = $this->repository->update($data);
-
-        return $this->redirect($request, $model, trans('core::global.update_record'));
+        return redirect()->back();
     }
 
+    public function downloadExcel()
+    {
+        $date = date('F, Y');
+        return Excel::download(new OfferingExcel($this->repository), 'offering-'.$date.'.xlsx');
+    }
 }

@@ -9,6 +9,9 @@
                         @if(has_access($module.'.print'))
                             @include('core::admin._button-print', ['module' => $module])
                         @endif
+                        @if(has_access($module.'.excel'))
+                            @include('core::admin._button-excel', ['module' => $module])
+                        @endif
                     @else
                         @include('core::admin._button-create', ['module' => $module])
                     @endif

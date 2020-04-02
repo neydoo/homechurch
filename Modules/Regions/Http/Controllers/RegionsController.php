@@ -63,7 +63,7 @@ class RegionsController extends BaseAdminController {
     {
         try {
             $data = $request->all();
-            $data['code'] =($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id'];
+            $data['code'] = ($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id'];
             $model = $this->repository->create($data);
             $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).(($model->id < 10) ? '0'.$model->id : $model->id);
             $model->save();

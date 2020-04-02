@@ -13,9 +13,10 @@ class SidebarExtender extends BaseSidebarExtender implements PackageSideBarExten
 {
     public function extendWith(Menu $menu)
     {
-        $menu->group('Dashboard', function (Group $group)
+        $menu->group(trans('core::global.menus.admin'), function (Group $group)
         {
-            $group->weight(0);
+            // $group->weight(0);
+            $group->weight(-1);
             $group->hideHeading();
             $group->item('Dashboard',function(Item $item){
                 $item->icon('flaticon2-shelter');

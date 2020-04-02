@@ -10,11 +10,17 @@ class EloquentOffering extends RepositoriesAbstract implements OfferingInterface
     {
         $this->model = $model;
     }
+
     public function getAll()
     {
         return $this->model
             ->where('id','!=', '')->get();
 
+    }
+
+    public function getOffering()
+    {
+        return getOfferingDataTabeleQuery($this->model);
     }
 
     // public function getForDataTable()

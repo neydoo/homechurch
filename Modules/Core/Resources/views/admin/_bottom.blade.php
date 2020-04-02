@@ -86,7 +86,7 @@
             "positionClass": "toast-bottom-right"
         };
 
-        @if (!empty($errors))
+        @if (!empty($errors) && count($errors) > 0)
             toastr.error('{!! \HTML::ul($errors->all()) !!}')
         @endif
 

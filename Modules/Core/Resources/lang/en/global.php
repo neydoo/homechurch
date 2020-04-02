@@ -10,6 +10,7 @@ return array(
     'name'=>'Core',
     'permission_denied' => 'Permission denied. (required permission: ":permission")',
     'menus'=>[
+        'admin' => 'Dashboard',
         'main'=>'Main',
         'content'=>'Content',
         'hierarchy' => 'Church Hierarchy',

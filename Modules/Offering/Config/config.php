@@ -25,7 +25,8 @@ return [
 			'store',
 			'edit',
 			'update',
-			'printData',
+			'print',
+			'excel',
 			// 'destroy',
 		],
 	]
