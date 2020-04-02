@@ -20,6 +20,9 @@ class EloquentState extends RepositoriesAbstract implements StateInterface
 
     public function getForDataTable()
     {
+        if(!empty(current_user()->churchtype)){
+            return  getDataTabeleQuery($this->model)->get();
+        }
         $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'states.country_id')
             ->join('regions', 'regions.id', '=', 'states.region_id')

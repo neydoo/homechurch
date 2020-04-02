@@ -20,6 +20,9 @@ class EloquentDistrict extends RepositoriesAbstract implements DistrictInterface
 
     public function getForDataTable()
     {
+        if(!empty(current_user()->churchtype)){
+            return  getDataTabeleQuery($this->model)->get();
+        }
         $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'districts.country_id')
             ->join('regions', 'regions.id', '=', 'districts.region_id')

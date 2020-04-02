@@ -11,11 +11,17 @@ return [
 	],
 	'th' => ['code','name','country'],
 	'columns'=>[
-			['data'=>'code','name'=>'code'],
-			['data'=>'name','name'=>'name'],
-			['data'=>'country_id','name'=>'country_id'],
-            ['data'=>'action','name'=>'action'],
-     ],
+		['data'=>'code','name'=>'code'],
+		['data'=>'name','name'=>'name'],
+		['data'=>'country_id','name'=>'country_id'],
+		['data'=>'action','name'=>'action'],
+	],
+	'hth' => ['name','code'],
+	'second_columns'=>[
+		['data'=>'name','name'=>'name'],
+		['data'=>'code','name'=>'code'],
+		['data'=>'action','name'=>'action'],
+	],
 	'form'=>'Regions\Forms\RegionsForm',
 	'permissions'=>[
 		'regions' => [

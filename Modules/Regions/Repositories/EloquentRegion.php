@@ -21,6 +21,9 @@ class EloquentRegion extends RepositoriesAbstract implements RegionInterface
 
     public function getForDataTable()
     {
+        if(!empty(current_user()->churchtype)){
+            return  getDataTabeleQuery($this->model)->get();
+        }
         $query = getDataTabeleQuery($this->model)
             ->leftJoin('countries as country', 'country.id', '=', 'regions.country_id')
             ->select([

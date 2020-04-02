@@ -20,6 +20,9 @@ class EloquentZone extends RepositoriesAbstract implements ZoneInterface
 
     public function getForDataTable()
     {
+        if(!empty(current_user()->churchtype)){
+            return  getDataTabeleQuery($this->model)->get();
+        }
         $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'zones.country_id')
             ->join('regions', 'regions.id', '=', 'zones.region_id')

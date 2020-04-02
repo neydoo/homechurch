@@ -20,7 +20,7 @@ class EloquentArea extends RepositoriesAbstract implements AreaInterface
 
     public function getForDataTable()
     {
-        if(current_user()->churchtype == 'area'){
+        if(!empty(current_user()->churchtype)){
             return  getDataTabeleQuery($this->model)->get();
         }
         $query = getDataTabeleQuery($this->model)
