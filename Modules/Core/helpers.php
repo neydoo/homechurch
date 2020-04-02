@@ -82,43 +82,43 @@ if(!function_exists('getOfferingDataTabeleQuery')){
                 break;
             case 'groupchat':
                 $group = \Groupchats::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
-                return $model->whereIn('group_id', $group);
+                return $model->whereIn('groupchat_id', $group);
                 break;
             case'church':
                 $church = \Churches::allBy('id',get_current_church()->churchleaderable_id)->pluck('id');
                 $home = \Homechurches::allByIn('church_id',$church);
                 $group = \Groupchats::allByIn('church_id',$church);
-                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                return $model->whereIn('groupchat_id', $group)->orWhereIn('homechurch_id', $home);
                 break;
             case 'area':
                 $church = \Churches::allBy('area_id',get_current_church()->churchleaderable_id)->pluck('id');
                 $home = \Homechurches::allByIn('church_id',$church);
                 $group = \Groupchats::allByIn('church_id',$church);
-                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                return $model->whereIn('groupchat_id', $group)->orWhereIn('homechurch_id', $home);
                 break;
             case 'zone':
                 $church = \Churches::allBy('zone_id',get_current_church()->churchleaderable_id)->pluck('id');
                 $home = \Homechurches::allByIn('church_id',$church);
                 $group = \Groupchats::allByIn('church_id',$church);
-                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                return $model->whereIn('groupchat_id', $group)->orWhereIn('homechurch_id', $home);
                 break;
             case 'district':
                 $church = \Churches::allBy('district_id',get_current_church()->churchleaderable_id)->pluck('id');
                 $home = \Homechurches::allByIn('church_id',$church);
                 $group = \Groupchats::allByIn('church_id',$church);
-                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                return $model->whereIn('groupchat_id', $group)->orWhereIn('homechurch_id', $home);
                 break;
             case 'state':
                 $church = \Churches::allBy('state_id',get_current_church()->churchleaderable_id)->pluck('id');
                 $home = \Homechurches::allByIn('church_id',$church);
                 $group = \Groupchats::allByIn('church_id',$church);
-                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                return $model->whereIn('groupchat_id', $group)->orWhereIn('homechurch_id', $home);
                 break;
             case    'region':
                 $church = \Churches::allBy('region_id',get_current_church()->churchleaderable_id)->pluck('id');
                 $home = \Homechurches::allByIn('church_id',$church);
                 $group = \Groupchats::allByIn('church_id',$church);
-                return $model->whereIn('group_id', $group)->orWhereIn('homechurch_id', $home);
+                return $model->whereIn('groupchat_id', $group)->orWhereIn('homechurch_id', $home);
                 break;
             default:
                 return $model;
