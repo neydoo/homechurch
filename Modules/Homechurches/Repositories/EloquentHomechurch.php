@@ -24,7 +24,7 @@ class EloquentHomechurch extends RepositoriesAbstract implements HomechurchInter
         }
         if(!empty(current_user()->churchtype))
         {
-            return $this->model->join('churches', 'churches.id', '=', 'homechurches.church_id')
+            return getOfferingDataTabeleQuery($this->model)->join('churches', 'churches.id', '=', 'homechurches.church_id')
             ->join('countries', 'countries.id', '=', 'homechurches.country_id')
             ->join('regions', 'regions.id', '=', 'homechurches.region_id')
             ->join('states', 'states.id', '=', 'homechurches.state_id')
@@ -42,7 +42,7 @@ class EloquentHomechurch extends RepositoriesAbstract implements HomechurchInter
                 'zones.name as zone_id',
                 'areas.name as area_id',
                 'churches.name as church_id',
-            ])->where('area_id',get_current_church()->churchleaderable_id)->get();
+            ]);
         }
         $query = getDataTabeleQuery($this->model)
             ->join('churches', 'churches.id', '=', 'homechurches.church_id')
