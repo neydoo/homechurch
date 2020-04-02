@@ -25,7 +25,7 @@ class EloquentArea extends RepositoriesAbstract implements AreaInterface
             ->join('regions', 'regions.id', '=', 'areas.region_id')
             ->join('states', 'states.id', '=', 'areas.state_id')
             ->join('districts', 'districts.id', '=', 'areas.district_id')
-            ->join('zones', 'zones.id', '=', 'areas.zone_id')
+            ->join('zones', 'zones.id', '=', 'areas.zone_id')->get()
             ->select([
                 'areas.id as id',
                 'areas.name as name',
@@ -35,7 +35,7 @@ class EloquentArea extends RepositoriesAbstract implements AreaInterface
                 'regions.name as region_id',
                 'districts.name as district_id',
                 'zones.name as zone_id',
-            ])->get();
+            ]);
         }
         $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'areas.country_id')
