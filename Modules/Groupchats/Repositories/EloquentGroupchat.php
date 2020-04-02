@@ -24,7 +24,7 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
             return  getDataTabeleQuery($this->model)->get();
         }
         $query = getDataTabeleQuery($this->model)
-            // ->join('churches', 'churches.id', '=', 'groupchats.church_id')
+            ->join('churches', 'churches.id', '=', 'groupchats.church_id')
             // ->join('countries', 'countries.id', '=', 'groupchats.country_id')
             // ->join('regions', 'regions.id', '=', 'groupchats.region_id')
             // ->join('states', 'states.id', '=', 'groupchats.state_id')
