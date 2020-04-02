@@ -22,10 +22,12 @@ return [
 			['data'=>'church_id','name'=>'church_id'],
             ['data'=>'action','name'=>'action'],
 	],
-	'hth' => ['name','code'],
+	'hth' => ['name','code','description','status'],
 	'second_columns'=>[
 		['data'=>'name','name'=>'name'],
 		['data'=>'code','name'=>'code'],
+		['data'=>'description','name'=>'description'],
+        ['data'=>'status','name'=>'status'],
 		['data'=>'action','name'=>'action'],
 	],
 	'form'=>'Homechurches\Forms\HomechurchesForm',
