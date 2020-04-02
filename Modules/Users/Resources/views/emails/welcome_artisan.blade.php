@@ -12,14 +12,14 @@
                         <td class="content-block"
                             style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 20px; font-weight:bold; vertical-align: top; margin: 0; padding: 0 0 20px;"
                             valign="top">
-                            Welcome to Help Geta
+                            Welcome to Dunamis
                         </td>
                     </tr>
                     <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;">
                         <td class="content-block"
                             style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                             valign="top">
-                            <p>Thank you for registering with Help Geta.</p>
+                            <p>Thank you for registering with Dunamis.</p>
                         </td>
                     </tr>
 
@@ -47,13 +47,6 @@
                             valign="top">
                             <p>
                                As a service provider, you are required to login and fill in the following necessary details after a successful confirmation :
-                            </p>
-                            <p>
-                                Phone number <br>
-                                Service you will like to render with prices <br>
-                                Account details <br>
-                                Guarantor details <br>
-                                Valid I.D
                             </p>
 
                         </td>

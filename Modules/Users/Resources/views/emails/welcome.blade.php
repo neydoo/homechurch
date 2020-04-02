@@ -12,16 +12,17 @@
                         <td class="content-block"
                             style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 20px; font-weight:bold; vertical-align: top; margin: 0; padding: 0 0 20px;"
                             valign="top">
-                            Welcome to Help Geta
+                            Welcome to Dunamis
                         </td>
                     </tr>
                     <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;">
                         <td class="content-block"
                             style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                             valign="top">
-                            <p>Thank you for registering with Help Geta.</p>
+                            <p>Thank you for registering with Dunamis.</p>
                         </td>
                     </tr>
+
                     <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;">
                         <td class="content-block"
                             style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
@@ -38,6 +39,16 @@
                                style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background: #1b8aec; margin: 0; padding: 0; border-color: #1b8aec; border-style: solid; border-width: 10px 20px;">
                                 Click here to confirm email
                             </a>
+                        </td>
+                    </tr>
+                    <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;">
+                        <td class="content-block"
+                            style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
+                            valign="top">
+                            <p>
+                               As a service provider, you are required to login and fill in the following necessary details after a successful confirmation :
+                            </p>
+
                         </td>
                     </tr>
 

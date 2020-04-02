@@ -41,7 +41,7 @@ class WelcomeEmail extends Mailable {
     {
         $from_address = config('myapp.mail_from_address');
         $from_name = config('myapp.mail_from_name');
-        if ($this->user->hasRoleName('Artisan'))
+        if ($this->user->hasRoleName('User'))
             $view = 'users::emails.welcome_artisan';
         else
             $view = 'users::emails.welcome';
