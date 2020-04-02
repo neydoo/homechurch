@@ -38,7 +38,7 @@ class UserRegistration
 
         $this->assignUserToGroup($user, $group);
 
-        // event(new UserHasRegistered($user));
+        event(new UserHasRegistered($user));
 
         return $user;
     }
