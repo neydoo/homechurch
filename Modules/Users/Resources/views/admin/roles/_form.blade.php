@@ -19,10 +19,10 @@
             <a href="#tab_1" data-toggle="tab" class="nav-link active">
                 Basic </a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a href="#tab_3" data-toggle="tab" class="nav-link">
                 Permissions </a>
-        </li> --}}
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
