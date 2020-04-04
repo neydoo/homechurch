@@ -36,7 +36,7 @@ class RolesAjaxController extends BaseAjaxController {
     {
         $deleted = $this->repository->delete($id);
 
-        \Notification::success(trans('core::global.delete_success'));
+        session('success',trans('core::global.delete_success'));
 
     }
 

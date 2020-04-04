@@ -67,4 +67,11 @@ class RolesController extends BaseUsersController {
         return redirect($redirectUrl)->withSuccess(trans('core::global.update_record'));
     }
 
+    public function destroy($id)
+    {
+        $deleted = $this->repository->delete($id);
+
+        session('success',trans('core::global.delete_success'));
+        return redirect()->back();
+    }
 }
