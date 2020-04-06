@@ -12,6 +12,9 @@
                         @if(has_access($module.'.excel'))
                             @include('core::admin._button-excel', ['module' => $module])
                         @endif
+                        @if(has_access($module.'.search'))
+                            @include('core::admin._button-search', ['module' => $module])
+                        @endif
                     @else
                         @include('core::admin._button-create', ['module' => $module])
                     @endif

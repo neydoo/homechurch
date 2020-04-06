@@ -27,6 +27,7 @@ return [
 			'update',
 			'print',
 			'excel',
+			'search'
 			// 'destroy',
 		],
 	]
