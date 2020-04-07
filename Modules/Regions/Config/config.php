@@ -31,7 +31,8 @@ return [
 			'edit',
 			'update',
 			'destroy',
-			'getCountryRegion'
+			'getCountryRegion',
+			'search'
 		],
 	]
 ];

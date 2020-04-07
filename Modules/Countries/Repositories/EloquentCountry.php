@@ -11,11 +11,16 @@ class EloquentCountry extends RepositoriesAbstract implements CountryInterface
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll(array $data = [])
     {
-        return $this->model
-            ->where('id','!=', '')->get();
+        $query = $this->model->where('id','!=', '');
+                // if(!empty($data)){
+                //     return $model = $query->select($data)->get();
+                // }
+        return $model = $query->get();
 
     }
+
+    
 
 }

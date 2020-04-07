@@ -13,29 +13,45 @@
         const second = {!! json_encode(config($module.'.second_columns')) !!};
         const column = (type && second) ? {!! json_encode(config($module.'.second_columns')) !!} : {!! json_encode(config($module.'.columns')) !!}
         $(function() {
-            $('#data-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{route('admin.'.$module.'.datatable')}}',
-                columns: column,
-                drawCallback:function(){
-                    $(".delete-me").click(function () {
-                        if(confirm($(this).attr('data-confirm'))){
-                            $.ajax({
-                                url: $(this).attr('href'),
-                                type: 'DELETE',
-                                success: function(data){
-                                    document.location.href = '{{route('admin.'.$module.'.index')}}';
-                                },
-                                data: {_token: '{{csrf_token()}}'}
-                            })
-                        }
-                        return false;
-                    });
+            getDatatable();
+            function getDatatable(data = '') {
+                $('#data-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: `{{route('admin.'.$module.'.datatable')}}?${data}`,
+                    columns: column,
+                    drawCallback:function(){
+                        $(".delete-me").click(function () {
+                            if(confirm($(this).attr('data-confirm'))){
+                                $.ajax({
+                                    url: $(this).attr('href'),
+                                    type: 'DELETE',
+                                    success: function(data){
+                                        document.location.href = '{{route('admin.'.$module.'.index')}}';
+                                    },
+                                    data: {_token: '{{csrf_token()}}'}
+                                })
+                            }
+                            return false;
+                        });
 
-                    $('.tooltips').tooltip();
+                        $('.tooltips').tooltip();
 
-                }
+                    }
+                });
+            }
+            $('.search-modal-form').on('submit',function(e){
+                e.preventDefault();
+                $('#data-table').dataTable().fnClearTable();
+                $('#data-table').dataTable().fnDestroy();
+                // let country_id =  $('#country_id option:selected').toArray().map(item => `country_id=${item.value}&`).join();
+                let country_id= $('#country_id').val();
+                let region_id= $('#region_id').val();
+                var button = $(this).find('button[type=submit]');
+                var buttonInitialLabel = button.html();
+                button.attr("disabled", true).html("<i class='fa fa-spinner fa-spin'></i>");
+                getDatatable(`country_id=${country_id}&region_id=${region_id}`);
+                button.attr("disabled", false).html(buttonInitialLabel);
             });
         });
     </script>

@@ -570,4 +570,23 @@ abstract class RepositoriesAbstract implements RepositoryInterface
         return;
     }
 
+    public function getAllBySearchQuery($query, $search_column = 'name', $auto = true)
+    {
+        $query = strtolower($query);
+        $get = $this->model
+            ->select([$search_column,'id'])
+            ->where($search_column,'like', '%' .$query . '%')
+            ->get();
+        $model = [];
+        foreach($get as $g){
+            ($auto) ? 
+            $model['suggestions'][] = ['value' => $g->$search_column, 'data' => $g->id]
+            : $model[] = ['value' => $g->$search_column, 'data' => $g->id];
+        }
+
+        (!count($model) && $auto) ?  $model['suggestions'] = [] : $model[] = [];
+
+        return $model;
+    }
+
 }

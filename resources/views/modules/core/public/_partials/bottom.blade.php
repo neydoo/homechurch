@@ -20,13 +20,18 @@
 <script src="{{ asset('assets/public/js/gmaps.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/map-script.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{ asset('assets/public/js/jquery/jquery-ui-1.9.1.custom.min.js') }}"></script>
+<script src="{{ asset('assets/public/js/jquery/jquery.autocomplete.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/public/js/main.js') }}"></script>
 <script src="{{ asset('assets/public/js/pages/ajax-form.js') }}"></script>
+<script src="{{ asset('assets/public/js/autocomplete.js') }}"></script>
 {{--<script src="{{ asset('assets/public/js/all.js') }}"></script>--}}
-        <script src="//js.pusher.com/4.1/pusher.min.js"></script>
+<script src="//js.pusher.com/4.1/pusher.min.js"></script>
 <script>
-
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
 </script>
 <script>
     window.Laravel = {!! json_encode([

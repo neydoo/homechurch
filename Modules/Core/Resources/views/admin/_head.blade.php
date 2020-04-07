@@ -41,6 +41,8 @@
 @yield('page-css')
 
 <link href="{{asset('assets/admin/css/custom.css')}}" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('assets/public/js/jquery/jquery.autocomplete.css') }}">
 
 <!--end::Layout Skins -->
 <!--begin::Fonts -->

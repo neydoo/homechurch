@@ -3,13 +3,15 @@
 use Modules\Core\Http\Controllers\BaseAdminController;
 use Modules\Regions\Http\Requests\FormRequest;
 use Modules\Regions\Repositories\RegionInterface as Repository;
+use Modules\Countries\Repositories\CountryInterface;
 use Modules\Regions\Entities\Region;
 
 class RegionsController extends BaseAdminController {
-
-    public function __construct(Repository $repository)
+    protected $country;
+    public function __construct(Repository $repository,CountryInterface $country)
     {
         parent::__construct($repository);
+        $this->country = $country;
     }
 
     public function index()
@@ -18,6 +20,13 @@ class RegionsController extends BaseAdminController {
         $title = trans($module . '::global.group_name');
         return view('core::admin.index')
             ->with(compact('title', 'module'));
+    }
+
+    public function search()
+    {
+        $query = request('query');
+        $array = $this->country->getAllBySearchQuery($query, 'name',false);
+        return response()->json($array, 200);
     }
 
     public function getCountryRegion($id)

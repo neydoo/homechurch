@@ -64,6 +64,9 @@
 
 <!--begin::Global Theme Bundle(used by all pages) -->
 <script src="{{asset('assets/admin/js/scripts.bundle.js')}}" type="text/javascript"></script>
+<script src="{{ asset('assets/public/js/jquery/jquery-ui-1.9.1.custom.min.js') }}"></script>
+<script src="{{ asset('assets/public/js/jquery/jquery.autocomplete.min.js') }}"></script>
+<script src="{{ asset('assets/public/js/autocomplete.js') }}"></script>
 <!--end::Global Theme Bundle -->
 <script src="{{asset('assets/admin/js/custom.js')}}" type="text/javascript"></script>
 <script src="//js.pusher.com/4.1/pusher.min.js"></script>
@@ -71,11 +74,13 @@
 @yield('page-js')
 
 <script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
     window.Laravel = {!! json_encode([
-        'csrfToken'=> csrf_token(),
-        'user' => current_user()
+            'csrfToken'=> csrf_token(),
+            'user' => current_user()
         ])
-
     !!};
 </script>
 <script>

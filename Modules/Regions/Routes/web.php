@@ -14,6 +14,10 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.regions.country',
             'uses' => 'RegionsController@getCountryRegion'
         ]);
+        Route::get('/country', [
+            'as' => 'admin.regions.search',
+            'uses' => 'RegionsController@search'
+        ]);
         Route::get('create', [
             'as' => 'admin.regions.create',
             'uses' => 'RegionsController@create'
