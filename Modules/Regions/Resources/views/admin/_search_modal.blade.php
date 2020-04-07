@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+          <h5 class="modal-title" id="searchModal">Search</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -11,7 +11,7 @@
         <div class="modal-body">
           <div class="col-md-12">
             @if($countries = Countries::getAll(['id','name as text']))
-              <select name="country_id[]" id="country_id" class="form-control required">
+              <select name="country_id" id="country_id" class="form-control required">
                   <option value=""> -- Select Country--</option>
                   @foreach ($countries as $country)
                     <option value="{{ $country->id }}">{{ $country->name }} </option>

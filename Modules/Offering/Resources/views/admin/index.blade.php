@@ -8,7 +8,10 @@
 
 @section('page-js')
     <script src="{{asset('assets/admin/vendors/custom/datatables/datatables.bundle.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/pagination.js')}}" type="text/javascript"></script>    
+    <script src="{{asset('js/pagination.js')}}" type="text/javascript"></script>  
+    <script type="text/javascript">
+        getSelectOnChange($("#church_id"),'/admin/homechurches/church/', $('#homechurch_id').closest('div'),$('#homechurch_id'),'Home Church','homechurches');
+    </script>  
 @stop
 
 @section('page-group-title')
@@ -27,6 +30,7 @@
             <div class="table-scrollable">
                 @include('offering::admin._list',['models'=> $models])
             </div>
+            @include($module.'::admin._search_modal')
         </div>
     </div>
 @stop

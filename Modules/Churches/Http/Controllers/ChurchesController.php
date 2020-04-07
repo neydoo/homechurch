@@ -20,6 +20,14 @@ class ChurchesController extends BaseAdminController {
             ->with(compact('title', 'module'));
     }
 
+    public function getAreaChurch($id)
+    {
+        return response()->json([
+            'churches' => $this->repository->allBy('area_id',$id),
+            'success' => true
+        ], 200);
+    }
+
     public function create()
     {
         // dd(current_user()->hasChurch(current_user()['churchtype']));

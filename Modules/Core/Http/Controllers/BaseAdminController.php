@@ -16,7 +16,7 @@ abstract class BaseAdminController extends Controller {
     public function __construct($repository = null)
     {
         $this->middleware('auth.admin');
-        $this->middleware('permissions')->except(['getCountryRegion','getRegionState','getStateDistrict','getDistrictZone','getZoneArea']);
+        $this->middleware('permissions')->except(['getCountryRegion','getRegionState','getStateDistrict','getDistrictZone','getZoneArea','getAreaChurch']);
         $this->middleware('bindings');
         $this->repository = $repository;
     }

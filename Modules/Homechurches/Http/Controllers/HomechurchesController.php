@@ -21,6 +21,13 @@ class HomechurchesController extends BaseAdminController {
             ->with(compact('title', 'module'));
     }
 
+    public function getByChurch($id)
+    {
+        return response()->json([
+            'homechurches' => $this->repository->allBy('church_id',$id),
+            'success' => true
+        ], 200);
+    }
     public function create()
     {
         $module = $this->repository->getTable();

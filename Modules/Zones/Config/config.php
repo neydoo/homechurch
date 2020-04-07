@@ -34,6 +34,7 @@ return [
 			'edit',
 			'update',
 			'destroy',
+			'search',
 			'getDistrictZone',
 		],
 	]

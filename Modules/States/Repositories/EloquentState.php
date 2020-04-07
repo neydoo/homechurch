@@ -19,22 +19,30 @@ class EloquentState extends RepositoriesAbstract implements StateInterface
     }
 
     public function getForDataTable()
-    {
+    { 
         if(!empty(current_user()->churchtype)){
-            return  getDataTabeleQuery($this->model)->get();
+            $query = getDataTabeleQuery($this->model);
+                    if(!empty(request('country_id'))&& !empty(request('region_id'))){
+                        return $model = $query->where('country_id', request('country_id'))
+                                            ->where('region_id',request('region_id'))->get();
+                    }
+            return  $model = $query->get();
         }
         $query = getDataTabeleQuery($this->model)
-            ->join('countries', 'countries.id', '=', 'states.country_id')
-            ->join('regions', 'regions.id', '=', 'states.region_id')
-            ->select([
-                'states.id as id',
-                'states.name as name',
-                'states.code as code',
-                'countries.name as country_id',
-                'regions.name as region_id',
-            ]);
+                ->join('countries', 'countries.id', '=', 'states.country_id')
+                ->join('regions', 'regions.id', '=', 'states.region_id');
+                if(!empty(request('country_id')) && !empty(request('region_id'))){
+                    $model = $query->where('states.country_id', request('country_id'))->where('states.region_id',request('region_id'));
+                }
+                $model = $query->select([
+                    'states.id as id',
+                    'states.name as name',
+                    'states.code as code',
+                    'countries.name as country_id',
+                    'regions.name as region_id',
+                ]);
 
-        return $query;
+        return $model->get();
     }
 
 }

@@ -20,3 +20,11 @@
     </div>
 
 @stop
+
+
+@section('page-js')
+<script src="{{asset('js/utility.js')}}" type="text/javascript"></script>
+<script>
+    
+</script>
+@endsection

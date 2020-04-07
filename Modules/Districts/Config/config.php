@@ -33,6 +33,7 @@ return [
 			'edit',
 			'update',
 			'destroy',
+			'search',
 		],
 	]
 ];

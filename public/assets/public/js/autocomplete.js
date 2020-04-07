@@ -31,6 +31,7 @@ function multipleSelect(inputSelector,route, placeholder = 'select data', tags =
         }
     });
 }
+
 function autoCompleteInputLookup(inputSelector, valueSelector, route, saveInputText, notice) {
     saveInputText = (typeof saveInputText !== 'undefined') ? saveInputText : false;
     notice = (typeof notice !== 'undefined') ? notice : "No Results";
@@ -66,5 +67,26 @@ function autoCompleteInputLookup(inputSelector, valueSelector, route, saveInputT
                 this.value = '';
             // }
         }
+    });
+}
+
+function getSelectOnChange(inputSelector,route, divSelector,responseSelector,selectOptionName,responseName){
+    $(divSelector).hide();
+    $(inputSelector).change(function(){
+        var id = $(this).val();
+        $.ajax({
+            url: route+id,
+            type: 'get',
+            dataType: 'json',
+            success:function(response){
+                console.log(response[responseName]);
+                $(divSelector).show();
+                $(responseSelector).empty();
+                $(responseSelector).append(`<option value=''>-- Select ${selectOptionName} --</option>`)
+                response[responseName].forEach((element, index) => {
+                    $(responseSelector).append("<option value='"+element.id+"'>"+element.name+"</option>");
+                });
+            }
+        });
     });
 }

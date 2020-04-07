@@ -21,14 +21,27 @@ class EloquentZone extends RepositoriesAbstract implements ZoneInterface
     public function getForDataTable()
     {
         if(!empty(current_user()->churchtype)){
-            return  getDataTabeleQuery($this->model)->get();
+            $query = getDataTabeleQuery($this->model);
+            if(!empty(request('country_id'))&& !empty(request('region_id'))){
+                return $model = $query->where('country_id', request('country_id'))
+                                    ->where('region_id',request('region_id'))
+                                    ->where('state_id',request('state_id'))
+                                    ->where('district_id',request('district_id'))->get();
+            }
+            return  $model = $query->get();
         }
         $query = getDataTabeleQuery($this->model)
             ->join('countries', 'countries.id', '=', 'zones.country_id')
             ->join('regions', 'regions.id', '=', 'zones.region_id')
             ->join('states', 'states.id', '=', 'zones.state_id')
-            ->join('districts', 'districts.id', '=', 'zones.district_id')
-            ->select([
+            ->join('districts', 'districts.id', '=', 'zones.district_id');
+            if(!empty(request('country_id')) && !empty(request('region_id')) && !empty(request('state_id'))){
+                $model = $query->where('zones.country_id', request('country_id'))
+                                ->where('zones.region_id',request('region_id'))
+                                ->where('zones.state_id',request('state_id'))
+                                ->where('zones.district_id',request('district_id'));
+            }
+            $model = $query->select([
                 'zones.id as id',
                 'zones.name as name',
                 'zones.code as code',
@@ -38,7 +51,7 @@ class EloquentZone extends RepositoriesAbstract implements ZoneInterface
                 'districts.name as district_id',
             ]);
 
-        return $query;
+        return $model;
     }
 
 }

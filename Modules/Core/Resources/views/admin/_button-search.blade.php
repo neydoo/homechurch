@@ -2,4 +2,3 @@
     <i class="fa fa-search"></i>
     Search Query
 </button>
-@include($module.'::admin._search_modal')

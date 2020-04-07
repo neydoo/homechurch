@@ -12,7 +12,7 @@
                         @if(has_access($module.'.excel'))
                             @include('core::admin._button-excel', ['module' => $module])
                         @endif
-                        @if(has_access($module.'.search'))
+                        @if(has_access($module.'.search') && (\Request::route()->getName() == 'admin.'.$module.'.index'))
                             @include('core::admin._button-search', ['module' => $module])
                         @endif
                     @else

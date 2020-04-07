@@ -14,6 +14,10 @@ Route::group(['prefix' => 'admin'], function()
             'as' => 'admin.churches.create',
             'uses' => 'ChurchesController@create'
         ]);
+        Route::get('/area/church/{id}', [
+            'as' => 'admin.churches.getAreaChurch',
+            'uses' => 'ChurchesController@getAreaChurch'
+        ]);
         Route::get('{church}/edit', [
             'as' => 'admin.churches.edit',
             'uses' => 'ChurchesController@edit'

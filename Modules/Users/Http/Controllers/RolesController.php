@@ -31,7 +31,7 @@ class RolesController extends BaseUsersController {
             'url' => route('admin.users.roles.store')
         ]);
         return view('users::admin.roles.create')
-            ->with(compact('model','module','form'));
+            ->with(compact('module','form'));
     }
 
     public function edit($id, $child = null)

@@ -21,7 +21,17 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
     public function getForDataTable()
     {
         if(!empty(current_user()->churchtype)){
-            return  getDataTabeleQuery($this->model)->get();
+            $query = getDataTabeleQuery($this->model);
+            if(!empty(request('country_id'))&& !empty(request('region_id'))){
+                return $model = $query->where('country_id', request('country_id'))
+                                    ->where('region_id',request('region_id'))
+                                    ->where('state_id',request('state_id'))
+                                    ->where('district_id',request('district_id'))
+                                    ->where('zone_id',request('zone_id'))
+                                    ->where('area_id',request('area_id'))
+                                    ->where('church_id',request('church_id'))->get();
+            }
+            return  $model = $query->get();
         }
         $query = getDataTabeleQuery($this->model)
             ->join('churches', 'churches.id', '=', 'groupchats.church_id')
@@ -30,8 +40,17 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
             ->join('states', 'states.id', '=', 'groupchats.state_id')
             ->join('districts', 'districts.id', '=', 'groupchats.district_id')
             ->join('zones', 'zones.id', '=', 'groupchats.zone_id')
-            ->join('areas', 'areas.id', '=', 'groupchats.area_id')
-            ->select([
+            ->join('areas', 'areas.id', '=', 'groupchats.area_id');
+            if(!empty(request('country_id')) && !empty(request('region_id')) && !empty(request('state_id'))){
+                $model = $query->where('groupchats.country_id', request('country_id'))
+                                ->where('groupchats.region_id',request('region_id'))
+                                ->where('groupchats.state_id',request('state_id'))
+                                ->where('groupchats.district_id',request('district_id'))
+                                ->where('groupchats.zone_id',request('zone_id'))
+                                ->where('groupchats.area_id',request('area_id'))
+                                ->where('groupchats.church_id',request('church_id'));
+            }
+            $model = $query->select([
                 'groupchats.id as id',
                 'groupchats.name as name',
                 'groupchats.code as code',
@@ -46,7 +65,7 @@ class EloquentGroupchat extends RepositoriesAbstract implements GroupchatInterfa
                 'churches.name as church_id',
             ]);
 
-        return $query;
+        return $model;
     }
 
 }
