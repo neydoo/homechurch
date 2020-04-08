@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/states', function (Request $request) {
     return $request->user();
 });
+Route::get('/country/states/{id}', [
+    'as' => 'api.states.country',
+    'uses' => 'StateApiController@getCountryState'
+]);

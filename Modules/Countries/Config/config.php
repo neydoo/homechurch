@@ -6,7 +6,7 @@ return [
 		'id' => 'asc',
 	],
 	'sidebar' => [
-		'weight' => 2,
+		'weight' => 0,
 		'icon' => 'fa fa-flag',
 	],
 	'th' => ['code','name'],

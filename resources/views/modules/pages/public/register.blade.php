@@ -22,6 +22,33 @@
                                 <div class="col"> {!! form_row($register_form->gender) !!}</div>
                             </div>
                             <div class="form-row">
+                                <div class="col">{!! form_row($register_form->dob) !!}</div>
+                                <div class="col">
+                                    <div class="form-group">
+                                    <label>Country </label>
+                                    @if($countries = Countries::getAll())
+                                        <select name="country_id" id="country_id" class="form-control required">
+                                            <option value=""> -- Select Country--</option>
+                                            @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }} </option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                {{--  <div class="col">{!! form_row($register_form->dob) !!}</div>  --}}
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>State </label>
+                                        <select name="state_id" id="state_id" class="form-control required">
+                                            <option value=""> -- Select State--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="col">{!! form_row($register_form->password) !!}</div>
                                 <div class="col">{!! form_row($register_form->confirm_password) !!}</div>
                             </div>
@@ -60,3 +87,10 @@
         </div>
     </section>
 @stop
+@section('js')
+    <script>
+        $(function() {
+            getSelectOnChange($("#country_id"),'/api/country/states/', $('#state_id').closest('div'),$('#state_id'),'State','states');
+        });
+    </script>
+@endsection

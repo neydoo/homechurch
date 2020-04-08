@@ -29,9 +29,6 @@
 {{--<script src="{{ asset('assets/public/js/all.js') }}"></script>--}}
 <script src="//js.pusher.com/4.1/pusher.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
 </script>
 <script>
     window.Laravel = {!! json_encode([

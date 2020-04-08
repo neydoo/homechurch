@@ -31,6 +31,7 @@ class UsersController extends BaseUsersController
                 'method' => 'POST',
                 'url' => route('admin.' . $module . '.store'),
                 'data' => [
+                    'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
                     'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
                     'states' => \States::getAll()->pluck('name', 'id')->all(),
                     'districts' => \Districts::getAll()->pluck('name', 'id')->all(),
@@ -59,6 +60,7 @@ class UsersController extends BaseUsersController
                 'url' => route('admin.' . $module . '.update', $model),
                 'model' => $model,
                 'data' => [
+                        'countries' => \Countries::getAll()->pluck('name', 'id')->all(),
                         'regions' => \Regions::getAll()->pluck('name', 'id')->all(),
                         'states' => \States::getAll()->pluck('name', 'id')->all(),
                         'districts' => \Districts::getAll()->pluck('name', 'id')->all(),

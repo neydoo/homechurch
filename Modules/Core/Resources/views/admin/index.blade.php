@@ -82,5 +82,7 @@
             @include($module . '::admin.index')
         </div>
     </div>
-    @include($module.'::admin._search_modal')
+    @if(has_access($module.'.search') && (\Request::route()->getName() == 'admin.'.$module.'.index'))
+        @include($module.'::admin._search_modal')
+    @endif
 @stop

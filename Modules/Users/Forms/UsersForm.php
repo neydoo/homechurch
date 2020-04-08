@@ -31,6 +31,12 @@ class UsersForm extends Form
                     'class'=>'form-control','required'
                 ]
             ])
+            ->add('dob', 'text',[
+                'label'=>'Date of Birth',
+                'attr'=>[
+                    'class'=>'form-control','required'
+                ]
+            ])
             ->add('address', 'textarea',[
                 'label'=>'Address',
                 'attr'=>[
@@ -49,6 +55,13 @@ class UsersForm extends Form
                     'Male' => 'Male',
                     'Female' => 'Female'
                 ],
+                'selected'=>0,
+                'expanded' => true,
+                'multiple' => false
+            ])
+            ->add('country_id', 'select', [
+                'label'=>'Country',
+                'choices' => $this->getData('countries'),
                 'selected'=>0,
                 'expanded' => true,
                 'multiple' => false
