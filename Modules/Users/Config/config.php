@@ -81,7 +81,9 @@ return [
         'avatar',
         'username',
         'state_id',
-        'city_id',
+        'country_id',
+        'church_id',
+        'birthday',
         'age',
         'gender'
     ],

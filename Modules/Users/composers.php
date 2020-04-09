@@ -3,6 +3,7 @@ view()->composer(
     [
         'pages::public.register',
         'checkout::index',
+        'homechurches::public.index',
     ],
     'Modules\Users\Composers\RegisterFormViewComposer'
 );

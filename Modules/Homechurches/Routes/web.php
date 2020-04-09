@@ -15,12 +15,12 @@ Route::group(['prefix' => 'admin'], function()
             'uses' => 'HomechurchesController@create'
         ]);
         Route::get('{homechurch}/edit', [
-            'as' => 'admin.homechurches.getByChurch',
-            'uses' => 'HomechurchesController@getByChurch'
-        ]);
-        Route::get('church/{id}', [
             'as' => 'admin.homechurches.edit',
             'uses' => 'HomechurchesController@edit'
+        ]);
+        Route::get('church/{id}', [
+            'as' => 'admin.homechurches.getByChurch',
+            'uses' => 'HomechurchesController@getByChurch'
         ]);
         Route::post('/', [
             'as' => 'admin.homechurches.store',

@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/homechurches', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/church/homechurches/{id}', [
+    'as' => 'api.homechurches.church',
+    'uses' => 'HomechurchesApiController@getByChurch'
+]);

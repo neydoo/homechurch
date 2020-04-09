@@ -38,7 +38,7 @@ return [
     ],
 
 
-    'linkable_to_page' => ['testimonials','announcements','manuals','faqs','groupchats','manuals'],
+    'linkable_to_page' => ['testimonials','announcements','manuals','faqs','groupchats','homechurches','manuals'],
 
     'middleware' => [
         'backend' => [

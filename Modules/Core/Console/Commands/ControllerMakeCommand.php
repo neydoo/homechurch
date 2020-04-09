@@ -54,7 +54,7 @@ class ControllerMakeCommand extends GeneratorCommand
         return [
             ['plain', 'p', InputOption::VALUE_NONE, 'Generate a plain controller', null],
             ['api', 'a', InputOption::VALUE_NONE, 'Generate an api controller', null],
-            ['public', 'pub', InputOption::VALUE_NONE, 'Generate an api controller', null],
+            ['public', 'f', InputOption::VALUE_NONE, 'Generate an api controller', null],
         ];
     }
 

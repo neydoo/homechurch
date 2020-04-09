@@ -79,7 +79,6 @@ function getSelectOnChange(inputSelector,route, divSelector,responseSelector,sel
             type: 'get',
             dataType: 'json',
             success:function(response){
-                console.log(response[responseName]);
                 $(divSelector).show();
                 $(responseSelector).empty();
                 $(responseSelector).append(`<option value=''>-- Select ${selectOptionName} --</option>`)

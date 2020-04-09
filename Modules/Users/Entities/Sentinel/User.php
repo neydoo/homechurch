@@ -13,16 +13,7 @@ class User extends EloquentUser implements UserInterface {
 
     use \Modules\Core\Presenters\PresentableTrait;
 
-    protected $fillable = [
-        'email',
-        'password',
-        'permissions',
-        'first_name',
-        'last_name',
-        'facebook_id',
-        'phone',
-        'address'
-    ];
+    protected $fillable = [];
 
     /**
      * {@inheritDoc}

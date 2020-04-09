@@ -60,7 +60,7 @@
                 @if(!empty(current_user()->homechurches))
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 mb-2 mt-4">
                         <div class="inforide">
-                            <a href="{{ route('groupchats')}}">
+                            <a href="{{ route('homechurches')}}">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-4 col-4 ridethree">
                                     <img src="https://cdn.images.express.co.uk/img/dynamic/59/590x/whatsapp-archive-how-to-find-archived-whatsapp-chats-where-are-archived-whatsapp-messages-1166226.jpg?r=1581088465552">

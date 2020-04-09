@@ -28,6 +28,7 @@ class HomechurchesController extends BaseAdminController {
             'success' => true
         ], 200);
     }
+
     public function create()
     {
         $module = $this->repository->getTable();
@@ -67,7 +68,7 @@ class HomechurchesController extends BaseAdminController {
     {
         $data = $request->all();
         $data = get_relationship($data);
-        // $data['user_id'] = current_user()->id;
+        $data['description'] = !empty($data['description']) ?: ucwords($data['name']);
         $model = $this->repository->create($data);
         $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
         (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
@@ -101,7 +102,8 @@ class HomechurchesController extends BaseAdminController {
         (($data['area_id'] < 10) ? '0'.$data['area_id'] : $data['area_id']).
         (($data['church_id'] < 10) ? '0'.$data['church_id'] : $data['church_id']).
         (($model->id < 10) ? '0'.$model->id : $model->id);
-
+        $data['description'] = !empty($data['description']) ?: ucwords($data['name']);
+        
         $model = $this->repository->update($data);
         if(!empty($data['users'])){
             $users = collect($request->users);

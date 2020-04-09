@@ -26,6 +26,7 @@ class HomechurchesForm extends Form
             ])
             ->add('name', 'text')
             ->add('description', 'textarea')
+            ->add('Address', 'textarea')
             ->add('status', 'select', [
                 'choices' => ['1' => 'live', '0' => 'draft'],
                 'empty_value' => '- Select status -',

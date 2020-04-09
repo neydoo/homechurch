@@ -77,7 +77,8 @@ class AuthController extends Controller {
     {
         DB::beginTransaction();
         try {
-            app(UserRegistration::class)->register($request->all());
+            $data = $request->all();
+            app(UserRegistration::class)->register($data);
 
             DB::commit();
 
@@ -87,7 +88,6 @@ class AuthController extends Controller {
             return redirect()->back()->withSuccess('user registration successful!');
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e->getMessage());
             if($request->ajax()){
                 $message = trans('core::global.error_exception_msg'); //$message = $e->getMessage();
                 return response()->json($message, 400);

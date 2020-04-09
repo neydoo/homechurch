@@ -57,9 +57,9 @@ class HomechurchesServiceProvider extends ServiceProvider
             return $repository;
         });
 
-        /*$app->view->composer('homechurches::public.*', function ($view) {
+        $app->view->composer('homechurches::public.*', function ($view) {
             $view->page = \MyApp::getPageLinkedToModule('homechurches');
-        });*/
+        });
     }
 
     /**

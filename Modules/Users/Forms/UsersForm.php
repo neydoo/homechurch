@@ -31,7 +31,7 @@ class UsersForm extends Form
                     'class'=>'form-control','required'
                 ]
             ])
-            ->add('dob', 'text',[
+            ->add('birthday', 'date',[
                 'label'=>'Date of Birth',
                 'attr'=>[
                     'class'=>'form-control','required'
@@ -118,7 +118,7 @@ class UsersForm extends Form
             ])
             ->add('homechurch_id', 'select', [
                 'label'=>'Home Cell',
-                'choices' => $this->getData('homechurches'),
+                'choices' => !empty($this->getData('homechurches')) ? $this->getData('homechurches') : [],
                 'empty_value' => '- Select Homecell -'
             ])
             ->add('groupchat_id', 'select', [
@@ -128,7 +128,7 @@ class UsersForm extends Form
             ])
             ->add('church_id', 'select', [
                 'label'=>'Local Church',
-                'choices' => $this->getData('churches'),
+                'choices' => !empty($this->getData('churches')) ? $this->getData('churches') : [],
                 'empty_value' => '- Select church -'
             ])
             ->add('area_id', 'select', [
@@ -148,7 +148,7 @@ class UsersForm extends Form
             ])
             ->add('state_id', 'select', [
                 'label'=>'State',
-                'choices' => $this->getData('states'),
+                'choices' => !empty($this->getData('states')) ? $this->getData('states') : [],
                 'empty_value' => '- Select State -'
             ])
             ->add('region_id', 'select', [

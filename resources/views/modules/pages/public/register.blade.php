@@ -22,31 +22,36 @@
                                 <div class="col"> {!! form_row($register_form->gender) !!}</div>
                             </div>
                             <div class="form-row">
-                                <div class="col">{!! form_row($register_form->dob) !!}</div>
+                                <div class="col">{!! form_row($register_form->birthday) !!}</div>
                                 <div class="col">
                                     <div class="form-group">
-                                    <label>Country </label>
-                                    @if($countries = Countries::getAll())
-                                        <select name="country_id" id="country_id" class="form-control required">
-                                            <option value=""> -- Select Country--</option>
-                                            @foreach ($countries as $country)
-                                            <option value="{{ $country->id }}">{{ $country->name }} </option>
-                                            @endforeach
-                                        </select>
-                                    @endif
+                                    <label>Any dunamis church around you? </label>
+                                    <select name="church" id="church" class="form-control required">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Country </label>
+                                        @if($countries = Countries::getAll())
+                                            <select name="country_id" id="country_id" class="form-control required">
+                                                <option value=""> -- Select Country--</option>
+                                                @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }} </option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                {{--  <div class="col">{!! form_row($register_form->dob) !!}</div>  --}}
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>State </label>
-                                        <select name="state_id" id="state_id" class="form-control required">
-                                            <option value=""> -- Select State--</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <div class="col">{!! form_row($register_form->state_id) !!}</div>
+                                <div class="col">{!! form_row($register_form->church_id) !!}</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">{!! form_row($register_form->address) !!}</div>
                             </div>
                             <div class="form-row">
                                 <div class="col">{!! form_row($register_form->password) !!}</div>
@@ -90,7 +95,19 @@
 @section('js')
     <script>
         $(function() {
+            $('#country_id').closest('div.col').hide();
+            $('#state_id').closest('div.col').hide();
+            $('#church_id').closest('div.col').hide();
+            $("#church").on('change', function(){
+                if($(this).val() == 'yes'){
+                    $('#church').closest('div.col').hide();
+                    $('#country_id').closest('div.col').show();
+                    $('#state_id').closest('div.col').show();
+                    $('#church_id').closest('div.col').show();
+                }
+            })
             getSelectOnChange($("#country_id"),'/api/country/states/', $('#state_id').closest('div'),$('#state_id'),'State','states');
+            getSelectOnChange($("#state_id"),'/api/state/churches/', $('#church_id').closest('div'),$('#church_id'),'Church','churches');
         });
     </script>
 @endsection
