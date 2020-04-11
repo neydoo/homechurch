@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Repositories\RepositoriesAbstract;
+use stdClass;
 
 class EloquentHomechurch extends RepositoriesAbstract implements HomechurchInterface
 {
@@ -15,6 +16,31 @@ class EloquentHomechurch extends RepositoriesAbstract implements HomechurchInter
     {
         return $this->model
             ->where('id','!=', '')->get();
+    }
+
+    public function byPage($page = 1, $limit = 10, array $with = array(), $all = false)
+    {
+        $result = new stdClass;
+        $result->page = $page;
+        $result->limit = $limit;
+        $result->totalItems = 0;
+        $result->items = array();
+
+        $query = $this->make($with)->where('owner_id',current_user()['id']);
+
+        $totalItems = $query->count();
+
+        $query->order()
+            ->skip($limit * ($page - 1))
+            ->take($limit);
+
+        $models = $query->get();
+
+        // Put items and totalItems in stdClass
+        $result->totalItems = $totalItems;
+        $result->items = $models->all();
+
+        return $result;
     }
 
     public function getForDataTable()

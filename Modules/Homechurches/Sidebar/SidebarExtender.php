@@ -17,9 +17,21 @@ class SidebarExtender extends BaseSidebarExtender implements PackageSideBarExten
         {
             $group->item(trans('homechurches::global.name'),function(Item $item){
                 $item->weight(config('homechurches.sidebar.weight'));
-                $item->icon(config('homechurches.sidebar.icon'));
-                $item->route('admin.homechurches.index');
-                $item->authorize($this->auth->hasAccess('homechurches.index'));
+                $item->authorize($this->auth->hasAccess('homechurches.index') || $this->auth->hasAccess('homechurches.submittedHomechurches'));
+                $item->item(trans('homechurches::global.name'), function (Item $item) {
+                    $item->weight(0);
+                    $item->icon(config('homechurches.sidebar.icon'));
+                    $item->route('admin.homechurches.index');
+                    $item->authorize($this->auth->hasAccess('homechurches.index'));
+                });
+                $item->item(trans('homechurches::global.submitted'), function (Item $item) {
+                    $item->weight(1);
+                    $item->icon('fa fa-list');
+                    $item->route('admin.homechurches.submittedHomechurches');
+                    $item->authorize(
+                        $this->auth->hasAccess('homechurches.submittedHomechurches')
+                    );
+                });
             });
         });
 

@@ -29,9 +29,29 @@ class Homechurch extends Base {
         }
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function offering()
     {
         return $this->morphMany('Modules\Offering\Entities\Offering', 'Offeringable');
+    }
+
+    public function church()
+    {
+        return $this->belongsTo('Modules\Churches\Entities\Church', 'church_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo('Modules\States\Entities\State', 'state_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo('Modules\Countries\Entities\Country', 'country_id');
     }
 
 }

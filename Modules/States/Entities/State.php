@@ -11,6 +11,8 @@ class State extends Base {
 
     protected $presenter = 'Modules\States\Presenters\ModulePresenter';
 
+    protected $fillable = [];
+
     protected $guarded = ['_token','exit'];
 
     public $attachments = ['image'];

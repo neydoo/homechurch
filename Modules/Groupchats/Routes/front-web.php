@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-// if ($page = \MyApp::getPageLinkedToModule('groupchats')) {
-//     $options = [];
-//     if ($uri = $page->uri) {
-//         // dd($page);
-//         Route::get($uri, $options + ['as' => 'groupchats', 'uses' => 'GroupchatsPublicController@index']);
-//         Route::get($uri.'/{slug}', $options +  ['as' => 'groupchats.slug', 'uses' => 'GroupchatsPublicController@show']);
-//     }
-// }
+if ($page = \MyApp::getPageLinkedToModule('groupchats')) {
+    $options = [];
+    if ($uri = $page->uri) {
+        // dd($page);
+        Route::get($uri, $options + ['as' => 'groupchats', 'uses' => 'GroupchatsPublicController@index']);
+        Route::get($uri.'/{slug}', $options +  ['as' => 'groupchats.slug', 'uses' => 'GroupchatsPublicController@show']);
+    }
+}
 
 /*Route::group(['prefix' => 'groupchats'], function()
 {
@@ -21,6 +21,7 @@ Route::group(['prefix' => 'groupchats'], function()
     Route::get('/', 'GroupchatsPublicController@index')->name('groupchats');
     Route::post('/store', 'GroupchatsPublicController@store');
     Route::post('/add/user','GroupchatsPublicController@addUser');
+    Route::get('/remove/user/{group_id}/{user_id}','GroupchatsPublicController@removeUser');
 });
 
 Route::group(['prefix' => 'conversations'], function()

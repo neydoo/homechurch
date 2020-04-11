@@ -40,7 +40,8 @@ return [
 			'update',
 			'destroy',
 			'search',
-			'getByChurch'
+			'getByChurch',
+			'submittedHomechurches',
 		],
 	]
 ];

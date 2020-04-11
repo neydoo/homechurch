@@ -15,8 +15,8 @@
     <create-group :initial-users="{{ $users }}" :churches="{{ $churches }}" :groups="{{ $all_groups }}"></create-group>
     <hr/>
     <div class="row">
-        <div class="col-sm-6">
-            <groups :initial-groups="{{ $groups }}" :user="{{ current_user() }}"></groups>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <groups :initial-groups="{{ $groups }}" :user="{{ current_user() }}" :initial-group-members="{{ $group_members }}" :is-admin="true"></groups>
         </div>
     </div>
 </div>

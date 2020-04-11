@@ -21,6 +21,11 @@ class HomechurchesController extends BaseAdminController {
             ->with(compact('title', 'module'));
     }
 
+    public function submittedHomechurches()
+    {
+        
+    }
+
     public function getByChurch($id)
     {
         return response()->json([

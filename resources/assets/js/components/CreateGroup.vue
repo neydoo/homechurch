@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="col-sm-12 col-md-6 col-lg-6" v-if="churches.length > 0 && initialUsers.length > 0">
             <h3>Create Group</h3>
             <form>
                 <div class="form-group">
@@ -26,7 +26,7 @@
                 <button type="submit" @click.prevent="createGroup" class="btn btn-primary">Create Group</button>
             </form>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="col-sm-12 col-md-6 col-lg-6" v-if="groups.length > 0 && initialUsers.length > 0">
             <h3>Add Users To Group</h3>
             <form>
                 <div class="form-group">
@@ -67,17 +67,27 @@
             createGroup() {
                 axios.post('/groupchats/store', {name: this.name, description: this.description, church_id: this.church_id, users: this.users})
                 .then((response) => {
-                    this.name = '';
-                    this.users = [];
-                    Bus.$emit('groupCreated', response.data);
+                    if(response.data.success){
+                        this.name = '';
+                        this.users = [];
+                        Bus.$emit('groupCreated', response.data.model);
+                        alert(response.data.msg)
+                    }else {
+                        alert(response.data.msg)
+                    }
                 });
             },
             addGroupUsers() {
                 axios.post('/groupchats/add/user', {group_id: this.group_id, users: this.users})
                 .then((response) => {
-                    this.group_id = '';
-                    this.users = [];
-                    Bus.$emit('groupCreated', response.data);
+                    if(response.data.success){
+                        this.group_id = '';
+                        this.users = [];
+                        Bus.$emit('groupCreated', response.data.model);
+                        alert(response.data.msg)
+                    }else {
+                        alert(response.data.msg)
+                    }
                 });
             }
         }

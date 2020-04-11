@@ -1,12 +1,12 @@
 <template>
     <div>
-        <group-chat v-for="group in groups" :group="group" :key="group.id" :user="user"></group-chat>
+        <group-chat v-for="group in groups" :group="group" :key="group.id" :user="user" :members="initialGroupMembers" :administrator="isAdmin"></group-chat>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['initialGroups', 'user'],
+        props: ['initialGroups', 'user','initialGroupMembers','isAdmin'],
 
         data() {
             return {

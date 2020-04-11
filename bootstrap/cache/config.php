@@ -2169,6 +2169,7 @@
         5 => 'destroy',
         6 => 'search',
         7 => 'getByChurch',
+        8 => 'submittedHomechurches',
       ),
     ),
   ),

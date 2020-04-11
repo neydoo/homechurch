@@ -70,19 +70,17 @@
 <!--end::Global Theme Bundle -->
 <script src="{{asset('assets/admin/js/custom.js')}}" type="text/javascript"></script>
 <script src="//js.pusher.com/4.1/pusher.min.js"></script>
-
-@yield('page-js')
-
 <script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
+    // $(document).ready(function() {
+    //     $('.select2').select2();
+    // });
     window.Laravel = {!! json_encode([
             'csrfToken'=> csrf_token(),
             'user' => current_user()
         ])
     !!};
 </script>
+@yield('page-js')
 <script>
     $(function () {
         $('#form-validate').validate();

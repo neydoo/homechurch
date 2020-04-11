@@ -4,12 +4,9 @@
     <section class="events archives section">
         <div class="container">
             <div class="row">
-                <div class="col-12" id="app">
+                <div class="col-lg-12 col-md-12 col-sm-12" id="app">
                     @include('pages::public._page-content-body')
-                    {{--  @include('groupchats::public._list')  --}}
-                    <div class="col-sm-6">
-                        <groups :initial-groups="{{ $groups }}" :user="{{ current_user() }}"></groups>
-                    </div>
+                    <groups :initial-groups="{{ $groups }}" :user="{{ current_user() }}" :initial-group-members="{{ $group_members }}" :is-admin="false"></groups>
                 </div>
             </div>
         </div>

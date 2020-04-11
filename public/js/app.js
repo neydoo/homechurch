@@ -32038,18 +32038,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post('/groupchats/store', { name: this.name, description: this.description, church_id: this.church_id, users: this.users }).then(function (response) {
-                _this.name = '';
-                _this.users = [];
-                Bus.$emit('groupCreated', response.data);
+                if (response.data.success) {
+                    _this.name = '';
+                    _this.users = [];
+                    Bus.$emit('groupCreated', response.data.model);
+                    alert(response.data.msg);
+                } else {
+                    alert(response.data.msg);
+                }
             });
         },
         addGroupUsers: function addGroupUsers() {
             var _this2 = this;
 
             axios.post('/groupchats/add/user', { group_id: this.group_id, users: this.users }).then(function (response) {
-                _this2.group_id = '';
-                _this2.users = [];
-                Bus.$emit('groupCreated', response.data);
+                if (response.data.success) {
+                    _this2.group_id = '';
+                    _this2.users = [];
+                    Bus.$emit('groupCreated', response.data.model);
+                    alert(response.data.msg);
+                } else {
+                    alert(response.data.msg);
+                }
             });
         }
     }
@@ -32127,37 +32137,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['group', 'user'],
+    props: ['group', 'user', 'members', 'administrator'],
 
     data: function data() {
         return {
@@ -32208,6 +32191,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.conversations = response.data;
             });
         },
+        reportUser: function reportUser(id) {
+            swal({
+                title: "Are you sure?",
+                text: "reporting a this member!",
+                icon: "warning",
+                buttons: {
+                    cancel: true,
+                    confirm: true
+                },
+                closeOnClickOutside: true
+            }).then(function (isConfirm) {
+                console.log(isConfirm);
+                // if(value){
+                //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                // }
+            });
+        },
+        removeFromGroup: function removeFromGroup(id) {
+            axios.get('/groupchats/remove/user/' + this.group.id + '/' + id).then(function (response) {
+                if (response.data.success) {
+                    Bus.$emit('groupCreated', response.data.model);
+                    alert(response.data.msg);
+                } else {
+                    alert(response.data.msg);
+                }
+            });
+        },
         listenForNewMessage: function listenForNewMessage() {
             var _this4 = this;
 
@@ -32255,7 +32265,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['initialGroups', 'user'],
+    props: ['initialGroups', 'user', 'initialGroupMembers', 'isAdmin'],
 
     data: function data() {
         return {
@@ -67089,7 +67099,11 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-6 col-md-6 col-sm-12"
+  }, [_c('div', {
     staticClass: "panel panel-primary"
   }, [_c('div', {
     staticClass: "panel-heading"
@@ -67111,7 +67125,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "header pull-right col-12"
     }, [_c('span', {
       staticClass: "pull-right bold"
-    }, [_vm._v("\n                                " + _vm._s(conversation.user.username) + " "), _c('Adedotun', {
+    }, [_vm._v("\n                                    " + _vm._s(conversation.user.username) + " "), _c('Adedotun', {
       attrs: {
         "value": conversation.created_at,
         "fn": "humandate"
@@ -67120,13 +67134,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "message other-message pull-right"
     }, [_c('span', {
       staticClass: "pull-right "
-    }, [_vm._v("\n                                " + _vm._s(conversation.message) + "\n                                ")])])]) : _c('div', {
+    }, [_vm._v("\n                                    " + _vm._s(conversation.message) + "\n                                    ")])])]) : _c('div', {
       staticClass: "chat-body clearfix pad"
     }, [_c('div', {
       staticClass: "header pull-left col-12"
     }, [_c('span', {
       staticClass: "bold"
-    }, [_vm._v("\n                                    " + _vm._s(conversation.user.username) + " "), _c('Adedotun', {
+    }, [_vm._v("\n                                        " + _vm._s(conversation.user.username) + " "), _c('Adedotun', {
       attrs: {
         "value": conversation.created_at,
         "fn": "humandate"
@@ -67194,7 +67208,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-style": "italic",
       "display": "block"
     }
-  }, [_vm._v("\n                @" + _vm._s(_vm.username) + " is typing...\n            ")])])])])
+  }, [_vm._v("\n                    @" + _vm._s(_vm.username) + " is typing...\n                ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-6 col-md-6 col-sm-12"
+  }, [_c('h4', [_vm._v("Group Members")]), _vm._v(" "), (_vm.administrator) ? _c('ul', {
+    staticClass: "list-group"
+  }, _vm._l((_vm.members), function(member) {
+    return _c('li', {
+      key: member.id,
+      staticClass: "list-group-item"
+    }, [_vm._v(_vm._s(((member.first_name) + " " + (member.last_name))) + " "), _c('span', {
+      staticClass: "text-danger pull-right",
+      on: {
+        "click": function($event) {
+          return _vm.removeFromGroup(member.id)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash"
+    })])])
+  }), 0) : _c('ul', {
+    staticClass: "list-group"
+  }, _vm._l((_vm.members), function(member) {
+    return _c('li', {
+      key: member.id,
+      staticClass: "list-group-item"
+    }, [_vm._v(_vm._s(((member.first_name) + " " + (member.last_name))) + " "), _c('span', {
+      staticClass: "text-danger pull-right",
+      on: {
+        "click": function($event) {
+          return _vm.reportUser(member.id)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-close"
+    }), _vm._v(" report member")])])
+  }), 0)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -67211,7 +67259,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
-  }, [_c('div', {
+  }, [(_vm.churches.length > 0 && _vm.initialUsers.length > 0) ? _c('div', {
     staticClass: "col-sm-12 col-md-6 col-lg-6"
   }, [_c('h3', [_vm._v("Create Group")]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "form-group"
@@ -67333,7 +67381,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.createGroup($event)
       }
     }
-  }, [_vm._v("Create Group")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Create Group")])])]) : _vm._e(), _vm._v(" "), (_vm.groups.length > 0 && _vm.initialUsers.length > 0) ? _c('div', {
     staticClass: "col-sm-12 col-md-6 col-lg-6"
   }, [_c('h3', [_vm._v("Add Users To Group")]), _vm._v(" "), _c('form', [_c('div', {
     staticClass: "form-group"
@@ -67409,7 +67457,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.addGroupUsers($event)
       }
     }
-  }, [_vm._v("Add User")])])])])
+  }, [_vm._v("Add User")])])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -67429,7 +67477,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: group.id,
       attrs: {
         "group": group,
-        "user": _vm.user
+        "user": _vm.user,
+        "members": _vm.initialGroupMembers,
+        "administrator": _vm.isAdmin
       }
     })
   }), 1)

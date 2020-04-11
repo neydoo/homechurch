@@ -1,98 +1,71 @@
 <template>
-    <div>
-        <div class="panel panel-primary">
-            <div class="panel-heading"> 
-                <h4>{{ group.name }}</h4>
-            </div>
-            <div class="panel-body chat-panel">
-                <ul class="chat" v-chat-scroll v-if="user.id">
-                    <li class="left" v-for="conversation in conversations" :key="conversation.id">
-                        <div class="chat-body clearfix pad" v-if="conversation.user.id === user.id">
-                            <div class="header pull-right col-12">
-                                <span class="pull-right bold">
-                                    {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
-                                </span>
-                            </div>
-                            <div class="message other-message pull-right">
-                                <span class="pull-right ">
-                                    {{ conversation.message }}
-                                    </span>
-                            </div>
-                        </div>
-                        <div class="chat-body clearfix pad" v-else>
-                            <div class="header pull-left col-12">
-                                    <span class="bold">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"> 
+                    <h4>{{ group.name }}</h4>
+                </div>
+                <div class="panel-body chat-panel">
+                    <ul class="chat" v-chat-scroll v-if="user.id">
+                        <li class="left" v-for="conversation in conversations" :key="conversation.id">
+                            <div class="chat-body clearfix pad" v-if="conversation.user.id === user.id">
+                                <div class="header pull-right col-12">
+                                    <span class="pull-right bold">
                                         {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
                                     </span>
-                            </div>
-                            <div class="message my-message pull-left">
-                                <span class="pull-left">{{ conversation.message }}</span>
-                            </div>
-                        </div>
-
-                    </li>
-                </ul>
-
-                <div class="input-group">
-                    <input id="btn-input" type="text" name="message" class="form-control form-control-lg" placeholder="Type your message here..." v-model="message" @keydown="isTyping" @keyup.enter="store()"  autofocus>
-
-                    <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" id="btn-chat" @click.prevent="store()">
-                            <i class="fa fa-send-o"></i>
-                        </button>
-                    </span>
-                </div>
-                <hr/>
-                <span v-show="typing" class="help-block" style="font-style: italic;display:block;">
-                    @{{ username }} is typing...
-                </span>
-            </div>
-        </div>
-         <!-- <div class="panel panel-primary">
-            <div class="panel-heading" id="accordion">
-                <span class="glyphicon glyphicon-comment"></span> {{ group.name }}
-                <div class="btn-group pull-right">
-                    <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion-" :href="'#collapseOne-' + group.id">
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="panel-collapse collapse" :id="'collapseOne-' + group.id">
-                <div class="panel-body chat-panel">
-                    <ul class="chat">
-                        <li v-for="conversation in conversations" :key="conversation">
-                            <span class="chat-img pull-left">
-                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                            </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">{{ conversation.user.name }}</strong>
                                 </div>
-                                <p>
-                                    {{ conversation.message }}
-                                </p>
+                                <div class="message other-message pull-right">
+                                    <span class="pull-right ">
+                                        {{ conversation.message }}
+                                        </span>
+                                </div>
                             </div>
+                            <div class="chat-body clearfix pad" v-else>
+                                <div class="header pull-left col-12">
+                                        <span class="bold">
+                                            {{ conversation.user.username }} <Adedotun :value="conversation.created_at" fn="humandate"/>
+                                        </span>
+                                </div>
+                                <div class="message my-message pull-left">
+                                    <span class="pull-left">{{ conversation.message }}</span>
+                                </div>
+                            </div>
+
                         </li>
                     </ul>
-                </div>
-                <div class="panel-footer">
+
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." v-model="message" @keyup.enter="store()" autofocus />
+                        <input id="btn-input" type="text" name="message" class="form-control form-control-lg" placeholder="Type your message here..." v-model="message" @keydown="isTyping" @keyup.enter="store()"  autofocus>
+
                         <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat" @click.prevent="store()">
-                                Send</button>
+                            <button class="btn btn-info btn-lg" id="btn-chat" @click.prevent="store()">
+                                <i class="fa fa-send-o"></i>
+                            </button>
                         </span>
                     </div>
+                    <hr/>
+                    <span v-show="typing" class="help-block" style="font-style: italic;display:block;">
+                        @{{ username }} is typing...
+                    </span>
                 </div>
             </div>
-        </div>  -->
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <h4>Group Members</h4>
+            <ul class="list-group" v-if="administrator">
+                <li class="list-group-item" v-for="member in members" :key="member.id">{{ `${member.first_name} ${member.last_name}` }} <span class="text-danger pull-right" @click="removeFromGroup(member.id)"> <i class="fa fa-trash"></i></span></li>
+            </ul>
+            <ul class="list-group" v-else>
+                <li class="list-group-item" v-for="member in members" :key="member.id">{{ `${member.first_name} ${member.last_name}` }} <span class="text-danger pull-right" @click="reportUser(member.id)"> <i class="fa fa-close"></i> report member</span></li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script>
     import Adedotun from './adedotun';
     export default {
-        props: ['group','user'],
+        props: ['group','user','members','administrator'],
 
         data() {
             return {
@@ -134,10 +107,41 @@
                     this.conversations.push(response.data);
                 });
             },
+
             getMessage() {
                 axios.get(`/conversations/${this.group.id}`)
                 .then((response) => {
                     this.conversations = response.data;
+                });
+            },
+
+            reportUser(id) {
+                swal({
+                    title: "Are you sure?",
+                    text: "reporting a this member!",
+                    icon: "warning",
+                    buttons: {
+                        cancel: true,
+                        confirm: true,
+                    },
+                    closeOnClickOutside: true,
+                }).then((isConfirm) => {
+                    console.log(isConfirm);
+                    // if(value){
+                    //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    // }
+                });
+            },
+
+            removeFromGroup(id) {
+                axios.get(`/groupchats/remove/user/${this.group.id}/${id}`)
+                .then((response) => {
+                    if(response.data.success){
+                        Bus.$emit('groupCreated', response.data.model);
+                        alert(response.data.msg)
+                    }else {
+                        alert(response.data.msg)
+                    }
                 });
             },
 

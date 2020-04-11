@@ -3,10 +3,11 @@
 use Modules\Core\Http\Controllers\BasePublicController;
 use Modules\Groupchats\Http\Requests\FormRequest;
 use Modules\Groupchats\Http\Requests\AddUserRequest;
+use Modules\Users\Entities\Sentinel\User;
 use Modules\Groupchats\Repositories\GroupchatInterface as Repository;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use App\Events\GroupCreated;
-
+use DB;
 class GroupchatsPublicController extends BasePublicController {
 
     public function __construct(Repository $repository)
@@ -17,30 +18,42 @@ class GroupchatsPublicController extends BasePublicController {
 
     public function store(FormRequest $request)
     {
-        $data = $request->all();
-        $data['description'] = !empty($data['description']) ? $data['description'] : ucwords($data['name']);
-        $data = get_relationship($data);
-        $model = $this->repository->create($data);
-        $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
-        (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
-        (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
-        (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
-        (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
-        (($data['area_id'] < 10) ? '0'.$data['area_id'] : $data['area_id']).
-        (($data['church_id'] < 10) ? '0'.$data['church_id'] : $data['church_id']).
-        (($model->id < 10) ? '0'.$model->id : $model->id);
-        $model->save();
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            $data['description'] = !empty($data['description']) ? $data['description'] : ucwords($data['name']);
+            $data = get_relationship($data);
+            $model = $this->repository->create($data);
+            $model->code = (($data['country_id'] < 10) ? '0'.$data['country_id'] : $data['country_id']).
+            (($data['region_id'] < 10) ? '0'.$data['region_id'] : $data['region_id']).
+            (($data['state_id'] < 10) ? '0'.$data['state_id'] : $data['state_id']).
+            (($data['district_id'] < 10) ? '0'.$data['district_id'] : $data['district_id']).
+            (($data['zone_id'] < 10) ? '0'.$data['zone_id'] : $data['zone_id']).
+            (($data['area_id'] < 10) ? '0'.$data['area_id'] : $data['area_id']).
+            (($data['church_id'] < 10) ? '0'.$data['church_id'] : $data['church_id']).
+            (($model->id < 10) ? '0'.$model->id : $model->id);
+            $model->save();
 
-        if(!empty($data['users'])  && !empty($data['users'][0])){
-            $users = collect($request->users);
+            if(!empty($data['users'])  && !empty($data['users'][0])){
+                $users = collect($request->users);
 
-            $model->users()->attach($users);
+                $model->users()->attach($users);
+            }
+
+            broadcast(new GroupCreated($model))->toOthers();
+            DB::commit();
+            return response()->json([
+                'msg' => "group created successfully",
+                'model' => $model,
+                'success' => true
+            ], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'msg' => $e->getMessage(),
+                'success' => false
+            ], 401);
         }
-
-        broadcast(new GroupCreated($model))->toOthers();
-
-        return $model;
-
         // return $this->redirect($request, $model, trans('core::global.new_record'));
     }
 
@@ -48,9 +61,10 @@ class GroupchatsPublicController extends BasePublicController {
     {
         try {
             $groups = current_user()->groupchats;
-
+            $members = DB::table('groupchat_user')->where('groupchat_id', $groups[0]->id)->pluck('user_id');
+            $group_members = User::whereIn('id', $members)->get();
             return view('groupchats::public.index')
-                ->with(compact('groups'));
+                ->with(compact('groups','group_members'));
         } catch (\Exception $e) {
             return redirect('login');
             //throw $th;
@@ -60,18 +74,54 @@ class GroupchatsPublicController extends BasePublicController {
 
     public function addUser(AddUserRequest $request)
     {
-        $data = $request->all();
-        $model = $this->repository->byId($data['group_id']);
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            $model = $this->repository->byId($data['group_id']);
 
-        $users = collect($request->users);
+            $users = collect($request->users);
 
-        $model->users()->attach($users);
+            $model->users()->attach($users);
 
-        broadcast(new GroupCreated($model))->toOthers();
+            broadcast(new GroupCreated($model))->toOthers();
+            DB::commit();
+            return response()->json([
+                'msg' => "user added successfully",
+                'model' => $model,
+                'success' => true
+            ], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'msg' => $e->getMessage(),
+                'success' => false
+            ], 401);
+        }
+    }
 
-        return $model;
+    public function removeUser($group_id, $user_id)
+    {
+        DB::beginTransaction();
+        try {
+            $model = $this->repository->byId($group_id);
 
-        // return $this->redirect($request, $model, trans('core::global.new_record'));
+            $model->users()->detach($user_id);
+
+            broadcast(new GroupCreated($model))->toOthers();
+
+            DB::commit();
+            return response()->json([
+                'msg' => "user removed successfully",
+                'model' => $model,
+                'success' => true
+            ], 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'msg' => $e->getMessage(),
+                'success' => false
+            ], 401);
+        }
     }
 
 }

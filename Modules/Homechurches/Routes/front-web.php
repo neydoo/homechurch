@@ -10,7 +10,11 @@ if ($page = \MyApp::getPageLinkedToModule('homechurches')) {
     }
 }
 
-/*Route::group(['prefix' => 'homechurches'], function()
+Route::group(['prefix' => 'homechurches'], function()
 {
-    Route::get('/', 'HomechurchesPublicController@index');
-});*/
+    // Route::get('/', 'HomechurchesPublicController@index');
+    Route::post('/store', [
+        'as' => 'homechurches.store',
+        'uses' => 'HomechurchesPublicController@store'
+    ]);
+});

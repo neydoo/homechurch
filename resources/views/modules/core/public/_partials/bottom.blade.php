@@ -32,10 +32,9 @@
 </script>
 <script>
     window.Laravel = {!! json_encode([
-        'csrfToken'=> csrf_token(),
-        'user' => current_user()
+            'csrfToken'=> csrf_token(),
+            'user' => current_user()
         ])
-
     !!};
 </script>
 
