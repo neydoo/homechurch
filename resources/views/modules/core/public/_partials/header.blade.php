@@ -80,6 +80,7 @@
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
                                             <a class="dropdown-item" href="{{route('account.dashboard')}}">Dashboard</a>
                                             <a class="dropdown-item" href="{{route('announcements')}}">Announcements</a>
+                                            <a class="dropdown-item" href="{{route('homechurches')}}">Homechurch</a>
                                             <a class="dropdown-item" href="{{route('groupchats')}}">GroupChat</a>
                                             <a class="dropdown-item" href="{{route('profile.index')}}">Update Profile</a>
                                             <a class="dropdown-item" href="{{route('profile.change-password')}}">Change Password</a>

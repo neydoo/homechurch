@@ -32042,9 +32042,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.name = '';
                     _this.users = [];
                     Bus.$emit('groupCreated', response.data.model);
-                    alert(response.data.msg);
+                    $.alert(response.data.msg);
                 } else {
-                    alert(response.data.msg);
+                    $.alert(response.data.msg);
                 }
             });
         },
@@ -32056,9 +32056,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this2.group_id = '';
                     _this2.users = [];
                     Bus.$emit('groupCreated', response.data.model);
-                    alert(response.data.msg);
+                    $.alert(response.data.msg);
                 } else {
-                    alert(response.data.msg);
+                    $.alert(response.data.msg);
                 }
             });
         }
@@ -32191,23 +32191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.conversations = response.data;
             });
         },
-        reportUser: function reportUser(id) {
-            swal({
-                title: "Are you sure?",
-                text: "reporting a this member!",
-                icon: "warning",
-                buttons: {
-                    cancel: true,
-                    confirm: true
-                },
-                closeOnClickOutside: true
-            }).then(function (isConfirm) {
-                console.log(isConfirm);
-                // if(value){
-                //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                // }
-            });
-        },
+        reportUser: function reportUser(id) {},
         removeFromGroup: function removeFromGroup(id) {
             axios.get('/groupchats/remove/user/' + this.group.id + '/' + id).then(function (response) {
                 if (response.data.success) {

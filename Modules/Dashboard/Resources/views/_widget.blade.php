@@ -5,6 +5,9 @@
             'link'=> !empty($link) ? $link : '<a href="'.route("admin.$module.index").'">here</a>'
            ])
         </span>
+        @if(isset($sum) && $sum)
+            <span> &#x20a6; {{ number_format(ucfirst($module)::all([], true)->sum('total'), 2) }}
+        @endif
     </div>
     <span class="kt-widget1__number kt-font-brand">
         <span class="kt-badge kt-badge--{{!empty($color) ? $color : 'brand'}} kt-badge--lg">{{!empty($count) ? $count : ucfirst($module)::countAll()}}</span>

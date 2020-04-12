@@ -67,6 +67,7 @@
 <script src="{{ asset('assets/public/js/jquery/jquery-ui-1.9.1.custom.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/jquery/jquery.autocomplete.min.js') }}"></script>
 <script src="{{ asset('assets/public/js/autocomplete.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 <!--end::Global Theme Bundle -->
 <script src="{{asset('assets/admin/js/custom.js')}}" type="text/javascript"></script>
 <script src="//js.pusher.com/4.1/pusher.min.js"></script>

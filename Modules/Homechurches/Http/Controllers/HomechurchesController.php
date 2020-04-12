@@ -23,7 +23,11 @@ class HomechurchesController extends BaseAdminController {
 
     public function submittedHomechurches()
     {
-        
+        $module = $this->repository->getTable();
+        $title = trans($module . '::global.submitted_index');
+        $models = $this->repository->make(['owner'])->where('owner_id','!=', null)->paginate(5);
+        return view('homechurches::admin.submitted_index')
+            ->with(compact('title', 'module','models'));
     }
 
     public function getByChurch($id)

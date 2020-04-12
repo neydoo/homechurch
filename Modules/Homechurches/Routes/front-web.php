@@ -17,4 +17,8 @@ Route::group(['prefix' => 'homechurches'], function()
         'as' => 'homechurches.store',
         'uses' => 'HomechurchesPublicController@store'
     ]);
+
+    Route::post('/add/user',[
+        'as' => 'homechurches.adduser',
+        'uses' => 'HomechurchesPublicController@assigntochurch']);
 });

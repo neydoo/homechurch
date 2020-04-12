@@ -33,8 +33,9 @@ class HomechurchesPublicController extends BasePublicController {
             ->with(compact('model'));
     }
 
-    public function assigntochurch()
+    public function assigntochurch(Request $request)
     {
+        $data = $request->all();
         $model = $this->repository->byId($data['homechurch_id']);
         $model->users()->attach(current_user()->id);
         return response()->json([

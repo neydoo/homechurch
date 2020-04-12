@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="{{ asset('assets/public/css/all.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/public/css/custom.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
 <link rel="stylesheet" href="{{ asset('assets/public/js/jquery/jquery.autocomplete.css') }}">
 
 @yield('css')

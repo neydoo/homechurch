@@ -2,7 +2,8 @@
 return array(
     'group_name'=>'Homechurches',
     'name'=>'Homechurches',
-    'submitted' => 'Submitted Cell',
+    'submitted_index' => 'All Submitted Homechurches',
+    'widget_description' => 'Click :link to view all homechurches',
     'group_description'=>'use this section to manage all homechurches e.t.c',
     'index' => 'All Homechurches',
     'pages' => 'homechurch|homechurches',

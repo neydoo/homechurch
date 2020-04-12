@@ -116,21 +116,7 @@
             },
 
             reportUser(id) {
-                swal({
-                    title: "Are you sure?",
-                    text: "reporting a this member!",
-                    icon: "warning",
-                    buttons: {
-                        cancel: true,
-                        confirm: true,
-                    },
-                    closeOnClickOutside: true,
-                }).then((isConfirm) => {
-                    console.log(isConfirm);
-                    // if(value){
-                    //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                    // }
-                });
+                
             },
 
             removeFromGroup(id) {

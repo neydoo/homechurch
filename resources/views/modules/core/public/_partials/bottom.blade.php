@@ -26,6 +26,7 @@
 <script src="{{ asset('assets/public/js/main.js') }}"></script>
 <script src="{{ asset('assets/public/js/pages/ajax-form.js') }}"></script>
 <script src="{{ asset('assets/public/js/autocomplete.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 {{--<script src="{{ asset('assets/public/js/all.js') }}"></script>--}}
 <script src="//js.pusher.com/4.1/pusher.min.js"></script>
 <script>

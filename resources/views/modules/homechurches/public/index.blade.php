@@ -14,7 +14,7 @@
                     </button>
                     <br/><br/>
                     <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                             @include('pages::public._page-content-body')
                             @if(count(current_user()->homechurches) > 0)
                                 <h4>Your Homechurch</h4><br/>
@@ -36,29 +36,34 @@
                                 </ul>
                                 
                             @else
-                                <div class="form-row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label>Country </label>
-                                            @if($countries = Countries::getAll())
-                                                <select name="country_id" id="country_id" class="form-control required">
-                                                    <option value=""> -- Select Country--</option>
-                                                    @foreach ($countries as $country)
-                                                    <option value="{{ $country->id }}">{{ $country->name }} </option>
-                                                    @endforeach
-                                                </select>
-                                            @endif
+                                <h4>Select Homechurch</h4><br/>
+                                <form class="church-form-user" method="POST" action="{{ route('homechurches.adduser') }}">
+                                    {{ csrf_field() }}
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Country </label>
+                                                @if($countries = Countries::getAll())
+                                                    <select name="country_id" id="country_id" class="form-control required">
+                                                        <option value=""> -- Select Country--</option>
+                                                        @foreach ($countries as $country)
+                                                        <option value="{{ $country->id }}">{{ $country->name }} </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
+                                            </div>
                                         </div>
+                                        <div class="col">{!! form_row($register_form->state_id) !!}</div>
                                     </div>
-                                    <div class="col">{!! form_row($register_form->state_id) !!}</div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col">{!! form_row($register_form->church_id) !!}</div>
-                                    <div class="col">{!! form_row($register_form->homechurch_id) !!}</div>
-                                </div>
+                                    <div class="form-row">
+                                        <div class="col">{!! form_row($register_form->church_id) !!}</div>
+                                        <div class="col">{!! form_row($register_form->homechurch_id) !!}</div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary assign-church">Submit</button>
+                                </form>
                             @endif
                         </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                             @if(count($models) > 0)
                             <table id="data-table" class="table table-striped table-hover table-bordered table-responsive">
                                 <thead>
@@ -115,6 +120,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script>
         $(function() {
+            $('.assign-church').hide();
             $('#data-table').DataTable();
             getSelectOnChange($("#country_id"),'/api/country/states/', $('#state_id').closest('div'),$('#state_id'),'State','states');
             getSelectOnChange($("#state_id"),'/api/state/churches/', $('#church_id').closest('div'),$('#church_id'),'Church','churches');
@@ -126,6 +132,32 @@
             // $('.add-modal-form').on('submit',function(e){
             //     e.preventDefault();
             // });
+            $('#church_id').on('change', function() {
+                $('.assign-church').show();
+            })
+
+            $('.church-form-user').on('submit', function(e){
+                e.preventDefault()
+                $(this).ajaxSubmit({
+                    success: function (response, statusText, xhr, $form) {
+                        swal({
+                            /*title: "Success",*/
+                            title: response.message,
+                            icon: "success"
+                        }).then((value) => {
+                            location.reload();
+                        });
+                    },
+                    error: function (response, statusText, xhr, $form) {
+                        swal({
+                            title: "Oops!",
+                            text: response.responseText,
+                            icon: "error",
+                            dangerMode: true,
+                        });
+                    }
+                });
+            })
         });
     </script>
 @endsection

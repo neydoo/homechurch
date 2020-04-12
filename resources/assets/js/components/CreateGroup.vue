@@ -71,9 +71,9 @@
                         this.name = '';
                         this.users = [];
                         Bus.$emit('groupCreated', response.data.model);
-                        alert(response.data.msg)
+                        $.alert(response.data.msg)
                     }else {
-                        alert(response.data.msg)
+                        $.alert(response.data.msg)
                     }
                 });
             },
@@ -84,9 +84,9 @@
                         this.group_id = '';
                         this.users = [];
                         Bus.$emit('groupCreated', response.data.model);
-                        alert(response.data.msg)
+                        $.alert(response.data.msg)
                     }else {
-                        alert(response.data.msg)
+                        $.alert(response.data.msg)
                     }
                 });
             }
